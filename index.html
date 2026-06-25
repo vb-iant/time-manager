@@ -335,7 +335,7 @@
     </div>
   </div>
 
-  <div class="status-bar" id="status-bar">Ready</div>
+  <div class="status-bar" id="status-bar">Ready &nbsp;·&nbsp; <a href="#" onclick="forgetToken(); return false;" style="color:#aaa; font-size:11px;">Forget saved token</a></div>
 </div>
 
 <!-- MODAL -->
@@ -449,9 +449,18 @@ async function loadTasks() {
   }
 }
 
+function getToken() {
+  let token = localStorage.getItem('tm_gh_token');
+  if (!token) {
+    token = prompt('GitHub token (will be saved locally on this device):');
+    if (token) localStorage.setItem('tm_gh_token', token.trim());
+  }
+  return token;
+}
+
 async function saveTasks(message) {
   setStatus('Saving...');
-  const token = prompt('GitHub token (required to save):');
+  const token = getToken();
   if (!token) { setStatus('Save cancelled.'); return false; }
 
   const content = btoa(unescape(encodeURIComponent(JSON.stringify({ version: '1.0', tasks }, null, 2))));
@@ -577,6 +586,11 @@ async function deleteTask() {
   renderBoard();
   closeModal();
   await saveTasks(`Delete task: ${task.title}`);
+}
+
+function forgetToken() {
+  localStorage.removeItem('tm_gh_token');
+  setStatus('Token cleared. You\'ll be prompted next time you save.');
 }
 
 function setStatus(msg) {
