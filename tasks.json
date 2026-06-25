@@ -5,61 +5,61 @@
       "id": "tm-001",
       "title": "Write blog post for Velocity-B — six key questions for investors",
       "notes": "2 hours | Category: Velocity B Content | Priority: Medium",
-      "status": "scheduled",
+      "status": "today",
       "scheduled_on": "2026-06-25",
       "due": "2026-06-25",
       "duration": 120,
       "label": "VB Content",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-25T00:00:00.000Z"
+      "updated": "2026-06-25T13:54:12.040Z"
     },
     {
       "id": "tm-002",
       "title": "Send email to Fredrik Bentlinger — Atmoz UK expansion",
       "notes": "15 mins | Category: Business Development | Source: HubSpot | Priority: Medium",
-      "status": "scheduled",
+      "status": "today",
       "scheduled_on": "2026-06-25",
       "due": "2026-06-25",
       "duration": 15,
       "label": "Business Development",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-25T00:00:00.000Z"
+      "updated": "2026-06-25T13:54:12.040Z"
     },
     {
       "id": "tm-003",
       "title": "Sort out podcast schedule and invite guests",
       "notes": "30 mins | Category: Podcast | Priority: Medium",
-      "status": "scheduled",
+      "status": "today",
       "scheduled_on": "2026-06-25",
       "due": "2026-06-25",
       "duration": 30,
       "label": "Podcast",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-25T00:00:00.000Z"
+      "updated": "2026-06-25T13:54:12.040Z"
     },
     {
       "id": "tm-004",
       "title": "Send Rockstar CMO podcast invite to Peter Hedstrom",
       "notes": "15 mins | Category: Business Development | Source: HubSpot | Priority: High",
-      "status": "scheduled",
+      "status": "today",
       "scheduled_on": "2026-06-25",
       "due": "2026-06-25",
       "duration": 15,
       "label": "Business Development",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-25T00:00:00.000Z"
+      "updated": "2026-06-25T13:54:12.040Z"
     },
     {
       "id": "tm-005",
       "title": "Create Asana tags for task categories",
       "notes": "15 mins | Category: Admin | Priority: Medium",
-      "status": "scheduled",
+      "status": "today",
       "scheduled_on": "2026-06-25",
       "due": "2026-06-25",
       "duration": 15,
       "label": "Admin",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-25T00:00:00.000Z"
+      "updated": "2026-06-25T13:54:12.040Z"
     },
     {
       "id": "tm-006",
