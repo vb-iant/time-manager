@@ -135,6 +135,7 @@
 
   .col-backlog .column-header    { color: #6b7280; border-color: #e5e7eb; }
   .col-scheduled .column-header  { color: #7c3aed; border-color: #8b5cf6; }
+  .col-today .column-header      { color: #ea580c; border-color: #f97316; }
   .col-doing .column-header      { color: #2563eb; border-color: #3b82f6; }
   .col-blocked .column-header    { color: #dc2626; border-color: #ef4444; }
   .col-done .column-header       { color: #059669; border-color: #10b981; }
@@ -172,10 +173,11 @@
     font-weight: 500;
   }
 
-  .tag-duration { background: #ede9fe; color: #6d28d9; }
-  .tag-due      { background: #fef3c7; color: #92400e; }
-  .tag-label    { background: #dbeafe; color: #1e40af; }
-  .tag-overdue  { background: #fee2e2; color: #991b1b; }
+  .tag-duration     { background: #ede9fe; color: #6d28d9; }
+  .tag-due          { background: #fef3c7; color: #92400e; }
+  .tag-label        { background: #dbeafe; color: #1e40af; }
+  .tag-overdue      { background: #fee2e2; color: #991b1b; }
+  .tag-scheduled-on { background: #f3e8ff; color: #7c3aed; }
 
   /* --- MODAL --- */
   .modal-overlay {
@@ -307,6 +309,12 @@
       </div>
       <div class="column-body" id="col-scheduled"></div>
     </div>
+    <div class="column col-today">
+      <div class="column-header">
+        <span>Today</span><span id="count-today">0</span>
+      </div>
+      <div class="column-body" id="col-today"></div>
+    </div>
     <div class="column col-doing">
       <div class="column-header">
         <span>In Progress</span><span id="count-doing">0</span>
@@ -353,6 +361,7 @@
           <select id="task-status">
             <option value="backlog">Backlog</option>
             <option value="scheduled">Scheduled</option>
+            <option value="today">Today</option>
             <option value="doing">In Progress</option>
             <option value="blocked">Blocked</option>
             <option value="done">Done</option>
@@ -369,8 +378,14 @@
           <input type="date" id="task-due" />
         </div>
         <div class="field">
+          <label>Scheduled On</label>
+          <input type="date" id="task-scheduled-on" />
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
           <label>Label</label>
-          <input type="text" id="task-label" placeholder="e.g. writing" />
+          <input type="text" id="task-label" placeholder="e.g. Business Development" />
         </div>
       </div>
       <div class="modal-actions">
@@ -466,7 +481,7 @@ async function saveTasks(message) {
 
 // --- RENDER ---
 function renderBoard() {
-  const cols = { backlog: [], scheduled: [], doing: [], blocked: [], done: [] };
+  const cols = { backlog: [], scheduled: [], today: [], doing: [], blocked: [], done: [] };
   tasks.forEach(t => { if (cols[t.status]) cols[t.status].push(t); });
 
   Object.entries(cols).forEach(([status, items]) => {
@@ -482,7 +497,8 @@ function renderBoard() {
         <div class="task-title">${escHtml(t.title)}</div>
         <div class="task-meta">
           ${t.duration ? `<span class="tag tag-duration">⏱ ${t.duration}m</span>` : ''}
-          ${t.due ? `<span class="tag ${isOverdue(t) ? 'tag-overdue' : 'tag-due'}">📅 ${t.due}</span>` : ''}
+          ${t.scheduled_on ? `<span class="tag tag-scheduled-on">📅 ${t.scheduled_on}</span>` : ''}
+          ${t.due && t.due !== t.scheduled_on ? `<span class="tag ${isOverdue(t) ? 'tag-overdue' : 'tag-due'}">🏁 ${t.due}</span>` : ''}
           ${t.label ? `<span class="tag tag-label">${escHtml(t.label)}</span>` : ''}
         </div>
       </div>
@@ -508,6 +524,7 @@ function openModal(id) {
   document.getElementById('task-notes').value = task ? (task.notes || '') : '';
   document.getElementById('task-status').value = task ? task.status : 'todo';
   document.getElementById('task-duration').value = task ? (task.duration || '') : '';
+  document.getElementById('task-scheduled-on').value = task ? (task.scheduled_on || '') : '';
   document.getElementById('task-due').value = task ? (task.due || '') : '';
   document.getElementById('task-label').value = task ? (task.label || '') : '';
   document.getElementById('btn-delete').style.display = task ? 'block' : 'none';
@@ -534,6 +551,7 @@ async function saveTask() {
     notes: document.getElementById('task-notes').value.trim(),
     status: document.getElementById('task-status').value,
     duration: parseInt(document.getElementById('task-duration').value) || null,
+    scheduled_on: document.getElementById('task-scheduled-on').value || null,
     due: document.getElementById('task-due').value || null,
     label: document.getElementById('task-label').value.trim() || null,
     created: id ? (tasks.find(t => t.id === id)?.created || new Date().toISOString()) : new Date().toISOString(),
