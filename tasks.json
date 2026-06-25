@@ -4,14 +4,14 @@
     {
       "id": "tm-001",
       "title": "Write blog post for Velocity-B — six key questions for investors",
-      "notes": "2 hours | Category: Velocity B Content | Priority: Medium",
+      "notes": "test",
       "status": "today",
+      "duration": 120,
       "scheduled_on": "2026-06-25",
       "due": "2026-06-25",
-      "duration": 120,
       "label": "VB Content",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-25T13:54:30.019Z"
+      "updated": "2026-06-25T13:54:48.181Z"
     },
     {
       "id": "tm-002",
