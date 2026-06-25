@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time Manager</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #f0f2f5;
+    color: #1a1a2e;
+    min-height: 100vh;
+  }
+
+  /* --- LOGIN --- */
+  #login-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #1a1a2e;
+  }
+
+  .login-box {
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    width: 340px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+
+  .login-box h1 { font-size: 22px; margin-bottom: 6px; color: #1a1a2e; }
+  .login-box p { color: #888; font-size: 13px; margin-bottom: 24px; }
+
+  .login-box input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 15px;
+    margin-bottom: 12px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .login-box input:focus { border-color: #4f46e5; }
+
+  .login-box button {
+    width: 100%;
+    padding: 12px;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .login-box button:hover { background: #4338ca; }
+  .login-error { color: #e53e3e; font-size: 13px; margin-top: 8px; }
+
+  /* --- APP --- */
+  #app { display: none; }
+
+  header {
+    background: #1a1a2e;
+    color: white;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  header h1 { font-size: 18px; font-weight: 600; }
+  header .meta { font-size: 12px; color: #888; }
+
+  .toolbar {
+    padding: 16px 24px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .btn {
+    padding: 8px 16px;
+    border-radius: 7px;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .btn-primary { background: #4f46e5; color: white; }
+  .btn-primary:hover { background: #4338ca; }
+  .btn-ghost { background: white; color: #555; border: 1px solid #ddd; }
+  .btn-ghost:hover { background: #f5f5f5; }
+
+  /* --- BOARD --- */
+  .board {
+    display: flex;
+    gap: 16px;
+    padding: 0 24px 24px;
+    overflow-x: auto;
+    align-items: flex-start;
+  }
+
+  .column {
+    background: white;
+    border-radius: 10px;
+    min-width: 280px;
+    width: 280px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    flex-shrink: 0;
+  }
+
+  .column-header {
+    padding: 14px 16px;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px 10px 0 0;
+  }
+
+  .col-todo .column-header    { color: #6b7280; border-color: #e5e7eb; }
+  .col-doing .column-header   { color: #2563eb; border-color: #3b82f6; }
+  .col-review .column-header  { color: #d97706; border-color: #f59e0b; }
+  .col-done .column-header    { color: #059669; border-color: #10b981; }
+
+  .column-body { padding: 12px; min-height: 80px; }
+
+  .task-card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: box-shadow 0.15s, transform 0.15s;
+  }
+
+  .task-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transform: translateY(-1px);
+  }
+
+  .task-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+
+  .task-meta {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  .tag-duration { background: #ede9fe; color: #6d28d9; }
+  .tag-due      { background: #fef3c7; color: #92400e; }
+  .tag-label    { background: #dbeafe; color: #1e40af; }
+  .tag-overdue  { background: #fee2e2; color: #991b1b; }
+
+  /* --- MODAL --- */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal-overlay.open { display: flex; }
+
+  .modal {
+    background: white;
+    border-radius: 12px;
+    width: 480px;
+    max-width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  }
+
+  .modal-header {
+    padding: 20px 24px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-header h2 { font-size: 17px; }
+
+  .modal-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #888;
+    line-height: 1;
+  }
+
+  .modal-body { padding: 20px 24px 24px; }
+
+  .field { margin-bottom: 16px; }
+  .field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #444; }
+
+  .field input, .field select, .field textarea {
+    width: 100%;
+    padding: 9px 12px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 7px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: inherit;
+  }
+
+  .field input:focus, .field select:focus, .field textarea:focus {
+    border-color: #4f46e5;
+  }
+
+  .field textarea { resize: vertical; min-height: 80px; }
+
+  .field-row { display: flex; gap: 12px; }
+  .field-row .field { flex: 1; }
+
+  .modal-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+
+  .btn-danger { background: #fee2e2; color: #991b1b; }
+  .btn-danger:hover { background: #fecaca; }
+
+  .status-bar {
+    padding: 8px 24px;
+    font-size: 12px;
+    color: #888;
+    background: #f9fafb;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .empty-col {
+    text-align: center;
+    color: #bbb;
+    font-size: 13px;
+    padding: 20px 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>⏱ Time Manager</h1>
+    <p>Enter your password to continue</p>
+    <input type="password" id="pwd-input" placeholder="Password" />
+    <button onclick="tryLogin()">Unlock</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <header>
+    <h1>⏱ Time Manager</h1>
+    <span class="meta" id="last-sync">Loading...</span>
+  </header>
+
+  <div class="toolbar">
+    <button class="btn btn-primary" onclick="openModal()">+ New Task</button>
+    <button class="btn btn-ghost" onclick="loadTasks()">↻ Refresh</button>
+  </div>
+
+  <div class="board">
+    <div class="column col-todo">
+      <div class="column-header">
+        <span>To Do</span><span id="count-todo">0</span>
+      </div>
+      <div class="column-body" id="col-todo"></div>
+    </div>
+    <div class="column col-doing">
+      <div class="column-header">
+        <span>In Progress</span><span id="count-doing">0</span>
+      </div>
+      <div class="column-body" id="col-doing"></div>
+    </div>
+    <div class="column col-review">
+      <div class="column-header">
+        <span>Review</span><span id="count-review">0</span>
+      </div>
+      <div class="column-body" id="col-review"></div>
+    </div>
+    <div class="column col-done">
+      <div class="column-header">
+        <span>Done</span><span id="count-done">0</span>
+      </div>
+      <div class="column-body" id="col-done"></div>
+    </div>
+  </div>
+
+  <div class="status-bar" id="status-bar">Ready</div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 id="modal-title">New Task</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="task-id" />
+      <div class="field">
+        <label>Title</label>
+        <input type="text" id="task-title" placeholder="What needs doing?" />
+      </div>
+      <div class="field">
+        <label>Notes</label>
+        <textarea id="task-notes" placeholder="Optional details..."></textarea>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Status</label>
+          <select id="task-status">
+            <option value="todo">To Do</option>
+            <option value="doing">In Progress</option>
+            <option value="review">Review</option>
+            <option value="done">Done</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Duration (mins)</label>
+          <input type="number" id="task-duration" placeholder="e.g. 45" min="0" />
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label>Due Date</label>
+          <input type="date" id="task-due" />
+        </div>
+        <div class="field">
+          <label>Label</label>
+          <input type="text" id="task-label" placeholder="e.g. writing" />
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-danger" id="btn-delete" onclick="deleteTask()" style="display:none">Delete</button>
+        <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+        <button class="btn btn-primary" onclick="saveTask()">Save Task</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const REPO = 'vb-iant/time-manager';
+const FILE = 'tasks.json';
+const PASSWORD = 'timemanager2026';
+const RAW_URL = `https://raw.githubusercontent.com/${REPO}/main/${FILE}`;
+const API_URL = `https://api.github.com/repos/${REPO}/contents/${FILE}`;
+
+let tasks = [];
+let currentSha = null;
+
+// --- AUTH ---
+function tryLogin() {
+  const val = document.getElementById('pwd-input').value;
+  if (val === PASSWORD) {
+    localStorage.setItem('tm_auth', '1');
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    loadTasks();
+  } else {
+    document.getElementById('login-error').textContent = 'Incorrect password.';
+  }
+}
+
+document.getElementById('pwd-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') tryLogin();
+});
+
+if (localStorage.getItem('tm_auth') === '1') {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  loadTasks();
+}
+
+// --- DATA ---
+async function loadTasks() {
+  setStatus('Loading...');
+  try {
+    const res = await fetch(RAW_URL + '?t=' + Date.now());
+    const data = await res.json();
+    tasks = data.tasks || [];
+    // Get SHA for writes
+    const meta = await fetch(API_URL);
+    const metaJson = await meta.json();
+    currentSha = metaJson.sha;
+    renderBoard();
+    document.getElementById('last-sync').textContent = 'Synced ' + new Date().toLocaleTimeString();
+    setStatus(`${tasks.length} task${tasks.length !== 1 ? 's' : ''} loaded`);
+  } catch(e) {
+    setStatus('Error loading tasks: ' + e.message);
+  }
+}
+
+async function saveTasks(message) {
+  setStatus('Saving...');
+  const token = prompt('GitHub token (required to save):');
+  if (!token) { setStatus('Save cancelled.'); return false; }
+
+  const content = btoa(unescape(encodeURIComponent(JSON.stringify({ version: '1.0', tasks }, null, 2))));
+  try {
+    const res = await fetch(API_URL, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `token ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ message, content, sha: currentSha })
+    });
+    const data = await res.json();
+    if (data.content) {
+      currentSha = data.content.sha;
+      setStatus('Saved ✓');
+      return true;
+    } else {
+      setStatus('Save error: ' + (data.message || 'Unknown'));
+      return false;
+    }
+  } catch(e) {
+    setStatus('Save error: ' + e.message);
+    return false;
+  }
+}
+
+// --- RENDER ---
+function renderBoard() {
+  const cols = { todo: [], doing: [], review: [], done: [] };
+  tasks.forEach(t => { if (cols[t.status]) cols[t.status].push(t); });
+
+  Object.entries(cols).forEach(([status, items]) => {
+    const el = document.getElementById('col-' + status);
+    const count = document.getElementById('count-' + status);
+    count.textContent = items.length;
+    if (items.length === 0) {
+      el.innerHTML = '<div class="empty-col">No tasks</div>';
+      return;
+    }
+    el.innerHTML = items.map(t => `
+      <div class="task-card" onclick="openModal('${t.id}')">
+        <div class="task-title">${escHtml(t.title)}</div>
+        <div class="task-meta">
+          ${t.duration ? `<span class="tag tag-duration">⏱ ${t.duration}m</span>` : ''}
+          ${t.due ? `<span class="tag ${isOverdue(t) ? 'tag-overdue' : 'tag-due'}">📅 ${t.due}</span>` : ''}
+          ${t.label ? `<span class="tag tag-label">${escHtml(t.label)}</span>` : ''}
+        </div>
+      </div>
+    `).join('');
+  });
+}
+
+function isOverdue(t) {
+  if (!t.due || t.status === 'done') return false;
+  return new Date(t.due) < new Date();
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+// --- MODAL ---
+function openModal(id) {
+  const task = id ? tasks.find(t => t.id === id) : null;
+  document.getElementById('modal-title').textContent = task ? 'Edit Task' : 'New Task';
+  document.getElementById('task-id').value = task ? task.id : '';
+  document.getElementById('task-title').value = task ? task.title : '';
+  document.getElementById('task-notes').value = task ? (task.notes || '') : '';
+  document.getElementById('task-status').value = task ? task.status : 'todo';
+  document.getElementById('task-duration').value = task ? (task.duration || '') : '';
+  document.getElementById('task-due').value = task ? (task.due || '') : '';
+  document.getElementById('task-label').value = task ? (task.label || '') : '';
+  document.getElementById('btn-delete').style.display = task ? 'block' : 'none';
+  document.getElementById('modal-overlay').classList.add('open');
+  document.getElementById('task-title').focus();
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+}
+
+document.getElementById('modal-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal-overlay')) closeModal();
+});
+
+async function saveTask() {
+  const id = document.getElementById('task-id').value;
+  const title = document.getElementById('task-title').value.trim();
+  if (!title) { alert('Title is required.'); return; }
+
+  const task = {
+    id: id || crypto.randomUUID(),
+    title,
+    notes: document.getElementById('task-notes').value.trim(),
+    status: document.getElementById('task-status').value,
+    duration: parseInt(document.getElementById('task-duration').value) || null,
+    due: document.getElementById('task-due').value || null,
+    label: document.getElementById('task-label').value.trim() || null,
+    created: id ? (tasks.find(t => t.id === id)?.created || new Date().toISOString()) : new Date().toISOString(),
+    updated: new Date().toISOString()
+  };
+
+  if (id) {
+    tasks = tasks.map(t => t.id === id ? task : t);
+  } else {
+    tasks.push(task);
+  }
+
+  renderBoard();
+  closeModal();
+  await saveTasks(id ? `Update task: ${title}` : `Add task: ${title}`);
+}
+
+async function deleteTask() {
+  const id = document.getElementById('task-id').value;
+  const task = tasks.find(t => t.id === id);
+  if (!task || !confirm(`Delete "${task.title}"?`)) return;
+  tasks = tasks.filter(t => t.id !== id);
+  renderBoard();
+  closeModal();
+  await saveTasks(`Delete task: ${task.title}`);
+}
+
+function setStatus(msg) {
+  document.getElementById('status-bar').textContent = msg;
+}
+</script>
+</body>
+</html>
