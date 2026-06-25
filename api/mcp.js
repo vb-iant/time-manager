@@ -13,18 +13,15 @@ async function githubRead(path) {
 async function githubWrite(path, content) {
   const TOKEN = process.env.GITHUB_TOKEN;
   const api = `${API_BASE}/${path}`;
-
   let sha;
   const check = await fetch(api, { headers: { 'Authorization': `token ${TOKEN}` } });
   if (check.ok) {
     const j = await check.json();
     sha = j.sha;
   }
-
   const encoded = Buffer.from(content, 'utf8').toString('base64');
   const body = { message: `MCP update: ${path}`, content: encoded };
   if (sha) body.sha = sha;
-
   const res = await fetch(api, {
     method: 'PUT',
     headers: { 'Authorization': `token ${TOKEN}`, 'Content-Type': 'application/json' },
@@ -33,13 +30,6 @@ async function githubWrite(path, content) {
   const data = await res.json();
   if (!data.content) throw new Error(data.message || 'Write failed');
   return data.content.sha;
-}
-
-function validateToken(req) {
-  // Allow requests with any bearer token — single user app
-  // Just check the Authorization header exists
-  const auth = req.headers?.authorization || '';
-  return auth.startsWith('Bearer ') && auth.length > 10;
 }
 
 const handler = createMcpHandler(
@@ -88,7 +78,8 @@ const handler = createMcpHandler(
     });
   },
   {
-    // No OAuth required
+    redactedFields: [],
+    dangerouslySkipAuthorization: true,
   },
   { basePath: '/api/mcp' }
 );
