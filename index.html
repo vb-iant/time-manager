@@ -446,13 +446,24 @@ async function loadTasks() {
     const res = await fetch(RAW_URL + '?t=' + Date.now());
     const data = await res.json();
     tasks = data.tasks || [];
+    // Auto-move scheduled tasks for today into Today column
+    const today = new Date().toISOString().slice(0, 10);
+    let moved = 0;
+    tasks.forEach(t => {
+      if (t.status === 'scheduled' && t.scheduled_on === today) {
+        t.status = 'today';
+        t.updated = new Date().toISOString();
+        moved++;
+      }
+    });
     // Get SHA for writes
     const meta = await fetch(API_URL);
     const metaJson = await meta.json();
     currentSha = metaJson.sha;
     renderBoard();
     document.getElementById('last-sync').textContent = 'Synced ' + new Date().toLocaleTimeString();
-    setStatus(`${tasks.length} task${tasks.length !== 1 ? 's' : ''} loaded`);
+    setStatus(`${tasks.length} task${tasks.length !== 1 ? 's' : ''} loaded${moved ? ` — ${moved} moved to Today` : ''}`);
+    if (moved) await saveTasks(`Auto-move ${moved} task(s) to Today`);
   } catch(e) {
     setStatus('Error loading tasks: ' + e.message);
   }
