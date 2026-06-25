@@ -233,13 +233,13 @@
       "id": "tm-021",
       "title": "Redirect Trussy.com to iantruscott.com",
       "notes": "30 mins | Category: Personal Project | Priority: Low — pending support ticket",
-      "status": "blocked",
+      "status": "doing",
       "scheduled_on": null,
       "due": null,
       "duration": 30,
       "label": "Personal Project",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-25T00:00:00.000Z"
+      "updated": "2026-06-25T14:34:04.053Z"
     },
     {
       "id": "tm-022",
