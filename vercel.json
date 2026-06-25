@@ -2,6 +2,22 @@
   "functions": {
     "api/mcp.js": {
       "maxDuration": 30
+    },
+    "api/oauth/*.js": {
+      "maxDuration": 10
+    },
+    ".well-known/*.js": {
+      "maxDuration": 10
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/.well-known/oauth-protected-resource",
+      "destination": "/.well-known/oauth-protected-resource.js"
+    },
+    {
+      "source": "/.well-known/oauth-authorization-server",
+      "destination": "/.well-known/oauth-authorization-server.js"
+    }
+  ]
 }
