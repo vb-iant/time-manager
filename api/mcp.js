@@ -1,4 +1,4 @@
-import { createMcpHandler } from '@vercel/mcp-adapter';
+import { createMcpHandler } from 'mcp-handler';
 
 const REPO = 'vb-iant/time-manager';
 const RAW_BASE = `https://raw.githubusercontent.com/${REPO}/main`;
