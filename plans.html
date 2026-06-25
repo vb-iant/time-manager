@@ -150,12 +150,10 @@
 </div>
 
 <script>
-const REPO = 'vb-iant/time-manager';
-const _t = ['ghp_N47ddo4Psm', 'h5hhHZj6Q2NT', 'g3V2h2Mo22TL6L'];
-const TOKEN = _t.join('');
 const PASSWORD = 'timemanager2026';
-const API_BASE = `https://api.github.com/repos/${REPO}/contents`;
-const RAW_BASE = `https://raw.githubusercontent.com/${REPO}/main`;
+const API_BASE = 'https://api.github.com/repos/vb-iant/time-manager/contents';
+const RAW_BASE = 'https://raw.githubusercontent.com/vb-iant/time-manager/main';
+const UPLOAD_URL = '/api/update';
 
 let currentTab = 'daily';
 let currentFile = null;
@@ -243,31 +241,18 @@ async function uploadFile() {
   setStatus('Saving...');
 
   try {
-    // Check if file exists (to get SHA for update)
-    let sha;
-    const check = await fetch(`${API_BASE}/${path}`, {
-      headers: { 'Authorization': `token ${TOKEN}` }
-    });
-    if (check.ok) {
-      const checkJson = await check.json();
-      sha = checkJson.sha;
-    }
-
-    const body = { message: `Upload ${path}`, content: btoa(unescape(encodeURIComponent(text))) };
-    if (sha) body.sha = sha;
-
-    const res = await fetch(`${API_BASE}/${path}`, {
-      method: 'PUT',
-      headers: { 'Authorization': `token ${TOKEN}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(body)
+    const res = await fetch(UPLOAD_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path, content: text })
     });
     const data = await res.json();
-    if (data.content) {
+    if (data.ok) {
       setStatus('Uploaded ✓');
       document.getElementById('upload-success').style.display = 'block';
       document.getElementById('upload-content').value = '';
     } else {
-      setStatus('Error: ' + (data.message || 'Unknown'));
+      setStatus('Error: ' + (data.error || 'Unknown'));
     }
   } catch(e) {
     setStatus('Error: ' + e.message);
@@ -380,25 +365,17 @@ async function saveFile(path, name) {
   fileCache[path] = text;
 
   try {
-    // Get current SHA
-    const meta = await fetch(`${API_BASE}/${path}`, {
-      headers: { 'Authorization': `token ${TOKEN}` }
-    });
-    const metaJson = await meta.json();
-    const sha = metaJson.sha;
-
-    const content = btoa(unescape(encodeURIComponent(text)));
-    const res = await fetch(`${API_BASE}/${path}`, {
-      method: 'PUT',
-      headers: { 'Authorization': `token ${TOKEN}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: `Update ${path}`, content, sha })
+    const res = await fetch(UPLOAD_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path, content: text })
     });
     const data = await res.json();
-    if (data.content) {
+    if (data.ok) {
       setStatus('Saved ✓');
       openFile(path, name);
     } else {
-      setStatus('Save error: ' + (data.message || 'Unknown'));
+      setStatus('Save error: ' + (data.error || 'Unknown'));
     }
   } catch(e) {
     setStatus('Save error: ' + e.message);
@@ -453,13 +430,13 @@ async function createFile(path, name) {
       body: JSON.stringify({ message: `Create ${path}`, content })
     });
     const data = await res.json();
-    if (data.content) {
+    if (data.ok) {
       fileCache[path] = text;
       setStatus('Created ✓');
       await loadFileList(currentTab);
       openFile(path, name);
     } else {
-      setStatus('Error: ' + (data.message || 'Unknown'));
+      setStatus('Error: ' + (data.error || 'Unknown'));
     }
   } catch(e) {
     setStatus('Error: ' + e.message);
