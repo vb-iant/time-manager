@@ -1,12 +1,12 @@
 {
   "functions": {
-    "api/mcp.js": {
-      "maxDuration": 30
-    },
     "api/oauth/*.js": {
       "maxDuration": 10
     },
     "api/wellknown.js": {
+      "maxDuration": 10
+    },
+    "api/update.js": {
       "maxDuration": 10
     }
   },
