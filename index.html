@@ -148,8 +148,17 @@
     border-radius: 8px;
     padding: 12px;
     margin-bottom: 10px;
-    cursor: pointer;
+    cursor: grab;
     transition: box-shadow 0.15s, transform 0.15s;
+  }
+
+  .task-card:active { cursor: grabbing; }
+  .task-card.dragging { opacity: 0.4; transform: scale(0.98); }
+
+  .column-body.drag-over {
+    background: #f0f4ff;
+    border-radius: 8px;
+    outline: 2px dashed #4f46e5;
   }
 
   .task-card:hover {
@@ -335,7 +344,7 @@
     </div>
   </div>
 
-  <div class="status-bar" id="status-bar">Ready &nbsp;·&nbsp; <a href="#" onclick="forgetToken(); return false;" style="color:#aaa; font-size:11px;">Forget saved token</a></div>
+  <div class="status-bar" id="status-bar">Ready</div>
 </div>
 
 <!-- MODAL -->
@@ -449,18 +458,9 @@ async function loadTasks() {
   }
 }
 
-function getToken() {
-  let token = localStorage.getItem('tm_gh_token');
-  if (!token) {
-    token = prompt('GitHub token (will be saved locally on this device):');
-    if (token) localStorage.setItem('tm_gh_token', token.trim());
-  }
-  return token;
-}
-
 async function saveTasks(message) {
   setStatus('Saving...');
-  const token = getToken();
+  const token = prompt('GitHub token (required to save):');
   if (!token) { setStatus('Save cancelled.'); return false; }
 
   const content = btoa(unescape(encodeURIComponent(JSON.stringify({ version: '1.0', tasks }, null, 2))));
@@ -499,19 +499,44 @@ function renderBoard() {
     count.textContent = items.length;
     if (items.length === 0) {
       el.innerHTML = '<div class="empty-col">No tasks</div>';
-      return;
-    }
-    el.innerHTML = items.map(t => `
-      <div class="task-card" onclick="openModal('${t.id}')">
-        <div class="task-title">${escHtml(t.title)}</div>
-        <div class="task-meta">
-          ${t.duration ? `<span class="tag tag-duration">⏱ ${t.duration}m</span>` : ''}
-          ${t.scheduled_on ? `<span class="tag tag-scheduled-on">📅 ${t.scheduled_on}</span>` : ''}
-          ${t.due && t.due !== t.scheduled_on ? `<span class="tag ${isOverdue(t) ? 'tag-overdue' : 'tag-due'}">🏁 ${t.due}</span>` : ''}
-          ${t.label ? `<span class="tag tag-label">${escHtml(t.label)}</span>` : ''}
+    } else {
+      el.innerHTML = items.map(t => `
+        <div class="task-card" draggable="true" data-id="${t.id}" onclick="handleCardClick(event, '${t.id}')">
+          <div class="task-title">${escHtml(t.title)}</div>
+          <div class="task-meta">
+            ${t.duration ? `<span class="tag tag-duration">⏱ ${t.duration}m</span>` : ''}
+            ${t.scheduled_on ? `<span class="tag tag-scheduled-on">📅 ${t.scheduled_on}</span>` : ''}
+            ${t.due && t.due !== t.scheduled_on ? `<span class="tag ${isOverdue(t) ? 'tag-overdue' : 'tag-due'}">🏁 ${t.due}</span>` : ''}
+            ${t.label ? `<span class="tag tag-label">${escHtml(t.label)}</span>` : ''}
+          </div>
         </div>
-      </div>
-    `).join('');
+      `).join('');
+    }
+
+    // Drag events on column body
+    el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('drag-over'); });
+    el.addEventListener('dragleave', () => el.classList.remove('drag-over'));
+    el.addEventListener('drop', async e => {
+      e.preventDefault();
+      el.classList.remove('drag-over');
+      const id = e.dataTransfer.getData('text/plain');
+      if (!id) return;
+      const task = tasks.find(t => t.id === id);
+      if (!task || task.status === status) return;
+      task.status = status;
+      task.updated = new Date().toISOString();
+      renderBoard();
+      await saveTasks(`Move task to ${status}: ${task.title}`);
+    });
+  });
+
+  // Drag start on cards (must happen after innerHTML is set)
+  document.querySelectorAll('.task-card[draggable]').forEach(card => {
+    card.addEventListener('dragstart', e => {
+      e.dataTransfer.setData('text/plain', card.dataset.id);
+      setTimeout(() => card.classList.add('dragging'), 0);
+    });
+    card.addEventListener('dragend', () => card.classList.remove('dragging'));
   });
 }
 
@@ -523,6 +548,15 @@ function isOverdue(t) {
 function escHtml(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
+
+// Distinguish click vs drag
+let dragMoved = false;
+function handleCardClick(e, id) {
+  if (dragMoved) { dragMoved = false; return; }
+  openModal(id);
+}
+document.addEventListener('dragstart', () => { dragMoved = false; });
+document.addEventListener('dragend', e => { if (e.dataTransfer.dropEffect !== 'none') dragMoved = true; });
 
 // --- MODAL ---
 function openModal(id) {
@@ -586,11 +620,6 @@ async function deleteTask() {
   renderBoard();
   closeModal();
   await saveTasks(`Delete task: ${task.title}`);
-}
-
-function forgetToken() {
-  localStorage.removeItem('tm_gh_token');
-  setStatus('Token cleared. You\'ll be prompted next time you save.');
 }
 
 function setStatus(msg) {
