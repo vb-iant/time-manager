@@ -415,13 +415,10 @@
 </div>
 
 <script>
-const REPO = 'vb-iant/time-manager';
-const FILE = 'tasks.json';
-const _t = ['ghp_N47ddo4Psm', 'h5hhHZj6Q2NT', 'g3V2h2Mo22TL6L'];
-const TOKEN = _t.join('');
 const PASSWORD = 'timemanager2026';
-const RAW_URL = `https://raw.githubusercontent.com/${REPO}/main/${FILE}`;
-const API_URL = `https://api.github.com/repos/${REPO}/contents/${FILE}`;
+const RAW_URL = 'https://raw.githubusercontent.com/vb-iant/time-manager/main/tasks.json';
+const API_URL = 'https://api.github.com/repos/vb-iant/time-manager/contents/tasks.json';
+const UPLOAD_URL = '/api/update';
 
 let tasks = [];
 let currentSha = null;
@@ -481,26 +478,22 @@ async function loadTasks() {
 
 async function saveTasks(message) {
   setStatus('Saving...');
-  const token = TOKEN;
-  if (!token) { setStatus('Save failed — no token.'); return false; }
-
-  const content = btoa(unescape(encodeURIComponent(JSON.stringify({ version: '1.0', tasks }, null, 2))));
   try {
-    const res = await fetch(API_URL, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `token ${token}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ message, content, sha: currentSha })
+    const res = await fetch(UPLOAD_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        path: 'tasks.json',
+        content: JSON.stringify({ version: '1.0', tasks }, null, 2)
+      })
     });
     const data = await res.json();
-    if (data.content) {
-      currentSha = data.content.sha;
+    if (data.ok) {
+      currentSha = data.sha;
       setStatus('Saved ✓');
       return true;
     } else {
-      setStatus('Save error: ' + (data.message || 'Unknown'));
+      setStatus('Save error: ' + (data.error || 'Unknown'));
       return false;
     }
   } catch(e) {
