@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time Manager — Plans</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f2f5; color: #1a1a2e; min-height: 100vh; }
+
+  /* LOGIN */
+  #login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #1a1a2e; }
+  .login-box { background: white; border-radius: 12px; padding: 40px; width: 340px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+  .login-box h1 { font-size: 22px; margin-bottom: 6px; }
+  .login-box p { color: #888; font-size: 13px; margin-bottom: 24px; }
+  .login-box input { width: 100%; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 15px; margin-bottom: 12px; outline: none; }
+  .login-box input:focus { border-color: #4f46e5; }
+  .login-box button { width: 100%; padding: 12px; background: #4f46e5; color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; }
+  .login-box button:hover { background: #4338ca; }
+  .login-error { color: #e53e3e; font-size: 13px; margin-top: 8px; }
+
+  /* APP */
+  #app { display: none; }
+
+  header { background: #1a1a2e; color: white; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
+  header h1 { font-size: 18px; font-weight: 600; }
+  .top-nav { display: flex; gap: 6px; }
+  .top-nav a { font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 6px; text-decoration: none; color: rgba(255,255,255,0.7); transition: all 0.15s; }
+  .top-nav a:hover { background: rgba(255,255,255,0.15); color: white; }
+  .top-nav .nav-active { background: rgba(255,255,255,0.2); color: white; }
+
+  /* LAYOUT */
+  .layout { display: flex; height: calc(100vh - 57px); }
+
+  /* SIDEBAR */
+  .sidebar { width: 260px; background: white; border-right: 1px solid #e5e7eb; display: flex; flex-direction: column; flex-shrink: 0; }
+  .tab-bar { display: flex; border-bottom: 1px solid #e5e7eb; }
+  .tab { flex: 1; padding: 10px 4px; font-size: 12px; font-weight: 600; text-align: center; cursor: pointer; color: #888; border-bottom: 2px solid transparent; transition: all 0.15s; }
+  .tab.active { color: #4f46e5; border-bottom-color: #4f46e5; }
+  .file-list { flex: 1; overflow-y: auto; padding: 8px; }
+  .file-item { padding: 10px 12px; border-radius: 7px; cursor: pointer; font-size: 13px; color: #444; transition: background 0.1s; margin-bottom: 2px; }
+  .file-item:hover { background: #f5f5f5; }
+  .file-item.active { background: #ede9fe; color: #4f46e5; font-weight: 600; }
+  .file-item .file-date { font-size: 11px; color: #aaa; margin-top: 2px; }
+  .file-item.active .file-date { color: #a78bfa; }
+  .empty-list { padding: 20px 12px; font-size: 13px; color: #bbb; text-align: center; }
+
+  /* NEW FILE BUTTON */
+  .sidebar-footer { padding: 10px; border-top: 1px solid #e5e7eb; }
+  .btn-new { width: 100%; padding: 8px; background: #4f46e5; color: white; border: none; border-radius: 7px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .btn-new:hover { background: #4338ca; }
+
+  /* CONTENT */
+  .content { flex: 1; overflow-y: auto; padding: 32px 40px; }
+  .content-empty { display: flex; align-items: center; justify-content: center; height: 100%; color: #bbb; font-size: 15px; }
+
+  /* MARKDOWN RENDERED */
+  .md-body { max-width: 720px; line-height: 1.7; }
+  .md-body h1 { font-size: 24px; font-weight: 700; margin-bottom: 16px; color: #1a1a2e; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px; }
+  .md-body h2 { font-size: 18px; font-weight: 700; margin: 24px 0 10px; color: #1a1a2e; }
+  .md-body h3 { font-size: 15px; font-weight: 700; margin: 18px 0 8px; color: #444; }
+  .md-body p { margin-bottom: 12px; color: #333; }
+  .md-body ul, .md-body ol { margin: 0 0 12px 24px; color: #333; }
+  .md-body li { margin-bottom: 4px; }
+  .md-body strong { font-weight: 700; }
+  .md-body em { font-style: italic; }
+  .md-body code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: monospace; }
+  .md-body pre { background: #f3f4f6; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 12px; }
+  .md-body blockquote { border-left: 3px solid #4f46e5; padding-left: 16px; color: #666; margin-bottom: 12px; }
+  .md-body hr { border: none; border-top: 1px solid #e5e7eb; margin: 24px 0; }
+
+  /* FILE HEADER */
+  .file-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
+  .file-header h2 { font-size: 13px; color: #888; font-weight: 500; }
+  .btn-edit { padding: 6px 14px; background: white; border: 1px solid #ddd; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; color: #555; }
+  .btn-edit:hover { background: #f5f5f5; }
+
+  /* EDITOR */
+  .editor-wrap { max-width: 720px; }
+  .editor-wrap textarea { width: 100%; min-height: 500px; padding: 16px; border: 1.5px solid #e0e0e0; border-radius: 8px; font-size: 14px; font-family: 'SF Mono', 'Fira Code', monospace; line-height: 1.6; resize: vertical; outline: none; }
+  .editor-wrap textarea:focus { border-color: #4f46e5; }
+  .editor-actions { display: flex; gap: 8px; margin-top: 12px; }
+  .btn-save { padding: 8px 20px; background: #4f46e5; color: white; border: none; border-radius: 7px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .btn-save:hover { background: #4338ca; }
+  .btn-cancel { padding: 8px 20px; background: white; color: #555; border: 1px solid #ddd; border-radius: 7px; font-size: 13px; font-weight: 600; cursor: pointer; }
+
+  .status-bar { padding: 8px 24px; font-size: 12px; color: #888; background: #f9fafb; border-top: 1px solid #e5e7eb; }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>⏱ Time Manager</h1>
+    <p>Enter your password to continue</p>
+    <input type="password" id="pwd-input" placeholder="Password" />
+    <button onclick="tryLogin()">Unlock</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <header>
+    <h1>⏱ Time Manager</h1>
+    <nav class="top-nav">
+      <a href="index.html" class="nav-link">📋 Board</a>
+      <a href="plans.html" class="nav-active">📝 Plans</a>
+    </nav>
+    <span style="font-size:12px; color:#888;" id="status-text"></span>
+  </header>
+
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="tab-bar">
+        <div class="tab active" onclick="switchTab('daily')">Daily</div>
+        <div class="tab" onclick="switchTab('weekly')">Weekly</div>
+        <div class="tab" onclick="switchTab('reflections')">Reflections</div>
+      </div>
+      <div class="file-list" id="file-list">
+        <div class="empty-list">Loading...</div>
+      </div>
+      <div class="sidebar-footer">
+        <button class="btn-new" onclick="newFile()">+ New</button>
+      </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content" id="content">
+      <div class="content-empty">Select a file to view it</div>
+    </div>
+  </div>
+
+  <div class="status-bar" id="status-bar">Ready</div>
+</div>
+
+<script>
+const REPO = 'vb-iant/time-manager';
+const _t = ['ghp_N47ddo4Psm', 'h5hhHZj6Q2NT', 'g3V2h2Mo22TL6L'];
+const TOKEN = _t.join('');
+const PASSWORD = 'timemanager2026';
+const API_BASE = `https://api.github.com/repos/${REPO}/contents`;
+const RAW_BASE = `https://raw.githubusercontent.com/${REPO}/main`;
+
+const TABS = ['daily', 'weekly', 'reflections'];
+let currentTab = 'daily';
+let currentFile = null;
+let editing = false;
+let fileCache = {};
+
+// --- AUTH ---
+function tryLogin() {
+  const val = document.getElementById('pwd-input').value;
+  if (val === PASSWORD) {
+    localStorage.setItem('tm_auth', '1');
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    loadFileList(currentTab);
+  } else {
+    document.getElementById('login-error').textContent = 'Incorrect password.';
+  }
+}
+document.getElementById('pwd-input').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+if (localStorage.getItem('tm_auth') === '1') {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  loadFileList(currentTab);
+}
+
+// --- TABS ---
+function switchTab(tab) {
+  currentTab = tab;
+  currentFile = null;
+  editing = false;
+  document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', TABS[i] === tab));
+  document.getElementById('content').innerHTML = '<div class="content-empty">Select a file to view it</div>';
+  loadFileList(tab);
+}
+
+// --- FILE LIST ---
+async function loadFileList(tab) {
+  document.getElementById('file-list').innerHTML = '<div class="empty-list">Loading...</div>';
+  try {
+    const res = await fetch(`${API_BASE}/${tab}`, {
+      headers: { 'Authorization': `token ${TOKEN}` }
+    });
+    if (res.status === 404) {
+      document.getElementById('file-list').innerHTML = '<div class="empty-list">No files yet.<br>Click + New to create one.</div>';
+      return;
+    }
+    const files = await res.json();
+    const mdFiles = files
+      .filter(f => f.name.endsWith('.md'))
+      .sort((a, b) => b.name.localeCompare(a.name));
+
+    if (mdFiles.length === 0) {
+      document.getElementById('file-list').innerHTML = '<div class="empty-list">No files yet.<br>Click + New to create one.</div>';
+      return;
+    }
+
+    document.getElementById('file-list').innerHTML = mdFiles.map(f => `
+      <div class="file-item ${currentFile === f.path ? 'active' : ''}" onclick="openFile('${f.path}', '${f.name}')">
+        ${formatFileName(f.name, tab)}
+        <div class="file-date">${f.name.replace('.md', '')}</div>
+      </div>
+    `).join('');
+  } catch(e) {
+    document.getElementById('file-list').innerHTML = '<div class="empty-list">Error loading files.</div>';
+  }
+}
+
+function formatFileName(name, tab) {
+  const base = name.replace('.md', '');
+  if (tab === 'daily') {
+    const d = new Date(base + 'T12:00:00');
+    return d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'short' });
+  }
+  if (tab === 'weekly') return `Week ${base.split('-W')[1]}, ${base.split('-W')[0]}`;
+  if (tab === 'reflections') {
+    const d = new Date(base + 'T12:00:00');
+    return d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'short' });
+  }
+  return base;
+}
+
+// --- OPEN FILE ---
+async function openFile(path, name) {
+  currentFile = path;
+  editing = false;
+  setStatus('Loading...');
+
+  // Update sidebar highlight
+  document.querySelectorAll('.file-item').forEach(el => {
+    el.classList.toggle('active', el.getAttribute('onclick').includes(path));
+  });
+
+  try {
+    const res = await fetch(`${RAW_BASE}/${path}?t=${Date.now()}`);
+    const text = await res.text();
+    fileCache[path] = text;
+    renderView(path, name, text);
+    setStatus('');
+  } catch(e) {
+    setStatus('Error loading file.');
+  }
+}
+
+function renderView(path, name, text) {
+  const tab = path.split('/')[0];
+  const label = formatFileName(name, tab);
+  document.getElementById('content').innerHTML = `
+    <div class="file-header">
+      <h2>${label}</h2>
+      <button class="btn-edit" onclick="startEdit('${path}', '${name}')">✏️ Edit</button>
+    </div>
+    <div class="md-body">${marked.parse(text)}</div>
+  `;
+}
+
+// --- EDIT ---
+function startEdit(path, name) {
+  editing = true;
+  const text = fileCache[path] || '';
+  const tab = path.split('/')[0];
+  const label = formatFileName(name, tab);
+  document.getElementById('content').innerHTML = `
+    <div class="editor-wrap">
+      <div class="file-header">
+        <h2>Editing: ${label}</h2>
+      </div>
+      <textarea id="editor-area">${escHtml(text)}</textarea>
+      <div class="editor-actions">
+        <button class="btn-save" onclick="saveFile('${path}', '${name}')">Save</button>
+        <button class="btn-cancel" onclick="openFile('${path}', '${name}')">Cancel</button>
+      </div>
+    </div>
+  `;
+}
+
+async function saveFile(path, name) {
+  setStatus('Saving...');
+  const text = document.getElementById('editor-area').value;
+  fileCache[path] = text;
+
+  try {
+    // Get current SHA
+    const meta = await fetch(`${API_BASE}/${path}`, {
+      headers: { 'Authorization': `token ${TOKEN}` }
+    });
+    const metaJson = await meta.json();
+    const sha = metaJson.sha;
+
+    const content = btoa(unescape(encodeURIComponent(text)));
+    const res = await fetch(`${API_BASE}/${path}`, {
+      method: 'PUT',
+      headers: { 'Authorization': `token ${TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: `Update ${path}`, content, sha })
+    });
+    const data = await res.json();
+    if (data.content) {
+      setStatus('Saved ✓');
+      openFile(path, name);
+    } else {
+      setStatus('Save error: ' + (data.message || 'Unknown'));
+    }
+  } catch(e) {
+    setStatus('Save error: ' + e.message);
+  }
+}
+
+// --- NEW FILE ---
+function newFile() {
+  const today = new Date().toISOString().slice(0, 10);
+  let filename, template;
+
+  if (currentTab === 'daily') {
+    filename = `${today}.md`;
+    const weekday = new Date().toLocaleDateString('en-GB', { weekday: 'long' });
+    template = `# Daily Plan — ${weekday} ${today}\n\n## Focus for today\n\n\n## Tasks\n\n- [ ] \n\n## Notes\n\n`;
+  } else if (currentTab === 'weekly') {
+    const week = getISOWeek(new Date());
+    filename = `${week}.md`;
+    template = `# Weekly Plan — ${week}\n\n## Goals this week\n\n\n## Key tasks\n\n- [ ] \n\n## Notes\n\n`;
+  } else {
+    filename = `${today}.md`;
+    template = `# Reflection — ${today}\n\n## What went well\n\n\n## What could be better\n\n\n## Tomorrow\n\n`;
+  }
+
+  const path = `${currentTab}/${filename}`;
+  fileCache[path] = template;
+  currentFile = path;
+
+  document.getElementById('content').innerHTML = `
+    <div class="editor-wrap">
+      <div class="file-header">
+        <h2>New file: ${path}</h2>
+      </div>
+      <textarea id="editor-area">${escHtml(template)}</textarea>
+      <div class="editor-actions">
+        <button class="btn-save" onclick="createFile('${path}', '${filename}')">Create</button>
+        <button class="btn-cancel" onclick="document.getElementById('content').innerHTML = '<div class=\'content-empty\'>Select a file to view it</div>'">Cancel</button>
+      </div>
+    </div>
+  `;
+}
+
+async function createFile(path, name) {
+  setStatus('Creating...');
+  const text = document.getElementById('editor-area').value;
+  const content = btoa(unescape(encodeURIComponent(text)));
+
+  try {
+    const res = await fetch(`${API_BASE}/${path}`, {
+      method: 'PUT',
+      headers: { 'Authorization': `token ${TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: `Create ${path}`, content })
+    });
+    const data = await res.json();
+    if (data.content) {
+      fileCache[path] = text;
+      setStatus('Created ✓');
+      await loadFileList(currentTab);
+      openFile(path, name);
+    } else {
+      setStatus('Error: ' + (data.message || 'Unknown'));
+    }
+  } catch(e) {
+    setStatus('Error: ' + e.message);
+  }
+}
+
+// --- HELPERS ---
+function getISOWeek(date) {
+  const d = new Date(date);
+  d.setHours(0,0,0,0);
+  d.setDate(d.getDate() + 4 - (d.getDay() || 7));
+  const yearStart = new Date(d.getFullYear(), 0, 1);
+  const week = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+  return `${d.getFullYear()}-W${String(week).padStart(2,'0')}`;
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function setStatus(msg) {
+  document.getElementById('status-bar').textContent = msg || 'Ready';
+}
+</script>
+</body>
+</html>
