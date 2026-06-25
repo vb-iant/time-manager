@@ -37,31 +37,26 @@ async function githubWrite(path, content) {
 
 const handler = createMcpHandler(
   (server) => {
-    // GET TASKS
     server.tool('get_tasks', 'Get all current tasks from the time manager', {}, async () => {
       const text = await githubRead('tasks.json');
       return { content: [{ type: 'text', text }] };
     });
 
-    // UPDATE TASKS
     server.tool('update_tasks', 'Write updated tasks.json back to the repo', {
       tasks_json: { type: 'string', description: 'Full tasks.json content as a JSON string' }
     }, async ({ tasks_json }) => {
-      // Validate it parses
       JSON.parse(tasks_json);
       const sha = await githubWrite('tasks.json', tasks_json);
       return { content: [{ type: 'text', text: `Saved. SHA: ${sha}` }] };
     });
 
-    // GET PLAN
     server.tool('get_plan', 'Read a daily plan, weekly plan or reflection file', {
-      path: { type: 'string', description: 'File path e.g. daily/2026-06-25.md or weekly/2026-W26.md' }
+      path: { type: 'string', description: 'File path e.g. daily/2026-06-25.md' }
     }, async ({ path }) => {
       const text = await githubRead(path);
       return { content: [{ type: 'text', text }] };
     });
 
-    // SAVE PLAN
     server.tool('save_plan', 'Write a daily plan, weekly plan or reflection markdown file', {
       path: { type: 'string', description: 'File path e.g. daily/2026-06-25.md' },
       content: { type: 'string', description: 'Markdown content to write' }
@@ -72,7 +67,6 @@ const handler = createMcpHandler(
       return { content: [{ type: 'text', text: `Saved ${path}. SHA: ${sha}` }] };
     });
 
-    // LIST PLANS
     server.tool('list_plans', 'List available plan files in a folder', {
       folder: { type: 'string', description: 'One of: daily, weekly, reflections' }
     }, async ({ folder }) => {
@@ -86,7 +80,9 @@ const handler = createMcpHandler(
       return { content: [{ type: 'text', text: names.join('\n') }] };
     });
   },
-  {},
+  {
+    // No OAuth required
+  },
   { basePath: '/api/mcp' }
 );
 
