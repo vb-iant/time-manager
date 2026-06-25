@@ -1,0 +1,11 @@
+{
+  "name": "time-manager",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@vercel/mcp-adapter": "latest"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
