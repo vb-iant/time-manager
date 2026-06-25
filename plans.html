@@ -86,6 +86,17 @@
   .btn-cancel { padding: 8px 20px; background: white; color: #555; border: 1px solid #ddd; border-radius: 7px; font-size: 13px; font-weight: 600; cursor: pointer; }
 
   .status-bar { padding: 8px 24px; font-size: 12px; color: #888; background: #f9fafb; border-top: 1px solid #e5e7eb; }
+
+  /* UPLOAD */
+  .upload-panel { padding: 32px 40px; max-width: 620px; }
+  .upload-panel h2 { font-size: 18px; font-weight: 700; margin-bottom: 6px; }
+  .upload-panel p { font-size: 13px; color: #888; margin-bottom: 24px; }
+  .upload-field { margin-bottom: 16px; }
+  .upload-field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; color: #444; }
+  .upload-field input, .upload-field select, .upload-field textarea { width: 100%; padding: 9px 12px; border: 1.5px solid #e0e0e0; border-radius: 7px; font-size: 14px; outline: none; font-family: inherit; }
+  .upload-field input:focus, .upload-field select:focus, .upload-field textarea:focus { border-color: #4f46e5; }
+  .upload-field textarea { font-family: monospace; font-size: 13px; min-height: 300px; resize: vertical; }
+  .upload-success { background: #d1fae5; border: 1px solid #6ee7b7; color: #065f46; padding: 12px 16px; border-radius: 8px; font-size: 13px; margin-top: 12px; display: none; }
 </style>
 </head>
 <body>
@@ -119,6 +130,7 @@
         <div class="tab active" onclick="switchTab('daily')">Daily</div>
         <div class="tab" onclick="switchTab('weekly')">Weekly</div>
         <div class="tab" onclick="switchTab('reflections')">Reflections</div>
+        <div class="tab" onclick="switchTab('upload')">⬆ Upload</div>
       </div>
       <div class="file-list" id="file-list">
         <div class="empty-list">Loading...</div>
@@ -145,7 +157,6 @@ const PASSWORD = 'timemanager2026';
 const API_BASE = `https://api.github.com/repos/${REPO}/contents`;
 const RAW_BASE = `https://raw.githubusercontent.com/${REPO}/main`;
 
-const TABS = ['daily', 'weekly', 'reflections'];
 let currentTab = 'daily';
 let currentFile = null;
 let editing = false;
@@ -171,13 +182,96 @@ if (localStorage.getItem('tm_auth') === '1') {
 }
 
 // --- TABS ---
+const TABS = ['daily', 'weekly', 'reflections', 'upload'];
+
 function switchTab(tab) {
   currentTab = tab;
   currentFile = null;
   editing = false;
   document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', TABS[i] === tab));
-  document.getElementById('content').innerHTML = '<div class="content-empty">Select a file to view it</div>';
-  loadFileList(tab);
+  if (tab === 'upload') {
+    showUploadPanel();
+  } else {
+    document.getElementById('file-list').style.display = '';
+    document.querySelector('.sidebar-footer').style.display = '';
+    document.getElementById('content').innerHTML = '<div class="content-empty">Select a file to view it</div>';
+    loadFileList(tab);
+  }
+}
+
+function showUploadPanel() {
+  document.getElementById('file-list').style.display = 'none';
+  document.querySelector('.sidebar-footer').style.display = 'none';
+  document.getElementById('content').innerHTML = `
+    <div class="upload-panel">
+      <h2>⬆ Upload a file</h2>
+      <p>Paste the filename and markdown content below. The file will be saved directly to the repo.</p>
+      <div class="upload-field">
+        <label>Section</label>
+        <select id="upload-section">
+          <option value="daily">Daily Plan</option>
+          <option value="weekly">Weekly Plan</option>
+          <option value="reflections">Reflection</option>
+        </select>
+      </div>
+      <div class="upload-field">
+        <label>Filename (e.g. 2026-06-25.md or 2026-W26.md)</label>
+        <input type="text" id="upload-filename" placeholder="YYYY-MM-DD.md" />
+      </div>
+      <div class="upload-field">
+        <label>Markdown content</label>
+        <textarea id="upload-content" placeholder="Paste the markdown here..."></textarea>
+      </div>
+      <button class="btn-save" onclick="uploadFile()">Upload</button>
+      <div class="upload-success" id="upload-success">✓ File saved successfully!</div>
+    </div>
+  `;
+  // Auto-fill today's filename
+  const today = new Date().toISOString().slice(0, 10);
+  document.getElementById('upload-filename').value = today + '.md';
+}
+
+async function uploadFile() {
+  const section = document.getElementById('upload-section').value;
+  const filename = document.getElementById('upload-filename').value.trim();
+  const text = document.getElementById('upload-content').value;
+
+  if (!filename || !text) { setStatus('Please fill in all fields.'); return; }
+  if (!filename.endsWith('.md')) { setStatus('Filename must end in .md'); return; }
+
+  const path = `${section}/${filename}`;
+  setStatus('Saving...');
+
+  try {
+    // Check if file exists (to get SHA for update)
+    let sha;
+    const check = await fetch(`${API_BASE}/${path}`, {
+      headers: { 'Authorization': `token ${TOKEN}` }
+    });
+    if (check.ok) {
+      const checkJson = await check.json();
+      sha = checkJson.sha;
+    }
+
+    const body = { message: `Upload ${path}`, content: btoa(unescape(encodeURIComponent(text))) };
+    if (sha) body.sha = sha;
+
+    const res = await fetch(`${API_BASE}/${path}`, {
+      method: 'PUT',
+      headers: { 'Authorization': `token ${TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    if (data.content) {
+      setStatus('Uploaded ✓');
+      document.getElementById('upload-success').style.display = 'block';
+      document.getElementById('upload-content').value = '';
+    } else {
+      setStatus('Error: ' + (data.message || 'Unknown'));
+    }
+  } catch(e) {
+    setStatus('Error: ' + e.message);
+  }
 }
 
 // --- FILE LIST ---
