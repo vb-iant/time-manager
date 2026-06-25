@@ -384,6 +384,18 @@
       "label": "Business Development",
       "created": "2026-06-24T00:00:00.000Z",
       "updated": "2026-06-24T00:00:00.000Z"
+    },
+    {
+      "id": "949f5520-129b-48f0-b31a-28072edf7584",
+      "title": "VB Nurture Email",
+      "notes": "Newsletter style email to Rachels contacts",
+      "status": "scheduled",
+      "duration": 60,
+      "scheduled_on": "2026-06-25",
+      "due": null,
+      "label": null,
+      "created": "2026-06-25T14:03:34.781Z",
+      "updated": "2026-06-25T14:03:34.781Z"
     }
   ]
 }
