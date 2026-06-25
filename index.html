@@ -133,10 +133,11 @@
     border-radius: 10px 10px 0 0;
   }
 
-  .col-todo .column-header    { color: #6b7280; border-color: #e5e7eb; }
-  .col-doing .column-header   { color: #2563eb; border-color: #3b82f6; }
-  .col-review .column-header  { color: #d97706; border-color: #f59e0b; }
-  .col-done .column-header    { color: #059669; border-color: #10b981; }
+  .col-backlog .column-header    { color: #6b7280; border-color: #e5e7eb; }
+  .col-scheduled .column-header  { color: #7c3aed; border-color: #8b5cf6; }
+  .col-doing .column-header      { color: #2563eb; border-color: #3b82f6; }
+  .col-blocked .column-header    { color: #dc2626; border-color: #ef4444; }
+  .col-done .column-header       { color: #059669; border-color: #10b981; }
 
   .column-body { padding: 12px; min-height: 80px; }
 
@@ -294,11 +295,17 @@
   </div>
 
   <div class="board">
-    <div class="column col-todo">
+    <div class="column col-backlog">
       <div class="column-header">
-        <span>To Do</span><span id="count-todo">0</span>
+        <span>Backlog</span><span id="count-backlog">0</span>
       </div>
-      <div class="column-body" id="col-todo"></div>
+      <div class="column-body" id="col-backlog"></div>
+    </div>
+    <div class="column col-scheduled">
+      <div class="column-header">
+        <span>Scheduled</span><span id="count-scheduled">0</span>
+      </div>
+      <div class="column-body" id="col-scheduled"></div>
     </div>
     <div class="column col-doing">
       <div class="column-header">
@@ -306,11 +313,11 @@
       </div>
       <div class="column-body" id="col-doing"></div>
     </div>
-    <div class="column col-review">
+    <div class="column col-blocked">
       <div class="column-header">
-        <span>Review</span><span id="count-review">0</span>
+        <span>Blocked</span><span id="count-blocked">0</span>
       </div>
-      <div class="column-body" id="col-review"></div>
+      <div class="column-body" id="col-blocked"></div>
     </div>
     <div class="column col-done">
       <div class="column-header">
@@ -344,9 +351,10 @@
         <div class="field">
           <label>Status</label>
           <select id="task-status">
-            <option value="todo">To Do</option>
+            <option value="backlog">Backlog</option>
+            <option value="scheduled">Scheduled</option>
             <option value="doing">In Progress</option>
-            <option value="review">Review</option>
+            <option value="blocked">Blocked</option>
             <option value="done">Done</option>
           </select>
         </div>
@@ -458,7 +466,7 @@ async function saveTasks(message) {
 
 // --- RENDER ---
 function renderBoard() {
-  const cols = { todo: [], doing: [], review: [], done: [] };
+  const cols = { backlog: [], scheduled: [], doing: [], blocked: [], done: [] };
   tasks.forEach(t => { if (cols[t.status]) cols[t.status].push(t); });
 
   Object.entries(cols).forEach(([status, items]) => {
