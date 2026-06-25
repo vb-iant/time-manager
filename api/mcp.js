@@ -1,3 +1,5 @@
+export const runtime = "edge";
+
 import { createMcpHandler } from 'mcp-handler';
 
 const REPO = 'vb-iant/time-manager';
