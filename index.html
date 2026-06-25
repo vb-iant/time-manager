@@ -78,6 +78,10 @@
 
   header h1 { font-size: 18px; font-weight: 600; }
   header .meta { font-size: 12px; color: #888; }
+  .top-nav { display: flex; gap: 6px; }
+  .top-nav a { font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 6px; text-decoration: none; color: rgba(255,255,255,0.7); transition: all 0.15s; }
+  .top-nav a:hover { background: rgba(255,255,255,0.15); color: white; }
+  .top-nav .nav-active { background: rgba(255,255,255,0.2); color: white; }
 
   .toolbar {
     padding: 16px 24px;
@@ -297,6 +301,10 @@
 <div id="app">
   <header>
     <h1>⏱ Time Manager</h1>
+    <nav class="top-nav">
+      <a href="index.html" class="nav-active">📋 Board</a>
+      <a href="plans.html" class="nav-link">📝 Plans</a>
+    </nav>
     <span class="meta" id="last-sync">Loading...</span>
   </header>
 
