@@ -35,6 +35,13 @@ async function githubWrite(path, content) {
   return data.content.sha;
 }
 
+function validateToken(req) {
+  // Allow requests with any bearer token — single user app
+  // Just check the Authorization header exists
+  const auth = req.headers?.authorization || '';
+  return auth.startsWith('Bearer ') && auth.length > 10;
+}
+
 const handler = createMcpHandler(
   (server) => {
     server.tool('get_tasks', 'Get all current tasks from the time manager', {}, async () => {
