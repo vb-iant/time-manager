@@ -6,18 +6,18 @@
     "api/oauth/*.js": {
       "maxDuration": 10
     },
-    ".well-known/*.js": {
+    "api/.well-known/*.js": {
       "maxDuration": 10
     }
   },
   "rewrites": [
     {
       "source": "/.well-known/oauth-protected-resource",
-      "destination": "/.well-known/oauth-protected-resource.js"
+      "destination": "/api/.well-known/oauth-protected-resource"
     },
     {
       "source": "/.well-known/oauth-authorization-server",
-      "destination": "/.well-known/oauth-authorization-server.js"
+      "destination": "/api/.well-known/oauth-authorization-server"
     }
   ]
 }
