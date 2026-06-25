@@ -209,13 +209,13 @@
       "id": "tm-018",
       "title": "Send Jim O'Brien NDA and Referral contract",
       "notes": "Category: Business Development | Priority: High",
-      "status": "doing",
+      "status": "done",
+      "duration": null,
       "scheduled_on": null,
       "due": null,
-      "duration": null,
       "label": "Business Development",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-25T00:00:00.000Z"
+      "updated": "2026-06-25T13:40:52.364Z"
     },
     {
       "id": "tm-019",
