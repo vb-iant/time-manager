@@ -50,18 +50,6 @@
       "updated": "2026-06-25T13:54:30.019Z"
     },
     {
-      "id": "tm-005",
-      "title": "Create Asana tags for task categories",
-      "notes": "15 mins | Category: Admin | Priority: Medium",
-      "status": "today",
-      "scheduled_on": "2026-06-25",
-      "due": "2026-06-25",
-      "duration": 15,
-      "label": "Admin",
-      "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-25T13:54:30.019Z"
-    },
-    {
       "id": "tm-006",
       "title": "Prepare for Rockstar CMO Virtual Bar interview",
       "notes": "30 mins | Category: Podcast | Priority: High",
