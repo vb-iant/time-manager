@@ -406,10 +406,9 @@
       <div class="field-row">
         <div class="field">
           <label>Label</label>
-          <select id="task-label-select" onchange="handleLabelSelect(this.value)">
+          <select id="task-label">
             <option value="">— Select a label —</option>
           </select>
-          <input type="text" id="task-label" placeholder="Or type a new label" style="margin-top:6px;" autocomplete="off" />
         </div>
         <div class="field">
           <label>Priority</label>
@@ -420,6 +419,10 @@
             <option value="Low">Low</option>
           </select>
         </div>
+      </div>
+      <div id="task-meta-info" style="display:none; margin-top:16px; padding-top:12px; border-top:1px solid #e5e7eb;">
+        <div style="font-size:11px; color:#aaa;" id="task-updated-display"></div>
+        <div style="font-size:11px; color:#aaa;" id="task-status-updated-display"></div>
       </div>
       <div class="modal-actions">
         <button class="btn btn-danger" id="btn-delete" onclick="deleteTask()" style="display:none">Delete</button>
@@ -479,21 +482,15 @@ async function loadLabels() {
 }
 
 function populateLabelSelect(selected) {
-  const sel = document.getElementById('task-label-select');
-  if (!sel) return;
+  const sel = document.getElementById('task-label');
+  if (!sel || sel.tagName !== 'SELECT') return;
   sel.innerHTML = '<option value="">— Select a label —</option>' +
     labels.map(l => `<option value="${l}" ${l === selected ? 'selected' : ''}>${l}</option>`).join('') +
     '<option value="__new__">+ New label...</option>';
 }
 
 function handleLabelSelect(val) {
-  const input = document.getElementById('task-label');
-  if (val === '__new__') {
-    input.value = '';
-    input.focus();
-  } else {
-    input.value = val;
-  }
+  // no-op, kept for compatibility
 }
 
 async function loadTasks() {
@@ -633,9 +630,19 @@ function openModal(id) {
   document.getElementById('task-scheduled-on').value = task ? (task.scheduled_on || '') : '';
   document.getElementById('task-due').value = task ? (task.due || '') : '';
   const taskLabel = task ? (task.label || '') : '';
-  document.getElementById('task-label').value = taskLabel;
   document.getElementById('task-priority').value = task ? (task.priority || '') : '';
   populateLabelSelect(taskLabel);
+  // Show meta info for existing tasks
+  const metaDiv = document.getElementById('task-meta-info');
+  const updatedDiv = document.getElementById('task-updated-display');
+  const statusUpdatedDiv = document.getElementById('task-status-updated-display');
+  if (task) {
+    metaDiv.style.display = 'block';
+    updatedDiv.textContent = task.updated ? 'Last updated: ' + new Date(task.updated).toLocaleString('en-GB') : '';
+    statusUpdatedDiv.textContent = task.status_updated ? 'Status changed: ' + new Date(task.status_updated).toLocaleString('en-GB') : '';
+  } else {
+    metaDiv.style.display = 'none';
+  }
   document.getElementById('btn-delete').style.display = task ? 'block' : 'none';
   document.getElementById('modal-overlay').classList.add('open');
   document.getElementById('task-title').focus();
@@ -662,7 +669,7 @@ async function saveTask() {
     duration: parseInt(document.getElementById('task-duration').value) || null,
     scheduled_on: document.getElementById('task-scheduled-on').value || null,
     due: document.getElementById('task-due').value || null,
-    label: document.getElementById('task-label').value.trim() || null,
+    label: (() => { const s = document.getElementById('task-label'); return s.value && s.value !== '__new__' ? s.value : null; })(),
     priority: document.getElementById('task-priority').value || null,
     created: id ? (tasks.find(t => t.id === id)?.created || new Date().toISOString()) : new Date().toISOString(),
     updated: new Date().toISOString(),
@@ -681,17 +688,7 @@ async function saveTask() {
     tasks.push(task);
   }
 
-  // Add new label if not already in list
-  const newLabel = document.getElementById('task-label').value.trim();
-  if (newLabel && !labels.includes(newLabel)) {
-    labels.push(newLabel);
-    labels.sort();
-    fetch(UPLOAD_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ path: 'labels.json', content: JSON.stringify({ labels }, null, 2) })
-    });
-  }
+
   renderBoard();
   closeModal();
   await saveTasks(id ? `Update task: ${title}` : `Add task: ${title}`);
