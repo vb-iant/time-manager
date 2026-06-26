@@ -52,6 +52,7 @@ const TOOLS = [
         notes: { type: 'string', description: 'Optional notes or description' },
         duration: { type: 'number', description: 'Estimated duration in minutes' },
         label: { type: 'string', description: 'Label e.g. Business Development, Admin, Podcast, Client Work, Dev Project' },
+        priority: { type: 'string', description: 'Priority: High, Medium, Low' },
         scheduled_on: { type: 'string', description: 'Date to schedule task YYYY-MM-DD (optional)' },
         due: { type: 'string', description: 'Due date YYYY-MM-DD (optional)' },
         status: { type: 'string', description: 'Status: backlog, scheduled, today, doing, blocked, done. Defaults to backlog.' }
@@ -72,7 +73,8 @@ const TOOLS = [
         duration: { type: 'number', description: 'New duration in minutes' },
         label: { type: 'string', description: 'New label' },
         scheduled_on: { type: 'string', description: 'New scheduled date YYYY-MM-DD' },
-        due: { type: 'string', description: 'New due date YYYY-MM-DD' }
+        due: { type: 'string', description: 'New due date YYYY-MM-DD' },
+        priority: { type: 'string', description: 'New priority: High, Medium, Low' }
       },
       required: ['id']
     }
@@ -86,6 +88,33 @@ const TOOLS = [
         id: { type: 'string', description: 'The task id to delete' }
       },
       required: ['id']
+    }
+  },
+  {
+    name: 'get_labels',
+    description: 'Get all available task labels',
+    inputSchema: { type: 'object', properties: {}, required: [] }
+  },
+  {
+    name: 'add_label',
+    description: 'Add a new label to the labels list',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        label: { type: 'string', description: 'Label name to add' }
+      },
+      required: ['label']
+    }
+  },
+  {
+    name: 'delete_label',
+    description: 'Delete a label from the labels list',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        label: { type: 'string', description: 'Label name to delete' }
+      },
+      required: ['label']
     }
   },
   {
@@ -172,9 +201,13 @@ async function callTool(name, args) {
     const tasks = Array.isArray(parsed) ? parsed : (parsed.tasks || []);
     const idx = tasks.findIndex(t => t.id === args.id);
     if (idx === -1) throw new Error(`Task not found: ${args.id}`);
-    const fields = ['title', 'notes', 'status', 'duration', 'label', 'scheduled_on', 'due'];
+    const prevStatus = tasks[idx].status;
+    const fields = ['title', 'notes', 'status', 'duration', 'label', 'scheduled_on', 'due', 'priority'];
     fields.forEach(f => { if (args[f] !== undefined) tasks[idx][f] = args[f]; });
     tasks[idx].updated = new Date().toISOString();
+    if (args.status && args.status !== prevStatus) {
+      tasks[idx].status_updated = new Date().toISOString();
+    }
     const output = JSON.stringify({ version: '1.0', tasks }, null, 2);
     await githubWrite('tasks.json', output);
     return `Task updated: "${tasks[idx].title}" (id: ${args.id})`;
@@ -189,6 +222,27 @@ async function callTool(name, args) {
     const output = JSON.stringify({ version: '1.0', tasks: filtered }, null, 2);
     await githubWrite('tasks.json', output);
     return `Task deleted (id: ${args.id})`;
+  }
+  if (name === 'get_labels') {
+    const raw = await githubRead('labels.json');
+    return raw;
+  }
+  if (name === 'add_label') {
+    const raw = await githubRead('labels.json');
+    const data = JSON.parse(raw);
+    if (!data.labels.includes(args.label)) {
+      data.labels.push(args.label);
+      data.labels.sort();
+      await githubWrite('labels.json', JSON.stringify(data, null, 2));
+    }
+    return `Label added: "${args.label}"`;
+  }
+  if (name === 'delete_label') {
+    const raw = await githubRead('labels.json');
+    const data = JSON.parse(raw);
+    data.labels = data.labels.filter(l => l !== args.label);
+    await githubWrite('labels.json', JSON.stringify(data, null, 2));
+    return `Label deleted: "${args.label}"`;
   }
   if (name === 'list_plans') {
     const GH_TOKEN = process.env.GITHUB_TOKEN;
