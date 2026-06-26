@@ -60,6 +60,17 @@ const TOOLS = [
     }
   },
   {
+    name: 'delete_task',
+    description: 'Delete a single task by its id',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'The task id to delete' }
+      },
+      required: ['id']
+    }
+  },
+  {
     name: 'list_plans',
     description: 'List available plan files in a folder',
     inputSchema: {
@@ -136,6 +147,17 @@ async function callTool(name, args) {
     const output = JSON.stringify({ version: '1.0', tasks }, null, 2);
     await githubWrite('tasks.json', output);
     return `Task added: "${newTask.title}" (id: ${newTask.id})`;
+  }
+  if (name === 'delete_task') {
+    const raw = await githubRead('tasks.json');
+    const parsed = JSON.parse(raw);
+    const tasks = Array.isArray(parsed) ? parsed : (parsed.tasks || []);
+    const before = tasks.length;
+    const filtered = tasks.filter(t => t.id !== args.id);
+    if (filtered.length === before) throw new Error(`Task not found: ${args.id}`);
+    const output = JSON.stringify({ version: '1.0', tasks: filtered }, null, 2);
+    await githubWrite('tasks.json', output);
+    return `Task deleted (id: ${args.id})`;
   }
   if (name === 'list_plans') {
     const GH_TOKEN = process.env.GITHUB_TOKEN;
