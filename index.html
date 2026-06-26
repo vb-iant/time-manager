@@ -406,8 +406,10 @@
       <div class="field-row">
         <div class="field">
           <label>Label</label>
-          <input type="text" id="task-label" list="label-list" placeholder="Select or type a label" autocomplete="off" />
-          <datalist id="label-list"></datalist>
+          <select id="task-label-select" onchange="handleLabelSelect(this.value)">
+            <option value="">— Select a label —</option>
+          </select>
+          <input type="text" id="task-label" placeholder="Or type a new label" style="margin-top:6px;" autocomplete="off" />
         </div>
         <div class="field">
           <label>Priority</label>
@@ -470,12 +472,27 @@ async function loadLabels() {
     const res = await fetch('https://raw.githubusercontent.com/vb-iant/time-manager/main/labels.json?t=' + Date.now());
     const data = await res.json();
     labels = data.labels || [];
-    const dl = document.getElementById('label-list');
-    if (dl) {
-      dl.innerHTML = labels.map(l => `<option value="${l}">`).join('');
-    }
+    populateLabelSelect();
   } catch(e) {
     console.warn('Could not load labels:', e);
+  }
+}
+
+function populateLabelSelect(selected) {
+  const sel = document.getElementById('task-label-select');
+  if (!sel) return;
+  sel.innerHTML = '<option value="">— Select a label —</option>' +
+    labels.map(l => `<option value="${l}" ${l === selected ? 'selected' : ''}>${l}</option>`).join('') +
+    '<option value="__new__">+ New label...</option>';
+}
+
+function handleLabelSelect(val) {
+  const input = document.getElementById('task-label');
+  if (val === '__new__') {
+    input.value = '';
+    input.focus();
+  } else {
+    input.value = val;
   }
 }
 
@@ -615,11 +632,10 @@ function openModal(id) {
   document.getElementById('task-duration').value = task ? (task.duration || '') : '';
   document.getElementById('task-scheduled-on').value = task ? (task.scheduled_on || '') : '';
   document.getElementById('task-due').value = task ? (task.due || '') : '';
-  document.getElementById('task-label').value = task ? (task.label || '') : '';
+  const taskLabel = task ? (task.label || '') : '';
+  document.getElementById('task-label').value = taskLabel;
   document.getElementById('task-priority').value = task ? (task.priority || '') : '';
-  // Refresh datalist
-  const dl = document.getElementById('label-list');
-  if (dl) dl.innerHTML = labels.map(l => `<option value="${l}">`).join('');
+  populateLabelSelect(taskLabel);
   document.getElementById('btn-delete').style.display = task ? 'block' : 'none';
   document.getElementById('modal-overlay').classList.add('open');
   document.getElementById('task-title').focus();
@@ -670,9 +686,6 @@ async function saveTask() {
   if (newLabel && !labels.includes(newLabel)) {
     labels.push(newLabel);
     labels.sort();
-    const dl = document.getElementById('label-list');
-    if (dl) dl.innerHTML = labels.map(l => `<option value="${l}">`).join('');
-    // Save new label to labels.json via API
     fetch(UPLOAD_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
