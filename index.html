@@ -191,6 +191,10 @@
   .tag-label        { background: #dbeafe; color: #1e40af; }
   .tag-overdue      { background: #fee2e2; color: #991b1b; }
   .tag-scheduled-on { background: #f3e8ff; color: #7c3aed; }
+  .tag-priority-high   { background: #fee2e2; color: #991b1b; font-weight: 700; }
+  .tag-priority-medium { background: #fef3c7; color: #92400e; font-weight: 700; }
+  .tag-priority-low    { background: #f0fdf4; color: #166534; font-weight: 700; }
+  .tag-status-updated  { background: #f1f5f9; color: #94a3b8; font-size: 10px; }
 
   /* --- MODAL --- */
   .modal-overlay {
@@ -402,7 +406,17 @@
       <div class="field-row">
         <div class="field">
           <label>Label</label>
-          <input type="text" id="task-label" placeholder="e.g. Business Development" />
+          <input type="text" id="task-label" list="label-list" placeholder="Select or type a label" autocomplete="off" />
+          <datalist id="label-list"></datalist>
+        </div>
+        <div class="field">
+          <label>Priority</label>
+          <select id="task-priority">
+            <option value="">None</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
         </div>
       </div>
       <div class="modal-actions">
@@ -430,6 +444,7 @@ function tryLogin() {
     localStorage.setItem('tm_auth', '1');
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app').style.display = 'block';
+    loadLabels();
     loadTasks();
   } else {
     document.getElementById('login-error').textContent = 'Incorrect password.';
@@ -443,10 +458,27 @@ document.getElementById('pwd-input').addEventListener('keydown', e => {
 if (localStorage.getItem('tm_auth') === '1') {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
+  loadLabels();
   loadTasks();
 }
 
 // --- DATA ---
+let labels = [];
+
+async function loadLabels() {
+  try {
+    const res = await fetch('https://raw.githubusercontent.com/vb-iant/time-manager/main/labels.json?t=' + Date.now());
+    const data = await res.json();
+    labels = data.labels || [];
+    const dl = document.getElementById('label-list');
+    if (dl) {
+      dl.innerHTML = labels.map(l => `<option value="${l}">`).join('');
+    }
+  } catch(e) {
+    console.warn('Could not load labels:', e);
+  }
+}
+
 async function loadTasks() {
   setStatus('Loading...');
   try {
@@ -584,6 +616,10 @@ function openModal(id) {
   document.getElementById('task-scheduled-on').value = task ? (task.scheduled_on || '') : '';
   document.getElementById('task-due').value = task ? (task.due || '') : '';
   document.getElementById('task-label').value = task ? (task.label || '') : '';
+  document.getElementById('task-priority').value = task ? (task.priority || '') : '';
+  // Refresh datalist
+  const dl = document.getElementById('label-list');
+  if (dl) dl.innerHTML = labels.map(l => `<option value="${l}">`).join('');
   document.getElementById('btn-delete').style.display = task ? 'block' : 'none';
   document.getElementById('modal-overlay').classList.add('open');
   document.getElementById('task-title').focus();
@@ -611,8 +647,16 @@ async function saveTask() {
     scheduled_on: document.getElementById('task-scheduled-on').value || null,
     due: document.getElementById('task-due').value || null,
     label: document.getElementById('task-label').value.trim() || null,
+    priority: document.getElementById('task-priority').value || null,
     created: id ? (tasks.find(t => t.id === id)?.created || new Date().toISOString()) : new Date().toISOString(),
-    updated: new Date().toISOString()
+    updated: new Date().toISOString(),
+    status_updated: (() => {
+      if (!id) return new Date().toISOString();
+      const prev = tasks.find(t => t.id === id);
+      return (prev && prev.status !== document.getElementById('task-status').value)
+        ? new Date().toISOString()
+        : (prev?.status_updated || new Date().toISOString());
+    })()
   };
 
   if (id) {
@@ -621,6 +665,20 @@ async function saveTask() {
     tasks.push(task);
   }
 
+  // Add new label if not already in list
+  const newLabel = document.getElementById('task-label').value.trim();
+  if (newLabel && !labels.includes(newLabel)) {
+    labels.push(newLabel);
+    labels.sort();
+    const dl = document.getElementById('label-list');
+    if (dl) dl.innerHTML = labels.map(l => `<option value="${l}">`).join('');
+    // Save new label to labels.json via API
+    fetch(UPLOAD_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: 'labels.json', content: JSON.stringify({ labels }, null, 2) })
+    });
+  }
   renderBoard();
   closeModal();
   await saveTasks(id ? `Update task: ${title}` : `Add task: ${title}`);
