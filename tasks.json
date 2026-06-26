@@ -395,11 +395,16 @@
     {
       "id": "tm-dev-006",
       "title": "Add delete_task endpoint to Time Manager MCP",
-      "status": "done",
       "notes": "Tested and working via update_tasks — MCP writes tasks by replacing full array. Delete confirmed working.",
+      "status": "done",
+      "duration": null,
+      "scheduled_on": null,
+      "due": null,
       "label": "Dev Project",
+      "priority": null,
       "created": "2026-06-26T08:00:00.000Z",
-      "updated": "2026-06-26T10:05:00.000Z"
+      "updated": "2026-06-26T12:18:43.348Z",
+      "status_updated": "2026-06-26T12:18:43.348Z"
     },
     {
       "id": "tm-dev-007",
