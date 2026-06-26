@@ -571,16 +571,28 @@
     {
       "id": "ef4d562c-8875-4fe0-aa82-aecb6c3f672c",
       "title": "MPN Awards - Website update",
-      "notes": "Add the registration embed and tell the team. Due Monday 29 June.",
+      "notes": "Add the registration embedd and tell the team",
       "status": "backlog",
       "duration": null,
       "scheduled_on": null,
-      "due": "2026-06-29",
+      "due": "2026-06-22",
       "label": null,
       "priority": "High",
       "created": "2026-06-26T16:56:02.808Z",
-      "updated": "2026-06-26T18:20:18.740Z",
+      "updated": "2026-06-26T16:56:02.809Z",
       "status_updated": "2026-06-26T16:56:02.809Z"
+    },
+    {
+      "id": "tm-1782498081803",
+      "title": "Send Email 1 — Wilma Eriksson, vloxq CPQ",
+      "notes": "Source: HubSpot. New contact from BD research 26 June.",
+      "status": "scheduled",
+      "duration": 15,
+      "label": "Business Development",
+      "scheduled_on": "2026-07-03",
+      "due": "2026-07-03",
+      "created": "2026-06-26T18:21:21.777Z",
+      "updated": "2026-06-26T18:21:21.777Z"
     }
   ]
 }
