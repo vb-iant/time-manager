@@ -203,11 +203,11 @@
     {
       "id": "tm-021",
       "title": "Redirect Trussy.com to iantruscott.com",
-      "status": "blocked",
+      "status": "done",
       "duration": 30,
       "label": "Personal Project",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-25T14:36:25.363Z"
+      "updated": "2026-06-26T12:18:06.103Z"
     },
     {
       "id": "tm-022",
