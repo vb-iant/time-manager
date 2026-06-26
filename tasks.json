@@ -530,7 +530,7 @@
       "id": "aaa736e0-2282-47f8-a00a-899830df72be",
       "title": "Task Manager - Order of the columns",
       "notes": "Order by most recent at the top by default - consider adding options",
-      "status": "backlog",
+      "status": "",
       "duration": null,
       "scheduled_on": null,
       "due": null,
@@ -539,6 +539,20 @@
       "created": "2026-06-26T15:57:30.503Z",
       "updated": "2026-06-26T15:57:30.503Z",
       "status_updated": "2026-06-26T15:57:30.503Z"
+    },
+    {
+      "id": "fe17b3af-0205-4498-adda-e088ac70056a",
+      "title": "Task Manager - Manage Status",
+      "notes": "Enable:\n- Status labels to be changes\n- Add new status (and column on kanban board)",
+      "status": "backlog",
+      "duration": null,
+      "scheduled_on": null,
+      "due": null,
+      "label": null,
+      "priority": "Low",
+      "created": "2026-06-26T15:59:43.766Z",
+      "updated": "2026-06-26T15:59:43.766Z",
+      "status_updated": "2026-06-26T15:59:43.766Z"
     }
   ]
 }
