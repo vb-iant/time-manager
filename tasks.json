@@ -94,13 +94,13 @@
     {
       "id": "tm-010",
       "title": "Finish review of current suspect list",
-      "status": "today",
+      "status": "done",
       "scheduled_on": "2026-06-26",
       "due": "2026-06-26",
       "duration": 30,
       "label": "Business Development",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-26T08:27:33.542Z"
+      "updated": "2026-06-26T15:45:38.285Z"
     },
     {
       "id": "tm-011",
