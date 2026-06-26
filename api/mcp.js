@@ -60,6 +60,24 @@ const TOOLS = [
     }
   },
   {
+    name: 'update_task',
+    description: 'Update a single task by id — only the fields you provide will be changed',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        id: { type: 'string', description: 'The task id to update' },
+        title: { type: 'string', description: 'New title' },
+        notes: { type: 'string', description: 'New notes' },
+        status: { type: 'string', description: 'New status: backlog, scheduled, today, doing, blocked, done' },
+        duration: { type: 'number', description: 'New duration in minutes' },
+        label: { type: 'string', description: 'New label' },
+        scheduled_on: { type: 'string', description: 'New scheduled date YYYY-MM-DD' },
+        due: { type: 'string', description: 'New due date YYYY-MM-DD' }
+      },
+      required: ['id']
+    }
+  },
+  {
     name: 'delete_task',
     description: 'Delete a single task by its id',
     inputSchema: {
@@ -147,6 +165,19 @@ async function callTool(name, args) {
     const output = JSON.stringify({ version: '1.0', tasks }, null, 2);
     await githubWrite('tasks.json', output);
     return `Task added: "${newTask.title}" (id: ${newTask.id})`;
+  }
+  if (name === 'update_task') {
+    const raw = await githubRead('tasks.json');
+    const parsed = JSON.parse(raw);
+    const tasks = Array.isArray(parsed) ? parsed : (parsed.tasks || []);
+    const idx = tasks.findIndex(t => t.id === args.id);
+    if (idx === -1) throw new Error(`Task not found: ${args.id}`);
+    const fields = ['title', 'notes', 'status', 'duration', 'label', 'scheduled_on', 'due'];
+    fields.forEach(f => { if (args[f] !== undefined) tasks[idx][f] = args[f]; });
+    tasks[idx].updated = new Date().toISOString();
+    const output = JSON.stringify({ version: '1.0', tasks }, null, 2);
+    await githubWrite('tasks.json', output);
+    return `Task updated: "${tasks[idx].title}" (id: ${args.id})`;
   }
   if (name === 'delete_task') {
     const raw = await githubRead('tasks.json');
