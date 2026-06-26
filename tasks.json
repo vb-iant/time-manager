@@ -583,16 +583,16 @@
       "status_updated": "2026-06-26T16:56:02.809Z"
     },
     {
-      "id": "tm-1782498081803",
-      "title": "Send Email 1 — Wilma Eriksson, vloxq CPQ",
+      "id": "tm-1782498086898",
+      "title": "Send Email 1 — Henrik Eckerby, DigiProc",
       "notes": "Source: HubSpot. New contact from BD research 26 June.",
       "status": "scheduled",
       "duration": 15,
       "label": "Business Development",
       "scheduled_on": "2026-07-03",
       "due": "2026-07-03",
-      "created": "2026-06-26T18:21:21.777Z",
-      "updated": "2026-06-26T18:21:21.777Z"
+      "created": "2026-06-26T18:21:26.898Z",
+      "updated": "2026-06-26T18:21:26.898Z"
     }
   ]
 }
