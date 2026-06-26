@@ -410,20 +410,20 @@
       "id": "tm-dev-007",
       "title": "Add priority field to task schema",
       "notes": "Add 'priority' as a structured field (high/medium/low). Currently free text in notes.",
-      "status": "done",
+      "status": "backlog",
       "label": "Dev Project",
       "created": "2026-06-26T08:36:00.000Z",
-      "updated": "2026-06-26T12:20:40.452Z",
-      "status_updated": "2026-06-26T12:20:40.483Z"
+      "updated": "2026-06-26T08:36:00.000Z"
     },
     {
       "id": "tm-dev-008",
       "title": "Add calendar_block field to task schema",
       "notes": "Link tasks to Google Calendar events so check-in can show which tasks belong to which time block, and report capacity vs planned duration.",
-      "status": "backlog",
+      "status": "done",
       "label": "Dev Project",
       "created": "2026-06-26T08:40:00.000Z",
-      "updated": "2026-06-26T08:40:00.000Z"
+      "updated": "2026-06-26T12:20:44.235Z",
+      "status_updated": "2026-06-26T12:20:44.235Z"
     },
     {
       "id": "tm-dev-009",
