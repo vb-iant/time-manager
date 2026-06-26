@@ -27,13 +27,16 @@
     {
       "id": "tm-003",
       "title": "Sort out podcast schedule and invite guests",
+      "notes": "",
       "status": "today",
+      "duration": 30,
       "scheduled_on": "2026-06-25",
       "due": "2026-06-25",
-      "duration": 30,
       "label": "Podcast",
+      "priority": null,
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-25T13:54:30.019Z"
+      "updated": "2026-06-26T12:21:53.377Z",
+      "status_updated": "2026-06-26T12:21:53.378Z"
     },
     {
       "id": "tm-004",
@@ -395,16 +398,11 @@
     {
       "id": "tm-dev-006",
       "title": "Add delete_task endpoint to Time Manager MCP",
-      "notes": "Tested and working via update_tasks — MCP writes tasks by replacing full array. Delete confirmed working.",
       "status": "done",
-      "duration": null,
-      "scheduled_on": null,
-      "due": null,
+      "notes": "Tested and working via update_tasks — MCP writes tasks by replacing full array. Delete confirmed working.",
       "label": "Dev Project",
-      "priority": null,
       "created": "2026-06-26T08:00:00.000Z",
-      "updated": "2026-06-26T12:18:43.348Z",
-      "status_updated": "2026-06-26T12:18:43.348Z"
+      "updated": "2026-06-26T10:05:00.000Z"
     },
     {
       "id": "tm-dev-007",
@@ -419,11 +417,10 @@
       "id": "tm-dev-008",
       "title": "Add calendar_block field to task schema",
       "notes": "Link tasks to Google Calendar events so check-in can show which tasks belong to which time block, and report capacity vs planned duration.",
-      "status": "done",
+      "status": "backlog",
       "label": "Dev Project",
       "created": "2026-06-26T08:40:00.000Z",
-      "updated": "2026-06-26T12:20:44.235Z",
-      "status_updated": "2026-06-26T12:20:44.235Z"
+      "updated": "2026-06-26T08:40:00.000Z"
     },
     {
       "id": "tm-dev-009",
