@@ -465,6 +465,20 @@
       "created": "2026-06-26T15:40:58.322Z",
       "updated": "2026-06-26T15:40:58.322Z",
       "status_updated": "2026-06-26T15:40:58.322Z"
+    },
+    {
+      "id": "3d46df40-9c82-4c40-beaa-baef87be4a1f",
+      "title": "Fix the adding new label in Time Manager",
+      "notes": "Have clause update the appp so that we can create new labels in drop down",
+      "status": "",
+      "duration": null,
+      "scheduled_on": null,
+      "due": null,
+      "label": null,
+      "priority": null,
+      "created": "2026-06-26T15:41:53.110Z",
+      "updated": "2026-06-26T15:41:53.110Z",
+      "status_updated": "2026-06-26T15:41:53.110Z"
     }
   ]
 }
