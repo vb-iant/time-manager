@@ -534,6 +534,20 @@
       "created": "2026-06-26T15:48:41.778Z",
       "updated": "2026-06-26T15:48:41.778Z",
       "status_updated": "2026-06-26T15:48:41.778Z"
+    },
+    {
+      "id": "d288ec8b-a5f6-420c-8d80-18cacf68572b",
+      "title": "Add prompt for mandatory fields to add new task",
+      "notes": "Need to make status mandatory",
+      "status": "backlog",
+      "duration": null,
+      "scheduled_on": null,
+      "due": null,
+      "label": "Dev Project",
+      "priority": null,
+      "created": "2026-06-26T15:49:40.479Z",
+      "updated": "2026-06-26T15:49:40.479Z",
+      "status_updated": "2026-06-26T15:49:40.479Z"
     }
   ]
 }
