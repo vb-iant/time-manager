@@ -455,13 +455,15 @@
       "id": "22c0e984-5c97-4861-84de-2fa0ac2b8610",
       "title": "Task Manager Enhancements",
       "notes": "Status change timestamp — add a status_updated field that gets set whenever status changes, separate from updated which changes on any edit. Simple.\nLabel management — store labels in a separate labels.json file in the repo. The board gets a label manager (add/delete labels) and the task form gets a dropdown populated from that file. Clean.\nMCP label tools — get_labels, add_label, delete_label tools on the MCP server.\nPriority field — add priority (High/Medium/Low) to the task schema, show it as a coloured tag on cards, add a dropdown to the task modal.",
-      "status": "today",
+      "status": "done",
       "duration": null,
       "scheduled_on": null,
       "due": null,
       "label": null,
+      "priority": null,
       "created": "2026-06-26T12:09:16.168Z",
-      "updated": "2026-06-26T12:09:16.168Z"
+      "updated": "2026-06-26T15:45:21.521Z",
+      "status_updated": "2026-06-26T15:45:21.521Z"
     },
     {
       "id": "ad62a8fc-7d9c-4a37-b9e3-cd9ebe0d7d8a",
