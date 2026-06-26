@@ -63,12 +63,12 @@
     {
       "id": "tm-007",
       "title": "Review pipeline — what's live, stalled, needs a decision",
-      "status": "today",
+      "status": "done",
       "scheduled_on": "2026-06-26",
       "due": "2026-06-26",
       "label": "Business Development",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-26T08:27:33.542Z"
+      "updated": "2026-06-26T15:45:31.410Z"
     },
     {
       "id": "tm-008",
