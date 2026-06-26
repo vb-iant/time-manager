@@ -383,14 +383,14 @@
       "id": "tm-033",
       "title": "Review and expand Time Manager task labels for home and personal projects",
       "notes": "",
-      "status": "backlog",
+      "status": "done",
       "duration": 30,
       "scheduled_on": null,
       "due": null,
       "label": "Dev Project",
       "priority": null,
       "created": "2026-06-26T08:00:00.000Z",
-      "updated": "2026-06-26T15:51:12.550Z",
+      "updated": "2026-06-26T15:51:15.438Z",
       "status_updated": "2026-06-26T15:51:12.550Z"
     },
     {
