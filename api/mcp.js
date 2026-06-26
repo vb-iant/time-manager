@@ -43,6 +43,23 @@ const TOOLS = [
     }
   },
   {
+    name: 'add_task',
+    description: 'Add a single new task to the backlog without needing to read/write all tasks',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        title: { type: 'string', description: 'Task title' },
+        notes: { type: 'string', description: 'Optional notes or description' },
+        duration: { type: 'number', description: 'Estimated duration in minutes' },
+        label: { type: 'string', description: 'Label e.g. Business Development, Admin, Podcast, Client Work, Dev Project' },
+        scheduled_on: { type: 'string', description: 'Date to schedule task YYYY-MM-DD (optional)' },
+        due: { type: 'string', description: 'Due date YYYY-MM-DD (optional)' },
+        status: { type: 'string', description: 'Status: backlog, scheduled, today, doing, blocked, done. Defaults to backlog.' }
+      },
+      required: ['title']
+    }
+  },
+  {
     name: 'list_plans',
     description: 'List available plan files in a folder',
     inputSchema: {
@@ -97,6 +114,28 @@ async function callTool(name, args) {
     if (!allowed.some(p => args.path.startsWith(p))) throw new Error('Path not permitted');
     const sha = await githubWrite(args.path, args.content);
     return `Saved ${args.path}. SHA: ${sha}`;
+  }
+  if (name === 'add_task') {
+    const raw = await githubRead('tasks.json');
+    const parsed = JSON.parse(raw);
+    const tasks = Array.isArray(parsed) ? parsed : (parsed.tasks || []);
+    const now = new Date().toISOString();
+    const newTask = {
+      id: 'tm-' + Date.now(),
+      title: args.title,
+      notes: args.notes || null,
+      status: args.status || 'backlog',
+      duration: args.duration || null,
+      label: args.label || null,
+      scheduled_on: args.scheduled_on || null,
+      due: args.due || null,
+      created: now,
+      updated: now
+    };
+    tasks.push(newTask);
+    const output = JSON.stringify({ version: '1.0', tasks }, null, 2);
+    await githubWrite('tasks.json', output);
+    return `Task added: "${newTask.title}" (id: ${newTask.id})`;
   }
   if (name === 'list_plans') {
     const GH_TOKEN = process.env.GITHUB_TOKEN;
