@@ -424,10 +424,10 @@
       "id": "tm-dev-007",
       "title": "Add priority field to task schema",
       "notes": "Add 'priority' as a structured field (high/medium/low). Currently free text in notes.",
-      "status": "backlog",
+      "status": "done",
       "label": "Dev Project",
       "created": "2026-06-26T08:36:00.000Z",
-      "updated": "2026-06-26T08:36:00.000Z"
+      "updated": "2026-06-26T15:51:20.867Z"
     },
     {
       "id": "tm-dev-008",
