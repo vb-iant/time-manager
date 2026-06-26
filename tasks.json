@@ -203,10 +203,16 @@
     {
       "id": "tm-020",
       "title": "Create a page for Executive coaching on Velocity-B website",
+      "notes": "",
       "status": "backlog",
+      "duration": null,
+      "scheduled_on": "2026-07-01",
+      "due": null,
       "label": "VB Content",
+      "priority": null,
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-25T00:00:00.000Z"
+      "updated": "2026-06-26T15:44:44.649Z",
+      "status_updated": "2026-06-26T15:44:44.649Z"
     },
     {
       "id": "tm-021",
