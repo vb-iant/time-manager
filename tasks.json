@@ -530,7 +530,7 @@
       "id": "aaa736e0-2282-47f8-a00a-899830df72be",
       "title": "Task Manager - Order of the columns",
       "notes": "Order by most recent at the top by default - consider adding options",
-      "status": "",
+      "status": "backlog",
       "duration": null,
       "scheduled_on": null,
       "due": null,
