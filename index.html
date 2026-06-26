@@ -452,7 +452,7 @@ async function loadTasks() {
   try {
     const res = await fetch(RAW_URL + '?t=' + Date.now());
     const data = await res.json();
-    tasks = data.tasks || [];
+    tasks = Array.isArray(data) ? data : (data.tasks || []);
     // Auto-move scheduled tasks for today into Today column
     const today = new Date().toISOString().slice(0, 10);
     let moved = 0;
