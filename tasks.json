@@ -453,6 +453,18 @@
       "label": null,
       "created": "2026-06-26T12:09:16.168Z",
       "updated": "2026-06-26T12:09:16.168Z"
+    },
+    {
+      "id": "tm-1782476405920",
+      "title": "Test task — new add_task tool",
+      "notes": "Testing add_task, priority and status_updated fields",
+      "status": "backlog",
+      "duration": 5,
+      "label": "Dev Project",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-06-26T12:20:05.905Z",
+      "updated": "2026-06-26T12:20:05.905Z"
     }
   ]
 }
