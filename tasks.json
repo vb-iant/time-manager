@@ -583,16 +583,16 @@
       "status_updated": "2026-06-26T16:56:02.809Z"
     },
     {
-      "id": "tm-1782498091666",
-      "title": "Send Email 1 — Carl-Johan Ernstsson, DigiProc",
+      "id": "tm-1782498096826",
+      "title": "Send Email 1 — Andreas Massarsch, Tagd",
       "notes": "Source: HubSpot. New contact from BD research 26 June.",
       "status": "scheduled",
       "duration": 15,
       "label": "Business Development",
       "scheduled_on": "2026-07-03",
       "due": "2026-07-03",
-      "created": "2026-06-26T18:21:31.666Z",
-      "updated": "2026-06-26T18:21:31.666Z"
+      "created": "2026-06-26T18:21:36.800Z",
+      "updated": "2026-06-26T18:21:36.800Z"
     }
   ]
 }
