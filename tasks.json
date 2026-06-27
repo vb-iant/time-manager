@@ -593,6 +593,18 @@
       "due": "2026-07-03",
       "created": "2026-06-26T18:21:42.412Z",
       "updated": "2026-06-26T18:21:42.412Z"
+    },
+    {
+      "id": "tm-1782546464406",
+      "title": "Create additional proof points for team",
+      "notes": "Develop 2-3 new client proof points with specific numbers for different buyer profiles. Mango Solutions is overused — need fresh evidence for Alex, Rachel and Ian to deploy in outbound.",
+      "status": "backlog",
+      "duration": null,
+      "label": "Business Development",
+      "scheduled_on": null,
+      "due": "2026-06-29",
+      "created": "2026-06-27T07:47:44.391Z",
+      "updated": "2026-06-27T07:47:44.391Z"
     }
   ]
 }
