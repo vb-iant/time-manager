@@ -670,7 +670,7 @@ function openModal(id) {
   document.getElementById('task-id').value = task ? task.id : '';
   document.getElementById('task-title').value = task ? task.title : '';
   document.getElementById('task-notes').value = task ? (task.notes || '') : '';
-  document.getElementById('task-status').value = task ? task.status : 'todo';
+  document.getElementById('task-status').value = task ? task.status : 'backlog';
   document.getElementById('task-duration').value = task ? (task.duration || '') : '';
   document.getElementById('task-scheduled-on').value = task ? (task.scheduled_on || '') : '';
   document.getElementById('task-due').value = task ? (task.due || '') : '';
