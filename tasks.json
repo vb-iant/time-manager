@@ -530,15 +530,15 @@
       "id": "aaa736e0-2282-47f8-a00a-899830df72be",
       "title": "Task Manager - Order of the columns",
       "notes": "Order by most recent at the top by default - consider adding options",
-      "status": "backlog",
+      "status": "",
       "duration": null,
       "scheduled_on": null,
       "due": null,
       "label": "Dev Project",
       "priority": null,
       "created": "2026-06-26T15:57:30.503Z",
-      "updated": "2026-06-27T12:06:43.632Z",
-      "status_updated": "2026-06-27T12:06:43.651Z"
+      "updated": "2026-06-26T15:57:30.503Z",
+      "status_updated": "2026-06-26T15:57:30.503Z"
     },
     {
       "id": "fe17b3af-0205-4498-adda-e088ac70056a",
@@ -697,7 +697,7 @@
       "id": "ef900868-743a-4aaa-9b43-7b2182d3b2bd",
       "title": "Tuesday 2¢",
       "notes": "",
-      "status": "",
+      "status": "backlog",
       "duration": 120,
       "scheduled_on": null,
       "due": "2026-06-30",
@@ -705,8 +705,8 @@
       "recurring": true,
       "priority": "Medium",
       "created": "2026-06-27T12:01:43.090Z",
-      "updated": "2026-06-27T12:01:43.090Z",
-      "status_updated": "2026-06-27T12:01:43.090Z"
+      "updated": "2026-06-27T12:06:47.772Z",
+      "status_updated": "2026-06-27T12:06:47.772Z"
     }
   ]
 }
