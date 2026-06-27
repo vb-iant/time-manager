@@ -381,7 +381,7 @@
         <div class="field">
           <label>Status</label>
           <select id="task-status">
-            <option value="backlog">Backlog</option>
+            <option value="backlog" selected>Backlog</option>
             <option value="scheduled">Scheduled</option>
             <option value="today">Today</option>
             <option value="doing">In Progress</option>
@@ -559,7 +559,7 @@ async function saveTasks(message) {
 // --- RENDER ---
 function renderBoard() {
   const cols = { backlog: [], scheduled: [], today: [], doing: [], blocked: [], done: [] };
-  tasks.forEach(t => { if (cols[t.status]) cols[t.status].push(t); });
+  tasks.forEach(t => { const s = t.status || 'backlog'; if (cols[s]) cols[s].push(t); else cols['backlog'].push(t); });
 
   Object.entries(cols).forEach(([status, items]) => {
     const el = document.getElementById('col-' + status);
