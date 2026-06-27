@@ -653,6 +653,18 @@
       "due": null,
       "created": "2026-06-27T09:17:01.780Z",
       "updated": "2026-06-27T09:17:01.780Z"
+    },
+    {
+      "id": "tm-1782554474134",
+      "title": "Test recurring weekly task feature",
+      "notes": "Test recurring weekly task feature — create a test task, mark it as recurring, drag to Done and verify a new copy appears scheduled for next week.",
+      "status": "backlog",
+      "duration": null,
+      "label": "Dev Project",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-06-27T10:01:14.116Z",
+      "updated": "2026-06-27T10:01:14.116Z"
     }
   ]
 }
