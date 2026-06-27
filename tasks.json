@@ -692,6 +692,21 @@
       "created": "2026-06-27T12:00:49.291Z",
       "updated": "2026-06-27T12:00:49.291Z",
       "status_updated": "2026-06-27T12:00:49.291Z"
+    },
+    {
+      "id": "ef900868-743a-4aaa-9b43-7b2182d3b2bd",
+      "title": "Tuesday 2¢",
+      "notes": "",
+      "status": "",
+      "duration": 120,
+      "scheduled_on": null,
+      "due": "2026-06-30",
+      "label": null,
+      "recurring": true,
+      "priority": "Medium",
+      "created": "2026-06-27T12:01:43.090Z",
+      "updated": "2026-06-27T12:01:43.090Z",
+      "status_updated": "2026-06-27T12:01:43.090Z"
     }
   ]
 }
