@@ -55,7 +55,8 @@ const TOOLS = [
         priority: { type: 'string', description: 'Priority: High, Medium, Low' },
         scheduled_on: { type: 'string', description: 'Date to schedule task YYYY-MM-DD (optional)' },
         due: { type: 'string', description: 'Due date YYYY-MM-DD (optional)' },
-        status: { type: 'string', description: 'Status: backlog, scheduled, today, doing, blocked, done. Defaults to backlog.' }
+        status: { type: 'string', description: 'Status: backlog, scheduled, today, doing, blocked, done. Defaults to backlog.' },
+        recurring: { type: 'boolean', description: 'Whether this is a weekly recurring task' }
       },
       required: ['title']
     }
@@ -74,7 +75,8 @@ const TOOLS = [
         label: { type: 'string', description: 'New label' },
         scheduled_on: { type: 'string', description: 'New scheduled date YYYY-MM-DD' },
         due: { type: 'string', description: 'New due date YYYY-MM-DD' },
-        priority: { type: 'string', description: 'New priority: High, Medium, Low' }
+        priority: { type: 'string', description: 'New priority: High, Medium, Low' },
+        recurring: { type: 'boolean', description: 'Whether this is a weekly recurring task' }
       },
       required: ['id']
     }
@@ -202,11 +204,29 @@ async function callTool(name, args) {
     const idx = tasks.findIndex(t => t.id === args.id);
     if (idx === -1) throw new Error(`Task not found: ${args.id}`);
     const prevStatus = tasks[idx].status;
-    const fields = ['title', 'notes', 'status', 'duration', 'label', 'scheduled_on', 'due', 'priority'];
+    const fields = ['title', 'notes', 'status', 'duration', 'label', 'scheduled_on', 'due', 'priority', 'recurring'];
     fields.forEach(f => { if (args[f] !== undefined) tasks[idx][f] = args[f]; });
     tasks[idx].updated = new Date().toISOString();
     if (args.status && args.status !== prevStatus) {
       tasks[idx].status_updated = new Date().toISOString();
+      // Clone recurring task when marked done
+      if (args.status === 'done' && tasks[idx].recurring) {
+        const base = tasks[idx].scheduled_on || new Date().toISOString().slice(0, 10);
+        const next = new Date(base + 'T12:00:00');
+        next.setDate(next.getDate() + 7);
+        const nextDate = next.toISOString().slice(0, 10);
+        const now2 = new Date().toISOString();
+        tasks.push({
+          ...tasks[idx],
+          id: 'tm-' + Date.now(),
+          status: 'scheduled',
+          scheduled_on: nextDate,
+          due: tasks[idx].due ? nextDate : null,
+          created: now2,
+          updated: now2,
+          status_updated: now2
+        });
+      }
     }
     const output = JSON.stringify({ version: '1.0', tasks }, null, 2);
     await githubWrite('tasks.json', output);
