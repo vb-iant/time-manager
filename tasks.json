@@ -595,16 +595,16 @@
       "updated": "2026-06-26T18:21:42.412Z"
     },
     {
-      "id": "tm-1782546464406",
-      "title": "Create additional proof points for team",
-      "notes": "Develop 2-3 new client proof points with specific numbers for different buyer profiles. Mango Solutions is overused — need fresh evidence for Alex, Rachel and Ian to deploy in outbound.",
+      "id": "tm-1782546470939",
+      "title": "Create email variants for Alex",
+      "notes": "Write 2-3 new email variants for Alex's outbound sequence. Current single template is running across 93 prospects — needs fresh angles (e.g. \"what we're seeing in the UK right now\", more direct opener). Also fix LinkedIn link render, sharpen CTA, and add P.S. line.",
       "status": "backlog",
       "duration": null,
       "label": "Business Development",
       "scheduled_on": null,
       "due": "2026-06-29",
-      "created": "2026-06-27T07:47:44.391Z",
-      "updated": "2026-06-27T07:47:44.391Z"
+      "created": "2026-06-27T07:47:50.939Z",
+      "updated": "2026-06-27T07:47:50.939Z"
     }
   ]
 }
