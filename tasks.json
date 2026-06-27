@@ -488,14 +488,14 @@
       "id": "3d46df40-9c82-4c40-beaa-baef87be4a1f",
       "title": "Fix the adding new label in Time Manager",
       "notes": "Have claude update the appp so that we can create new labels in drop down",
-      "status": "backlog",
+      "status": "done",
       "duration": null,
       "scheduled_on": null,
       "due": null,
       "label": null,
       "priority": null,
       "created": "2026-06-26T15:41:53.110Z",
-      "updated": "2026-06-26T15:41:53.110Z",
+      "updated": "2026-06-27T18:38:08.265Z",
       "status_updated": "2026-06-26T15:41:53.110Z"
     },
     {
@@ -576,11 +576,10 @@
       "duration": null,
       "scheduled_on": null,
       "due": "2026-06-22",
-      "label": "MPN",
-      "recurring": false,
+      "label": null,
       "priority": "High",
       "created": "2026-06-26T16:56:02.808Z",
-      "updated": "2026-06-27T18:35:24.744Z",
+      "updated": "2026-06-26T16:56:02.809Z",
       "status_updated": "2026-06-26T16:56:02.809Z"
     },
     {
