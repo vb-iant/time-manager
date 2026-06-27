@@ -595,16 +595,16 @@
       "updated": "2026-06-26T18:21:42.412Z"
     },
     {
-      "id": "tm-1782546470939",
-      "title": "Create email variants for Alex",
-      "notes": "Write 2-3 new email variants for Alex's outbound sequence. Current single template is running across 93 prospects — needs fresh angles (e.g. \"what we're seeing in the UK right now\", more direct opener). Also fix LinkedIn link render, sharpen CTA, and add P.S. line.",
+      "id": "tm-1782546476574",
+      "title": "Review current email content based on feedback",
+      "notes": "Review and update current outbound email copy based on session feedback: (1) Alex — fix link render, sharpen CTA, add P.S. (2) Rachel — limit Mango proof point to one per thread, sharpen \"Does any of this land?\" CTA, fix double signature block. (3) Ian — move self-intro to top in Parametric-style emails, remove conditional hedges from CTAs, add P.S.",
       "status": "backlog",
       "duration": null,
       "label": "Business Development",
       "scheduled_on": null,
       "due": "2026-06-29",
-      "created": "2026-06-27T07:47:50.939Z",
-      "updated": "2026-06-27T07:47:50.939Z"
+      "created": "2026-06-27T07:47:56.574Z",
+      "updated": "2026-06-27T07:47:56.574Z"
     }
   ]
 }
