@@ -677,6 +677,21 @@
       "due": "2026-06-30",
       "created": "2026-06-27T10:21:34.388Z",
       "updated": "2026-06-27T10:21:34.388Z"
+    },
+    {
+      "id": "eb13dfd4-6977-45fe-93ad-f1c74e4899c5",
+      "title": "Schedule Simon for the podcast",
+      "notes": "",
+      "status": "doing",
+      "duration": null,
+      "scheduled_on": null,
+      "due": null,
+      "label": "Podcast",
+      "recurring": false,
+      "priority": "Medium",
+      "created": "2026-06-27T12:00:49.291Z",
+      "updated": "2026-06-27T12:00:49.291Z",
+      "status_updated": "2026-06-27T12:00:49.291Z"
     }
   ]
 }
