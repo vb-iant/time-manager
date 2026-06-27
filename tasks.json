@@ -617,6 +617,18 @@
       "due": "2026-06-29",
       "created": "2026-06-27T08:02:13.397Z",
       "updated": "2026-06-27T08:02:13.397Z"
+    },
+    {
+      "id": "tm-1782549121817",
+      "title": "Add Mark's network suspects to HubSpot and review spreadsheet workflow",
+      "notes": "Mark is working 9 warm contacts from his LinkedIn network 1:1, tracked in a spreadsheet with mid-week and weekly review meetings with Ian. Add these contacts to HubSpot under Ian's ownership so the channel is visible and attributable. Also review whether the spreadsheet workflow needs any changes — key thing to capture per contact is source (Mark's network) and meaningful activity milestones, not every touchpoint.",
+      "status": "scheduled",
+      "duration": null,
+      "label": "Business Development",
+      "scheduled_on": null,
+      "due": "2026-06-29",
+      "created": "2026-06-27T08:32:01.799Z",
+      "updated": "2026-06-27T08:32:01.799Z"
     }
   ]
 }
