@@ -629,6 +629,18 @@
       "due": "2026-06-29",
       "created": "2026-06-27T08:32:01.799Z",
       "updated": "2026-06-27T08:32:01.799Z"
+    },
+    {
+      "id": "tm-1782549820337",
+      "title": "Draft UK Readiness Report offer outline",
+      "notes": "Define scope, price point, delivery owner, and template structure. Should be tight enough to deliver without becoming bespoke each time. Natural bridge to retained engagement — connect to Alex's outbound and Sweden follow-ups. Mango proof point applies here.",
+      "status": "backlog",
+      "duration": null,
+      "label": "Business Development",
+      "scheduled_on": null,
+      "due": "2026-07-03",
+      "created": "2026-06-27T08:43:40.319Z",
+      "updated": "2026-06-27T08:43:40.319Z"
     }
   ]
 }
