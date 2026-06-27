@@ -641,6 +641,18 @@
       "due": "2026-07-03",
       "created": "2026-06-27T08:43:51.932Z",
       "updated": "2026-06-27T08:43:51.932Z"
+    },
+    {
+      "id": "tm-1782551821799",
+      "title": "Mobile summary view for Time Manager",
+      "notes": "A simplified single-column view optimised for iPhone — shows Today and In Progress tasks prominently, swipe or tap to change status. Triggered when screen width is below mobile breakpoint.",
+      "status": "backlog",
+      "duration": null,
+      "label": "Dev Project",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-06-27T09:17:01.780Z",
+      "updated": "2026-06-27T09:17:01.780Z"
     }
   ]
 }
