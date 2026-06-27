@@ -530,15 +530,15 @@
       "id": "aaa736e0-2282-47f8-a00a-899830df72be",
       "title": "Task Manager - Order of the columns",
       "notes": "Order by most recent at the top by default - consider adding options",
-      "status": "",
+      "status": "backlog",
       "duration": null,
       "scheduled_on": null,
       "due": null,
       "label": "Dev Project",
       "priority": null,
       "created": "2026-06-26T15:57:30.503Z",
-      "updated": "2026-06-26T15:57:30.503Z",
-      "status_updated": "2026-06-26T15:57:30.503Z"
+      "updated": "2026-06-27T12:06:43.632Z",
+      "status_updated": "2026-06-27T12:06:43.651Z"
     },
     {
       "id": "fe17b3af-0205-4498-adda-e088ac70056a",
