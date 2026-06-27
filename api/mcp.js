@@ -203,6 +203,9 @@ async function callTool(name, args) {
     const tasks = Array.isArray(parsed) ? parsed : (parsed.tasks || []);
     const idx = tasks.findIndex(t => t.id === args.id);
     if (idx === -1) throw new Error(`Task not found: ${args.id}`);
+    // Normalise empty status to backlog
+    if (!tasks[idx].status) tasks[idx].status = 'backlog';
+    if (args.status === '') args.status = 'backlog';
     const prevStatus = tasks[idx].status;
     const fields = ['title', 'notes', 'status', 'duration', 'label', 'scheduled_on', 'due', 'priority', 'recurring'];
     fields.forEach(f => { if (args[f] !== undefined) tasks[idx][f] = args[f]; });
