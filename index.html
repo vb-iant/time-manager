@@ -407,9 +407,11 @@
       <div class="field-row">
         <div class="field">
           <label>Label</label>
-          <select id="task-label">
+          <select id="task-label-select" onchange="onLabelSelectChange(this.value)">
             <option value="">— Select a label —</option>
           </select>
+          <input type="text" id="task-label-new" placeholder="Type new label name..." 
+            style="display:none; margin-top:6px; width:100%; padding:9px 12px; border:1.5px solid #4f46e5; border-radius:7px; font-size:14px; outline:none; font-family:inherit;" />
         </div>
         <div class="field">
           <label>Priority</label>
@@ -490,15 +492,32 @@ async function loadLabels() {
 }
 
 function populateLabelSelect(selected) {
-  const sel = document.getElementById('task-label');
-  if (!sel || sel.tagName !== 'SELECT') return;
+  const sel = document.getElementById('task-label-select');
+  if (!sel) return;
   sel.innerHTML = '<option value="">— Select a label —</option>' +
     labels.map(l => `<option value="${l}" ${l === selected ? 'selected' : ''}>${l}</option>`).join('') +
     '<option value="__new__">+ New label...</option>';
+  sel.value = selected || '';
+  document.getElementById('task-label-new').style.display = 'none';
+  document.getElementById('task-label-new').value = '';
 }
 
-function handleLabelSelect(val) {
-  // no-op, kept for compatibility
+function onLabelSelectChange(val) {
+  const newInput = document.getElementById('task-label-new');
+  if (val === '__new__') {
+    newInput.style.display = 'block';
+    newInput.focus();
+  } else {
+    newInput.style.display = 'none';
+    newInput.value = '';
+  }
+}
+
+function getSelectedLabel() {
+  const sel = document.getElementById('task-label-select');
+  const newInput = document.getElementById('task-label-new');
+  if (sel.value === '__new__') return newInput.value.trim() || null;
+  return sel.value || null;
 }
 
 async function loadTasks() {
@@ -659,6 +678,7 @@ function openModal(id) {
   document.getElementById('task-priority').value = task ? (task.priority || '') : '';
   document.getElementById('task-recurring').checked = task ? (task.recurring || false) : false;
   populateLabelSelect(taskLabel);
+  document.getElementById('task-label-new').style.display = 'none';
   // Show meta info for existing tasks
   const metaDiv = document.getElementById('task-meta-info');
   const updatedDiv = document.getElementById('task-updated-display');
@@ -696,7 +716,7 @@ async function saveTask() {
     duration: parseInt(document.getElementById('task-duration').value) || null,
     scheduled_on: document.getElementById('task-scheduled-on').value || null,
     due: document.getElementById('task-due').value || null,
-    label: (() => { const s = document.getElementById('task-label'); return s.value && s.value !== '__new__' ? s.value : null; })(),
+    label: getSelectedLabel(),
     recurring: document.getElementById('task-recurring').checked || false,
     priority: document.getElementById('task-priority').value || null,
     created: id ? (tasks.find(t => t.id === id)?.created || new Date().toISOString()) : new Date().toISOString(),
@@ -717,6 +737,17 @@ async function saveTask() {
   }
 
 
+  // Save new label if typed
+  const chosenLabel = getSelectedLabel();
+  if (chosenLabel && !labels.includes(chosenLabel)) {
+    labels.push(chosenLabel);
+    labels.sort();
+    fetch(UPLOAD_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: 'labels.json', content: JSON.stringify({ labels }, null, 2) })
+    });
+  }
   renderBoard();
   closeModal();
   await saveTasks(id ? `Update task: ${title}` : `Add task: ${title}`);
