@@ -697,7 +697,7 @@
       "id": "ef900868-743a-4aaa-9b43-7b2182d3b2bd",
       "title": "Tuesday 2¢",
       "notes": "",
-      "status": "backlog",
+      "status": "",
       "duration": 120,
       "scheduled_on": null,
       "due": "2026-06-30",
@@ -705,8 +705,23 @@
       "recurring": true,
       "priority": "Medium",
       "created": "2026-06-27T12:01:43.090Z",
-      "updated": "2026-06-27T12:06:47.772Z",
-      "status_updated": "2026-06-27T12:06:47.772Z"
+      "updated": "2026-06-27T12:01:43.090Z",
+      "status_updated": "2026-06-27T12:01:43.090Z"
+    },
+    {
+      "id": "585335ef-a798-4602-8765-5c46745bfbdd",
+      "title": "Plan Migration of VB Assessment from Formscrafts to Vibe App",
+      "notes": "",
+      "status": "backlog",
+      "duration": 30,
+      "scheduled_on": null,
+      "due": "2026-07-31",
+      "label": null,
+      "recurring": false,
+      "priority": "Low",
+      "created": "2026-06-27T12:51:34.219Z",
+      "updated": "2026-06-27T12:51:34.219Z",
+      "status_updated": "2026-06-27T12:51:34.219Z"
     }
   ]
 }
