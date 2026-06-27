@@ -420,6 +420,13 @@
           </select>
         </div>
       </div>
+      <div class="field" style="margin-bottom:8px;">
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:600; font-size:13px;">
+          <input type="checkbox" id="task-recurring" style="width:16px; height:16px; cursor:pointer;" />
+          Recurring weekly task
+        </label>
+        <div style="font-size:12px; color:#aaa; margin-top:4px;">When marked Done, a new copy is automatically scheduled for next week.</div>
+      </div>
       <div id="task-meta-info" style="display:none; margin-top:16px; padding-top:12px; border-top:1px solid #e5e7eb;">
         <div style="font-size:11px; color:#aaa;" id="task-updated-display"></div>
         <div style="font-size:11px; color:#aaa;" id="task-status-updated-display"></div>
@@ -618,6 +625,24 @@ function handleCardClick(e, id) {
 document.addEventListener('dragstart', () => { dragMoved = false; });
 document.addEventListener('dragend', e => { if (e.dataTransfer.dropEffect !== 'none') dragMoved = true; });
 
+// --- RECURRING ---
+function cloneRecurring(task) {
+  const base = task.scheduled_on || new Date().toISOString().slice(0, 10);
+  const next = new Date(base + 'T12:00:00');
+  next.setDate(next.getDate() + 7);
+  const nextDate = next.toISOString().slice(0, 10);
+  return {
+    ...task,
+    id: crypto.randomUUID(),
+    status: 'scheduled',
+    scheduled_on: nextDate,
+    due: task.due ? nextDate : null,
+    created: new Date().toISOString(),
+    updated: new Date().toISOString(),
+    status_updated: new Date().toISOString()
+  };
+}
+
 // --- MODAL ---
 function openModal(id) {
   const task = id ? tasks.find(t => t.id === id) : null;
@@ -631,6 +656,7 @@ function openModal(id) {
   document.getElementById('task-due').value = task ? (task.due || '') : '';
   const taskLabel = task ? (task.label || '') : '';
   document.getElementById('task-priority').value = task ? (task.priority || '') : '';
+  document.getElementById('task-recurring').checked = task ? (task.recurring || false) : false;
   populateLabelSelect(taskLabel);
   // Show meta info for existing tasks
   const metaDiv = document.getElementById('task-meta-info');
@@ -670,6 +696,7 @@ async function saveTask() {
     scheduled_on: document.getElementById('task-scheduled-on').value || null,
     due: document.getElementById('task-due').value || null,
     label: (() => { const s = document.getElementById('task-label'); return s.value && s.value !== '__new__' ? s.value : null; })(),
+    recurring: document.getElementById('task-recurring').checked || false,
     priority: document.getElementById('task-priority').value || null,
     created: id ? (tasks.find(t => t.id === id)?.created || new Date().toISOString()) : new Date().toISOString(),
     updated: new Date().toISOString(),
