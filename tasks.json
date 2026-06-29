@@ -751,6 +751,21 @@
       "created": "2026-06-28T07:08:41.433Z",
       "updated": "2026-06-28T07:08:41.433Z",
       "status_updated": "2026-06-28T07:08:41.433Z"
+    },
+    {
+      "id": "748c1a4b-bb10-4f16-8c7c-36c7f54541fb",
+      "title": "MPN awards - send promo images and copy",
+      "notes": "",
+      "status": "backlog",
+      "duration": 30,
+      "scheduled_on": null,
+      "due": "2026-06-29",
+      "label": "MPN",
+      "recurring": false,
+      "priority": null,
+      "created": "2026-06-29T07:28:25.236Z",
+      "updated": "2026-06-29T07:28:25.236Z",
+      "status_updated": "2026-06-29T07:28:25.236Z"
     }
   ]
 }
