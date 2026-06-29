@@ -190,15 +190,15 @@
       "id": "tm-019",
       "title": "Send team final engagement terms and agree",
       "notes": "",
-      "status": "backlog",
+      "status": "scheduled",
       "duration": 15,
-      "scheduled_on": null,
+      "scheduled_on": "2026-07-03",
       "due": "2026-07-03",
       "label": "Admin",
       "priority": null,
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-27T18:26:23.133Z",
-      "status_updated": "2026-06-26T15:44:34.359Z"
+      "updated": "2026-06-29T08:11:15.482Z",
+      "status_updated": "2026-06-29T08:11:15.482Z"
     },
     {
       "id": "tm-020",
@@ -792,14 +792,13 @@
       "id": "tm-1782718827192",
       "title": "Send MPN update note to John Cass — unable to attend this week",
       "notes": "Declined MPN meeting this week due to England vs DR Congo clash. Send a brief update to John Cass and the team with any relevant MPN activity or news before Wednesday.",
-      "status": "scheduled",
+      "status": "backlog",
       "duration": 15,
       "label": "MPN",
-      "scheduled_on": "2026-07-01",
+      "scheduled_on": null,
       "due": "2026-07-01",
       "created": "2026-06-29T07:40:27.176Z",
-      "updated": "2026-06-29T08:11:12.142Z",
-      "status_updated": "2026-06-29T08:11:12.173Z"
+      "updated": "2026-06-29T07:40:27.176Z"
     },
     {
       "id": "tm-1782719356850",
