@@ -65,7 +65,7 @@ export default async function handler(req) {
     const result = await write.json();
     if (!result.content) throw new Error(result.message || 'Write failed');
 
-    return new Response(JSON.stringify({ ok: true, id: newTask.id, title: newTask.title }), { headers });
+    return new Response(JSON.stringify({ ok: true, id: newTask.id, title: newTask.title, speech: `Got it — I've added "${newTask.title}" to your backlog.` }), { headers });
   } catch(e) {
     return new Response(JSON.stringify({ error: e.message }), { status: 500, headers });
   }
