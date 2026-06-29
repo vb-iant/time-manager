@@ -269,14 +269,17 @@
     },
     {
       "id": "tm-026",
-      "title": "LinkedIn reply to Thomas Peham",
-      "status": "done",
+      "title": "Setup Riverside and send recording details to Thomas Peham — podcast guest",
+      "status": "backlog",
       "scheduled_on": "2026-06-24",
-      "due": "2026-06-24",
+      "due": "2026-07-01",
       "duration": 15,
-      "label": "Business Development",
+      "label": "Podcast",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-24T00:00:00.000Z"
+      "updated": "2026-06-29T07:35:09.690Z",
+      "notes": "Thomas accepted podcast invite — meeting set for Tue 7 Jul 3-4pm. Send Riverside link and any guest prep notes before then. Calendar invite already in his diary.",
+      "priority": "High",
+      "status_updated": "2026-06-29T07:35:09.709Z"
     },
     {
       "id": "tm-027",
