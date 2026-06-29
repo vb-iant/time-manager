@@ -580,16 +580,16 @@
       "id": "ef4d562c-8875-4fe0-aa82-aecb6c3f672c",
       "title": "MPN Awards - Website update",
       "notes": "Add the registration embedd and tell the team",
-      "status": "scheduled",
+      "status": "backlog",
       "duration": null,
-      "scheduled_on": "2026-06-29",
+      "scheduled_on": null,
       "due": "2026-06-22",
       "label": "MPN",
       "recurring": false,
       "priority": "High",
       "created": "2026-06-26T16:56:02.808Z",
-      "updated": "2026-06-29T08:09:27.009Z",
-      "status_updated": "2026-06-29T08:09:27.009Z"
+      "updated": "2026-06-29T07:28:47.933Z",
+      "status_updated": "2026-06-26T16:56:02.809Z"
     },
     {
       "id": "tm-1782498102412",
@@ -736,15 +736,15 @@
       "id": "7a2c344a-cecc-4f20-9baa-e861f3a4a7f7",
       "title": "Send Jim at Talentcraft referral agreement and NDA",
       "notes": "",
-      "status": "backlog",
+      "status": "scheduled",
       "duration": 30,
-      "scheduled_on": null,
+      "scheduled_on": "2026-06-29",
       "due": "2026-06-29",
       "label": "Business Development",
       "priority": "High",
       "created": "2026-06-27T18:27:01.653Z",
-      "updated": "2026-06-27T18:27:16.422Z",
-      "status_updated": "2026-06-27T18:27:01.653Z"
+      "updated": "2026-06-29T08:09:31.198Z",
+      "status_updated": "2026-06-29T08:09:31.198Z"
     },
     {
       "id": "844ec9f8-4136-4645-aff0-927498ce4cd7",
