@@ -875,6 +875,21 @@
       "created": "2026-06-29T16:56:46.468Z",
       "updated": "2026-06-29T16:56:46.468Z",
       "status_updated": "2026-06-29T16:56:46.468Z"
+    },
+    {
+      "id": "tm-1782752521327",
+      "title": "Test task with Siri",
+      "notes": null,
+      "status": "backlog",
+      "priority": null,
+      "duration": null,
+      "label": null,
+      "scheduled_on": null,
+      "due": null,
+      "recurring": false,
+      "created": "2026-06-29T17:02:01.310Z",
+      "updated": "2026-06-29T17:02:01.310Z",
+      "status_updated": "2026-06-29T17:02:01.310Z"
     }
   ]
 }
