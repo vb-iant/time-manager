@@ -270,13 +270,14 @@
     {
       "id": "tm-026",
       "title": "LinkedIn reply to Thomas Peham",
-      "status": "done",
-      "scheduled_on": "2026-06-24",
+      "status": "scheduled",
+      "scheduled_on": "2026-07-01",
       "due": "2026-06-24",
       "duration": 15,
       "label": "Business Development",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-24T00:00:00.000Z"
+      "updated": "2026-06-29T08:10:00.782Z",
+      "status_updated": "2026-06-29T08:10:00.782Z"
     },
     {
       "id": "tm-027",
@@ -792,14 +793,13 @@
       "id": "tm-1782718827192",
       "title": "Send MPN update note to John Cass — unable to attend this week",
       "notes": "Declined MPN meeting this week due to England vs DR Congo clash. Send a brief update to John Cass and the team with any relevant MPN activity or news before Wednesday.",
-      "status": "scheduled",
+      "status": "backlog",
       "duration": 15,
       "label": "MPN",
-      "scheduled_on": "2026-07-01",
+      "scheduled_on": null,
       "due": "2026-07-01",
       "created": "2026-06-29T07:40:27.176Z",
-      "updated": "2026-06-29T08:09:56.439Z",
-      "status_updated": "2026-06-29T08:09:56.465Z"
+      "updated": "2026-06-29T07:40:27.176Z"
     },
     {
       "id": "tm-1782719356850",
