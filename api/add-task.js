@@ -69,7 +69,7 @@ export default async function handler(req) {
     };
 
     tasks.push(newTask);
-    const content = btoa(unescape(encodeURIComponent(JSON.stringify({ version: '1.0', tasks }, null, 2))));
+    let content = btoa(unescape(encodeURIComponent(JSON.stringify({ version: '1.0', tasks }, null, 2))));
 
     // Retry up to 3 times on SHA conflict
     let result;
