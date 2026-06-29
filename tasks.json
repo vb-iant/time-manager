@@ -862,21 +862,6 @@
       "status_updated": "2026-06-29T15:54:52.952Z"
     },
     {
-      "id": "tm-1782753229804",
-      "title": "Test task manager with Siri",
-      "notes": null,
-      "status": "backlog",
-      "priority": null,
-      "duration": null,
-      "label": null,
-      "scheduled_on": null,
-      "due": null,
-      "recurring": false,
-      "created": "2026-06-29T17:13:49.787Z",
-      "updated": "2026-06-29T17:13:49.787Z",
-      "status_updated": "2026-06-29T17:13:49.787Z"
-    },
-    {
       "id": "tm-1782754593452",
       "title": "Migrate Time Manager to Turso database",
       "notes": "Replace GitHub JSON storage with Turso (SQLite). Steps: sign up at turso.tech, create time-manager database, add TURSO_URL and TURSO_TOKEN to Vercel env vars, create schema (tasks, labels tables), migrate existing data, rewrite API endpoints.",
