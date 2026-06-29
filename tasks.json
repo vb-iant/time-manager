@@ -827,6 +827,18 @@
       "due": "2026-07-03",
       "created": "2026-06-29T08:12:56.694Z",
       "updated": "2026-06-29T08:12:56.694Z"
+    },
+    {
+      "id": "tm-1782726755763",
+      "title": "Bug fix: update_task endpoint not persisting changes to GitHub",
+      "notes": "update_task endpoint returns success but changes are not persisted to tasks.json in GitHub. add_task works correctly. Fix: ensure update_task commits the updated file back to the GitHub repo after modifying the task in memory.",
+      "status": "backlog",
+      "duration": null,
+      "label": "Dev Project",
+      "scheduled_on": null,
+      "due": "2026-06-29",
+      "created": "2026-06-29T09:52:35.746Z",
+      "updated": "2026-06-29T09:52:35.746Z"
     }
   ]
 }
