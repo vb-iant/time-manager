@@ -780,26 +780,26 @@
       "id": "tm-1782718644743",
       "title": "Decide on video platform before Wednesday meeting with Sukki",
       "notes": "Decide on video platform before Wednesday meeting with Sukki. Options to consider: Riverside, Zoom, Teams, Loom. Need a clear recommendation ready for the meeting.",
-      "status": "scheduled",
+      "status": "backlog",
       "duration": 30,
       "label": "Client Work",
-      "scheduled_on": "2026-07-01",
+      "scheduled_on": null,
       "due": "2026-07-01",
       "created": "2026-06-29T07:37:24.743Z",
-      "updated": "2026-06-29T08:09:52.911Z",
-      "status_updated": "2026-06-29T08:09:52.911Z"
+      "updated": "2026-06-29T07:37:24.743Z"
     },
     {
       "id": "tm-1782718827192",
       "title": "Send MPN update note to John Cass — unable to attend this week",
       "notes": "Declined MPN meeting this week due to England vs DR Congo clash. Send a brief update to John Cass and the team with any relevant MPN activity or news before Wednesday.",
-      "status": "backlog",
+      "status": "scheduled",
       "duration": 15,
       "label": "MPN",
-      "scheduled_on": null,
+      "scheduled_on": "2026-07-01",
       "due": "2026-07-01",
       "created": "2026-06-29T07:40:27.176Z",
-      "updated": "2026-06-29T07:40:27.176Z"
+      "updated": "2026-06-29T08:09:56.439Z",
+      "status_updated": "2026-06-29T08:09:56.465Z"
     },
     {
       "id": "tm-1782719356850",
