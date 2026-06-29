@@ -586,7 +586,7 @@
       "id": "ef4d562c-8875-4fe0-aa82-aecb6c3f672c",
       "title": "MPN Awards - Website update",
       "notes": "Add the registration embedd and tell the team",
-      "status": "today",
+      "status": "done",
       "duration": null,
       "scheduled_on": "2026-06-29",
       "due": "2026-06-29",
@@ -594,7 +594,7 @@
       "recurring": false,
       "priority": "High",
       "created": "2026-06-26T16:56:02.808Z",
-      "updated": "2026-06-29T09:59:50.240Z",
+      "updated": "2026-06-29T12:30:06.391Z",
       "status_updated": "2026-06-29T09:57:27.470Z"
     },
     {
