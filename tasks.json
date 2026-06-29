@@ -73,13 +73,14 @@
     {
       "id": "tm-008",
       "title": "Send podcast invite — Helena Samsioe, Globhe",
-      "status": "today",
-      "scheduled_on": "2026-06-26",
+      "status": "scheduled",
+      "scheduled_on": "2026-06-30",
       "due": "2026-06-26",
       "duration": 15,
       "label": "Business Development",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-26T08:27:33.542Z"
+      "updated": "2026-06-29T09:57:43.500Z",
+      "status_updated": "2026-06-29T09:57:43.516Z"
     },
     {
       "id": "tm-009",
