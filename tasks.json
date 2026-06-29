@@ -892,8 +892,8 @@
       "status_updated": "2026-06-29T17:06:59.375Z"
     },
     {
-      "id": "tm-1782752990667",
-      "title": "Test task manager",
+      "id": "tm-1782753013071",
+      "title": "Test task manager with Siri",
       "notes": null,
       "status": "backlog",
       "priority": null,
@@ -902,9 +902,9 @@
       "scheduled_on": null,
       "due": null,
       "recurring": false,
-      "created": "2026-06-29T17:09:50.650Z",
-      "updated": "2026-06-29T17:09:50.650Z",
-      "status_updated": "2026-06-29T17:09:50.650Z"
+      "created": "2026-06-29T17:10:13.056Z",
+      "updated": "2026-06-29T17:10:13.056Z",
+      "status_updated": "2026-06-29T17:10:13.056Z"
     }
   ]
 }
