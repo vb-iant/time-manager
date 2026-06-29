@@ -799,6 +799,18 @@
       "due": "2026-07-01",
       "created": "2026-06-29T07:40:27.176Z",
       "updated": "2026-06-29T07:40:27.176Z"
+    },
+    {
+      "id": "tm-1782719356850",
+      "title": "Create Siri shortcut for Time Manager app",
+      "notes": "Create a Siri shortcut that allows voice interaction with the Time Manager app — e.g. adding tasks, checking today's tasks, or updating status by voice.",
+      "status": "backlog",
+      "duration": null,
+      "label": "Dev Project",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-06-29T07:49:16.833Z",
+      "updated": "2026-06-29T07:49:16.833Z"
     }
   ]
 }
