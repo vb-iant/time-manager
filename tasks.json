@@ -140,16 +140,16 @@
       "id": "tm-014",
       "title": "Send email to Pamela Nunez Wallgren — Finch fractional CMO",
       "notes": "",
-      "status": "today",
+      "status": "scheduled",
       "duration": 15,
-      "scheduled_on": "2026-06-26",
+      "scheduled_on": "2026-06-30",
       "due": "2026-06-26",
       "label": "Business Development",
       "recurring": false,
       "priority": "Medium",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-29T09:50:32.227Z",
-      "status_updated": "2026-06-29T09:50:32.227Z"
+      "updated": "2026-06-29T09:57:46.934Z",
+      "status_updated": "2026-06-29T09:57:46.934Z"
     },
     {
       "id": "tm-015",
