@@ -685,13 +685,14 @@
       "id": "tm-1782555694406",
       "title": "Triage next 8 Sweden suspects and add to HubSpot",
       "notes": "Companies to triage (Claude has the list ready): SPCE, Intric, Zynca, Eperoto, Evity HR, North House, ValueOrbit, Hives.co. Goal: get pipeline back to 20 suspects. Claude will add to HubSpot and pull contacts once you've confirmed each one.",
-      "status": "backlog",
+      "status": "scheduled",
       "duration": 60,
       "label": "Business Development",
-      "scheduled_on": null,
+      "scheduled_on": "2026-07-04",
       "due": "2026-06-30",
       "created": "2026-06-27T10:21:34.388Z",
-      "updated": "2026-06-27T10:21:34.388Z"
+      "updated": "2026-06-29T09:58:03.954Z",
+      "status_updated": "2026-06-29T09:58:03.954Z"
     },
     {
       "id": "eb13dfd4-6977-45fe-93ad-f1c74e4899c5",
