@@ -16,7 +16,22 @@ export default async function handler(req) {
     return new Response(JSON.stringify({ error: 'Invalid JSON' }), { status: 400, headers });
   }
 
-  const { title, label, priority, duration, scheduled_on } = body;
+  let { title, label, priority, duration, scheduled_on } = body;
+  if (!title) return new Response(JSON.stringify({ error: 'title is required' }), { status: 400, headers });
+
+  // Strip common Siri preamble that gets captured with the dictated text
+  const preamble = [
+    /^(add (a )?task( called)?:?\s*)/i,
+    /^(with task manager\s*)/i,
+    /^(task manager\s*)/i,
+    /^(add to (my )?backlog:?\s*)/i,
+    /^(remind me to\s*)/i,
+    /^(add:?\s*)/i,
+  ];
+  for (const pattern of preamble) {
+    title = title.replace(pattern, '');
+  }
+  title = title.trim();
   if (!title) return new Response(JSON.stringify({ error: 'title is required' }), { status: 400, headers });
 
   const REPO = 'vb-iant/time-manager';
