@@ -580,16 +580,16 @@
       "id": "ef4d562c-8875-4fe0-aa82-aecb6c3f672c",
       "title": "MPN Awards - Website update",
       "notes": "Add the registration embedd and tell the team",
-      "status": "backlog",
+      "status": "scheduled",
       "duration": null,
-      "scheduled_on": null,
+      "scheduled_on": "2026-06-29",
       "due": "2026-06-22",
       "label": "MPN",
       "recurring": false,
       "priority": "High",
       "created": "2026-06-26T16:56:02.808Z",
-      "updated": "2026-06-29T07:28:47.933Z",
-      "status_updated": "2026-06-26T16:56:02.809Z"
+      "updated": "2026-06-29T08:09:27.009Z",
+      "status_updated": "2026-06-29T08:09:27.009Z"
     },
     {
       "id": "tm-1782498102412",
@@ -765,16 +765,16 @@
       "id": "748c1a4b-bb10-4f16-8c7c-36c7f54541fb",
       "title": "MPN awards - send promo images and copy",
       "notes": "",
-      "status": "scheduled",
+      "status": "backlog",
       "duration": 30,
-      "scheduled_on": "2026-06-29",
+      "scheduled_on": null,
       "due": "2026-06-29",
       "label": "MPN",
       "recurring": false,
       "priority": null,
       "created": "2026-06-29T07:28:25.236Z",
-      "updated": "2026-06-29T08:09:23.060Z",
-      "status_updated": "2026-06-29T08:09:23.086Z"
+      "updated": "2026-06-29T07:28:25.236Z",
+      "status_updated": "2026-06-29T07:28:25.236Z"
     },
     {
       "id": "tm-1782718644743",
