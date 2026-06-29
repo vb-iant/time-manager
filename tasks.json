@@ -740,15 +740,15 @@
       "id": "7a2c344a-cecc-4f20-9baa-e861f3a4a7f7",
       "title": "Send Jim at Talentcraft referral agreement and NDA",
       "notes": "",
-      "status": "backlog",
+      "status": "scheduled",
       "duration": 30,
-      "scheduled_on": null,
+      "scheduled_on": "2026-06-29",
       "due": "2026-06-29",
       "label": "Business Development",
       "priority": "High",
       "created": "2026-06-27T18:27:01.653Z",
-      "updated": "2026-06-27T18:27:16.422Z",
-      "status_updated": "2026-06-27T18:27:01.653Z"
+      "updated": "2026-06-29T09:57:31.490Z",
+      "status_updated": "2026-06-29T09:57:31.490Z"
     },
     {
       "id": "844ec9f8-4136-4645-aff0-927498ce4cd7",
