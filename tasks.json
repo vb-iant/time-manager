@@ -706,16 +706,16 @@
       "id": "ef900868-743a-4aaa-9b43-7b2182d3b2bd",
       "title": "Tuesday 2¢",
       "notes": "",
-      "status": "",
+      "status": "scheduled",
       "duration": 120,
-      "scheduled_on": null,
+      "scheduled_on": "2026-06-30",
       "due": "2026-06-30",
       "label": null,
       "recurring": true,
       "priority": "Medium",
       "created": "2026-06-27T12:01:43.090Z",
-      "updated": "2026-06-27T12:01:43.090Z",
-      "status_updated": "2026-06-27T12:01:43.090Z"
+      "updated": "2026-06-29T08:10:50.450Z",
+      "status_updated": "2026-06-29T08:10:50.450Z"
     },
     {
       "id": "585335ef-a798-4602-8765-5c46745bfbdd",
@@ -750,16 +750,16 @@
       "id": "844ec9f8-4136-4645-aff0-927498ce4cd7",
       "title": "Prep for podcasts with Jeff",
       "notes": "",
-      "status": "scheduled",
+      "status": "backlog",
       "duration": 30,
-      "scheduled_on": "2026-06-29",
+      "scheduled_on": null,
       "due": "2026-06-22",
       "label": "Podcast",
       "recurring": false,
       "priority": null,
       "created": "2026-06-28T07:08:41.433Z",
-      "updated": "2026-06-29T08:10:46.488Z",
-      "status_updated": "2026-06-29T08:10:46.488Z"
+      "updated": "2026-06-28T07:08:41.433Z",
+      "status_updated": "2026-06-28T07:08:41.433Z"
     },
     {
       "id": "748c1a4b-bb10-4f16-8c7c-36c7f54541fb",
