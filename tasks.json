@@ -929,6 +929,18 @@
       "due": null,
       "created": "2026-06-29T17:36:45.337Z",
       "updated": "2026-06-29T17:36:45.337Z"
+    },
+    {
+      "id": "tm-1782754609869",
+      "title": "Add task dependencies to Time Manager",
+      "notes": "Add depends_on array to task schema. Tasks with unmet dependencies show a locked indicator and can't move to Today/In Progress. Best implemented after Turso migration.",
+      "status": "backlog",
+      "duration": null,
+      "label": "Dev Project",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-06-29T17:36:49.869Z",
+      "updated": "2026-06-29T17:36:49.869Z"
     }
   ]
 }
