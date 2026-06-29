@@ -71,14 +71,33 @@ export default async function handler(req) {
     tasks.push(newTask);
     const content = btoa(unescape(encodeURIComponent(JSON.stringify({ version: '1.0', tasks }, null, 2))));
 
-    const write = await fetch(API, {
-      method: 'PUT',
-      headers: { Authorization: `token ${TOKEN}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: `Add task via Siri: ${title}`, content, sha })
-    });
+    // Retry up to 3 times on SHA conflict
+    let result;
+    let currentSha = sha;
+    for (let attempt = 0; attempt < 3; attempt++) {
+      if (attempt > 0) {
+        // Re-fetch fresh SHA and tasks on retry
+        await new Promise(r => setTimeout(r, 500 * attempt));
+        const retry = await fetch(API, { headers: { Authorization: `token ${TOKEN}` } });
+        const retryJson = await retry.json();
+        currentSha = retryJson.sha;
+        const retryContent = decodeURIComponent(escape(atob(retryJson.content.replace(/\n/g, ''))));
+        const retryData = JSON.parse(retryContent);
+        const retryTasks = Array.isArray(retryData) ? retryData : (retryData.tasks || []);
+        retryTasks.push(newTask);
+        content = btoa(unescape(encodeURIComponent(JSON.stringify({ version: '1.0', tasks: retryTasks }, null, 2))));
+      }
+      const write = await fetch(API, {
+        method: 'PUT',
+        headers: { Authorization: `token ${TOKEN}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: `Add task via Siri: ${title}`, content, sha: currentSha })
+      });
+      result = await write.json();
+      if (result.content) break;
+      if (!result.message?.includes('conflict') && !result.message?.includes('sha')) throw new Error(result.message || 'Write failed');
+    }
 
-    const result = await write.json();
-    if (!result.content) throw new Error(result.message || 'Write failed');
+    if (!result.content) throw new Error('Write failed after retries');
 
     return new Response(JSON.stringify({ ok: true, id: newTask.id, title: newTask.title, speech: `Got it — I've added "${newTask.title}" to your backlog.` }), { headers });
   } catch(e) {
