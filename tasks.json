@@ -276,8 +276,7 @@
       "duration": 15,
       "label": "Business Development",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-29T07:37:16.436Z",
-      "notes": "Thomas accepted podcast invite — meeting set for Tue 7 Jul 3-4pm. Currently set up as Google Meet — need to send Riverside link and ask Thomas to use that instead for recording. Send before end of week."
+      "updated": "2026-06-24T00:00:00.000Z"
     },
     {
       "id": "tm-027",
@@ -776,6 +775,18 @@
       "created": "2026-06-29T07:28:25.236Z",
       "updated": "2026-06-29T07:28:25.236Z",
       "status_updated": "2026-06-29T07:28:25.236Z"
+    },
+    {
+      "id": "tm-1782718644743",
+      "title": "Decide on video platform before Wednesday meeting with Sukki",
+      "notes": "Decide on video platform before Wednesday meeting with Sukki. Options to consider: Riverside, Zoom, Teams, Loom. Need a clear recommendation ready for the meeting.",
+      "status": "backlog",
+      "duration": 30,
+      "label": "Client Work",
+      "scheduled_on": null,
+      "due": "2026-07-01",
+      "created": "2026-06-29T07:37:24.743Z",
+      "updated": "2026-06-29T07:37:24.743Z"
     }
   ]
 }
