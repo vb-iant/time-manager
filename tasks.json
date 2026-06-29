@@ -917,6 +917,18 @@
       "due": null,
       "created": "2026-06-29T17:36:33.435Z",
       "updated": "2026-06-29T17:36:33.435Z"
+    },
+    {
+      "id": "tm-1782754605337",
+      "title": "Add subtasks to Time Manager",
+      "notes": "Add parent_id field to task schema. Subtasks shown nested under parent on the board. Best implemented after Turso migration.",
+      "status": "backlog",
+      "duration": null,
+      "label": "Dev Project",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-06-29T17:36:45.337Z",
+      "updated": "2026-06-29T17:36:45.337Z"
     }
   ]
 }
