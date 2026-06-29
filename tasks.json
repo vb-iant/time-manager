@@ -860,21 +860,6 @@
       "created": "2026-06-29T15:52:46.458Z",
       "updated": "2026-06-29T15:54:52.952Z",
       "status_updated": "2026-06-29T15:54:52.952Z"
-    },
-    {
-      "id": "tm-1782752819392",
-      "title": "Test test manager with Siri",
-      "notes": null,
-      "status": "backlog",
-      "priority": null,
-      "duration": null,
-      "label": null,
-      "scheduled_on": null,
-      "due": null,
-      "recurring": false,
-      "created": "2026-06-29T17:06:59.375Z",
-      "updated": "2026-06-29T17:06:59.375Z",
-      "status_updated": "2026-06-29T17:06:59.375Z"
     }
   ]
 }
