@@ -877,8 +877,8 @@
       "status_updated": "2026-06-29T16:56:46.468Z"
     },
     {
-      "id": "tm-1782752626765",
-      "title": "Test task with Siri",
+      "id": "tm-1782752819392",
+      "title": "Test test manager with Siri",
       "notes": null,
       "status": "backlog",
       "priority": null,
@@ -887,9 +887,9 @@
       "scheduled_on": null,
       "due": null,
       "recurring": false,
-      "created": "2026-06-29T17:03:46.749Z",
-      "updated": "2026-06-29T17:03:46.749Z",
-      "status_updated": "2026-06-29T17:03:46.749Z"
+      "created": "2026-06-29T17:06:59.375Z",
+      "updated": "2026-06-29T17:06:59.375Z",
+      "status_updated": "2026-06-29T17:06:59.375Z"
     }
   ]
 }
