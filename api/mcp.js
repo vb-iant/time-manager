@@ -138,12 +138,26 @@ async function githubRead(path) {
   return res.text();
 }
 
-async function githubWrite(path, content) {
+async function githubReadDirect(path) {
+  // Read via GitHub API — always fresh, never stale CDN
+  const GH_TOKEN = process.env.GITHUB_TOKEN;
+  const res = await fetch(`${API_BASE}/${path}`, {
+    headers: { Authorization: `token ${GH_TOKEN}` }
+  });
+  if (!res.ok) throw new Error(`Not found: ${path}`);
+  const data = await res.json();
+  const content = decodeURIComponent(escape(atob(data.content.replace(/\n/g, ''))));
+  return { content, sha: data.sha };
+}
+
+async function githubWrite(path, content, existingSha) {
   const GH_TOKEN = process.env.GITHUB_TOKEN;
   const api = `${API_BASE}/${path}`;
-  let sha;
-  const check = await fetch(api, { headers: { Authorization: `token ${GH_TOKEN}` } });
-  if (check.ok) sha = (await check.json()).sha;
+  let sha = existingSha;
+  if (!sha) {
+    const check = await fetch(api, { headers: { Authorization: `token ${GH_TOKEN}` } });
+    if (check.ok) sha = (await check.json()).sha;
+  }
   const encoded = btoa(unescape(encodeURIComponent(content)));
   const body = { message: `MCP update: ${path}`, content: encoded };
   if (sha) body.sha = sha;
@@ -176,7 +190,7 @@ async function callTool(name, args) {
     return `Saved ${args.path}. SHA: ${sha}`;
   }
   if (name === 'add_task') {
-    const raw = await githubRead('tasks.json');
+    const { content: raw, sha: fileSha } = await githubReadDirect('tasks.json');
     const parsed = JSON.parse(raw);
     const tasks = Array.isArray(parsed) ? parsed : (parsed.tasks || []);
     const now = new Date().toISOString();
@@ -194,11 +208,11 @@ async function callTool(name, args) {
     };
     tasks.push(newTask);
     const output = JSON.stringify({ version: '1.0', tasks }, null, 2);
-    await githubWrite('tasks.json', output);
+    await githubWrite('tasks.json', output, fileSha);
     return `Task added: "${newTask.title}" (id: ${newTask.id})`;
   }
   if (name === 'update_task') {
-    const raw = await githubRead('tasks.json');
+    const { content: raw, sha: fileSha } = await githubReadDirect('tasks.json');
     const parsed = JSON.parse(raw);
     const tasks = Array.isArray(parsed) ? parsed : (parsed.tasks || []);
     const idx = tasks.findIndex(t => t.id === args.id);
@@ -232,18 +246,18 @@ async function callTool(name, args) {
       }
     }
     const output = JSON.stringify({ version: '1.0', tasks }, null, 2);
-    await githubWrite('tasks.json', output);
+    await githubWrite('tasks.json', output, fileSha);
     return `Task updated: "${tasks[idx].title}" (id: ${args.id})`;
   }
   if (name === 'delete_task') {
-    const raw = await githubRead('tasks.json');
+    const { content: raw, sha: fileSha } = await githubReadDirect('tasks.json');
     const parsed = JSON.parse(raw);
     const tasks = Array.isArray(parsed) ? parsed : (parsed.tasks || []);
     const before = tasks.length;
     const filtered = tasks.filter(t => t.id !== args.id);
     if (filtered.length === before) throw new Error(`Task not found: ${args.id}`);
     const output = JSON.stringify({ version: '1.0', tasks: filtered }, null, 2);
-    await githubWrite('tasks.json', output);
+    await githubWrite('tasks.json', output, fileSha);
     return `Task deleted (id: ${args.id})`;
   }
   if (name === 'get_labels') {
