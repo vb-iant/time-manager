@@ -73,14 +73,13 @@
     {
       "id": "tm-008",
       "title": "Send podcast invite — Helena Samsioe, Globhe",
-      "status": "scheduled",
-      "scheduled_on": "2026-06-30",
+      "status": "today",
+      "scheduled_on": "2026-06-26",
       "due": "2026-06-26",
       "duration": 15,
       "label": "Business Development",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-29T08:10:55.949Z",
-      "status_updated": "2026-06-29T08:10:55.974Z"
+      "updated": "2026-06-26T08:27:33.542Z"
     },
     {
       "id": "tm-009",
@@ -139,13 +138,14 @@
     {
       "id": "tm-014",
       "title": "Send email to Pamela Nunez Wallgren — Finch fractional CMO",
-      "status": "today",
-      "scheduled_on": "2026-06-26",
+      "status": "scheduled",
+      "scheduled_on": "2026-06-30",
       "due": "2026-06-26",
       "duration": 15,
       "label": "Business Development",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-26T08:27:33.542Z"
+      "updated": "2026-06-29T08:10:59.198Z",
+      "status_updated": "2026-06-29T08:10:59.198Z"
     },
     {
       "id": "tm-015",
