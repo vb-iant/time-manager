@@ -73,13 +73,14 @@
     {
       "id": "tm-008",
       "title": "Send podcast invite — Helena Samsioe, Globhe",
-      "status": "today",
-      "scheduled_on": "2026-06-26",
+      "status": "scheduled",
+      "scheduled_on": "2026-06-30",
       "due": "2026-06-26",
       "duration": 15,
       "label": "Business Development",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-26T08:27:33.542Z"
+      "updated": "2026-06-29T08:09:42.304Z",
+      "status_updated": "2026-06-29T08:09:42.304Z"
     },
     {
       "id": "tm-009",
@@ -706,16 +707,16 @@
       "id": "ef900868-743a-4aaa-9b43-7b2182d3b2bd",
       "title": "Tuesday 2¢",
       "notes": "",
-      "status": "scheduled",
+      "status": "",
       "duration": 120,
-      "scheduled_on": "2026-06-30",
+      "scheduled_on": null,
       "due": "2026-06-30",
       "label": null,
       "recurring": true,
       "priority": "Medium",
       "created": "2026-06-27T12:01:43.090Z",
-      "updated": "2026-06-29T08:09:38.848Z",
-      "status_updated": "2026-06-29T08:09:38.878Z"
+      "updated": "2026-06-27T12:01:43.090Z",
+      "status_updated": "2026-06-27T12:01:43.090Z"
     },
     {
       "id": "585335ef-a798-4602-8765-5c46745bfbdd",
