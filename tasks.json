@@ -270,14 +270,13 @@
     {
       "id": "tm-026",
       "title": "LinkedIn reply to Thomas Peham",
-      "status": "scheduled",
-      "scheduled_on": "2026-07-01",
+      "status": "done",
+      "scheduled_on": "2026-06-24",
       "due": "2026-06-24",
       "duration": 15,
       "label": "Business Development",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-29T08:10:00.782Z",
-      "status_updated": "2026-06-29T08:10:00.782Z"
+      "updated": "2026-06-24T00:00:00.000Z"
     },
     {
       "id": "tm-027",
@@ -766,16 +765,16 @@
       "id": "748c1a4b-bb10-4f16-8c7c-36c7f54541fb",
       "title": "MPN awards - send promo images and copy",
       "notes": "",
-      "status": "backlog",
+      "status": "scheduled",
       "duration": 30,
-      "scheduled_on": null,
+      "scheduled_on": "2026-06-29",
       "due": "2026-06-29",
       "label": "MPN",
       "recurring": false,
       "priority": null,
       "created": "2026-06-29T07:28:25.236Z",
-      "updated": "2026-06-29T07:28:25.236Z",
-      "status_updated": "2026-06-29T07:28:25.236Z"
+      "updated": "2026-06-29T08:10:33.466Z",
+      "status_updated": "2026-06-29T08:10:33.491Z"
     },
     {
       "id": "tm-1782718644743",
