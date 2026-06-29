@@ -506,10 +506,11 @@
       "duration": 34,
       "scheduled_on": null,
       "due": "2026-07-01",
-      "label": "Personal Project",
+      "label": "MPN",
+      "recurring": false,
       "priority": "Medium",
       "created": "2026-06-26T15:47:25.755Z",
-      "updated": "2026-06-26T15:56:03.446Z",
+      "updated": "2026-06-29T07:28:58.834Z",
       "status_updated": "2026-06-26T15:47:25.755Z"
     },
     {
