@@ -860,6 +860,36 @@
       "created": "2026-06-29T15:52:46.458Z",
       "updated": "2026-06-29T15:54:52.952Z",
       "status_updated": "2026-06-29T15:54:52.952Z"
+    },
+    {
+      "id": "tm-1782752206484",
+      "title": "with task manager",
+      "notes": null,
+      "status": "backlog",
+      "priority": null,
+      "duration": null,
+      "label": null,
+      "scheduled_on": null,
+      "due": null,
+      "recurring": false,
+      "created": "2026-06-29T16:56:46.468Z",
+      "updated": "2026-06-29T16:56:46.468Z",
+      "status_updated": "2026-06-29T16:56:46.468Z"
+    },
+    {
+      "id": "tm-1782752626765",
+      "title": "Test task with Siri",
+      "notes": null,
+      "status": "backlog",
+      "priority": null,
+      "duration": null,
+      "label": null,
+      "scheduled_on": null,
+      "due": null,
+      "recurring": false,
+      "created": "2026-06-29T17:03:46.749Z",
+      "updated": "2026-06-29T17:03:46.749Z",
+      "status_updated": "2026-06-29T17:03:46.749Z"
     }
   ]
 }
