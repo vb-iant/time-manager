@@ -138,14 +138,13 @@
     {
       "id": "tm-014",
       "title": "Send email to Pamela Nunez Wallgren — Finch fractional CMO",
-      "status": "scheduled",
-      "scheduled_on": "2026-06-30",
+      "status": "today",
+      "scheduled_on": "2026-06-26",
       "due": "2026-06-26",
       "duration": 15,
       "label": "Business Development",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-29T08:10:59.198Z",
-      "status_updated": "2026-06-29T08:10:59.198Z"
+      "updated": "2026-06-26T08:27:33.542Z"
     },
     {
       "id": "tm-015",
@@ -781,13 +780,14 @@
       "id": "tm-1782718644743",
       "title": "Decide on video platform before Wednesday meeting with Sukki",
       "notes": "Decide on video platform before Wednesday meeting with Sukki. Options to consider: Riverside, Zoom, Teams, Loom. Need a clear recommendation ready for the meeting.",
-      "status": "backlog",
+      "status": "scheduled",
       "duration": 30,
       "label": "Client Work",
-      "scheduled_on": null,
+      "scheduled_on": "2026-07-01",
       "due": "2026-07-01",
       "created": "2026-06-29T07:37:24.743Z",
-      "updated": "2026-06-29T07:37:24.743Z"
+      "updated": "2026-06-29T08:11:03.273Z",
+      "status_updated": "2026-06-29T08:11:03.273Z"
     },
     {
       "id": "tm-1782718827192",
