@@ -772,7 +772,7 @@
       "id": "748c1a4b-bb10-4f16-8c7c-36c7f54541fb",
       "title": "MPN awards - send promo images and copy",
       "notes": "",
-      "status": "today",
+      "status": "done",
       "duration": 30,
       "scheduled_on": "2026-06-29",
       "due": "2026-06-29",
@@ -780,7 +780,7 @@
       "recurring": false,
       "priority": null,
       "created": "2026-06-29T07:28:25.236Z",
-      "updated": "2026-06-29T09:59:50.240Z",
+      "updated": "2026-06-29T12:30:14.991Z",
       "status_updated": "2026-06-29T09:57:22.737Z"
     },
     {
