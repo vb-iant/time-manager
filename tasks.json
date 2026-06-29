@@ -890,6 +890,21 @@
       "created": "2026-06-29T16:32:41.594Z",
       "updated": "2026-06-29T16:32:41.594Z",
       "status_updated": "2026-06-29T16:32:41.594Z"
+    },
+    {
+      "id": "tm-1782750888432",
+      "title": "Test if Siri works with TaskManager",
+      "notes": null,
+      "status": "backlog",
+      "priority": null,
+      "duration": null,
+      "label": null,
+      "scheduled_on": null,
+      "due": null,
+      "recurring": false,
+      "created": "2026-06-29T16:34:48.414Z",
+      "updated": "2026-06-29T16:34:48.414Z",
+      "status_updated": "2026-06-29T16:34:48.414Z"
     }
   ]
 }
