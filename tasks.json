@@ -514,7 +514,7 @@
       "id": "11e1f46b-4b01-4118-b02c-a4497e0a0f43",
       "title": "MPN Awards - Graphics",
       "notes": "Provide graphics for each winner without quote and send links to Gordon",
-      "status": "backlog",
+      "status": "done",
       "duration": 34,
       "scheduled_on": null,
       "due": "2026-07-01",
@@ -522,7 +522,7 @@
       "recurring": false,
       "priority": "Medium",
       "created": "2026-06-26T15:47:25.755Z",
-      "updated": "2026-06-29T07:28:58.834Z",
+      "updated": "2026-06-29T12:59:32.358Z",
       "status_updated": "2026-06-26T15:47:25.755Z"
     },
     {
