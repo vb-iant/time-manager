@@ -584,16 +584,16 @@
       "id": "ef4d562c-8875-4fe0-aa82-aecb6c3f672c",
       "title": "MPN Awards - Website update",
       "notes": "Add the registration embedd and tell the team",
-      "status": "backlog",
+      "status": "scheduled",
       "duration": null,
-      "scheduled_on": null,
-      "due": "2026-06-22",
+      "scheduled_on": "2026-06-29",
+      "due": "2026-06-29",
       "label": "MPN",
       "recurring": false,
       "priority": "High",
       "created": "2026-06-26T16:56:02.808Z",
-      "updated": "2026-06-29T07:28:47.933Z",
-      "status_updated": "2026-06-26T16:56:02.809Z"
+      "updated": "2026-06-29T09:57:27.470Z",
+      "status_updated": "2026-06-29T09:57:27.470Z"
     },
     {
       "id": "tm-1782498102412",
