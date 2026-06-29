@@ -845,6 +845,18 @@
       "created": "2026-06-29T09:52:35.746Z",
       "updated": "2026-06-29T09:55:49.664Z",
       "status_updated": "2026-06-29T09:55:49.681Z"
+    },
+    {
+      "id": "tm-1782748366473",
+      "title": "Create UK-as-a-Service video",
+      "notes": "50-second video, 10 scenes, colorised video backgrounds with copy overlays and transitions. Script drafted — ready to produce. To be placed on velocity-b.com/land-in-the-uk-with-velocity",
+      "status": "backlog",
+      "duration": null,
+      "label": "Business Development",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-06-29T15:52:46.458Z",
+      "updated": "2026-06-29T15:52:46.458Z"
     }
   ]
 }
