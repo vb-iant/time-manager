@@ -595,7 +595,9 @@
       "scheduled_on": "2026-06-30",
       "due": "2026-07-03",
       "created": "2026-06-26T18:21:42.412Z",
-      "updated": "2026-06-30T07:19:01.056Z"
+      "updated": "2026-06-30T13:34:07.566Z",
+      "external_system": "hubspot",
+      "external_task_id": "500019002616"
     },
     {
       "id": "tm-1782546476574",
