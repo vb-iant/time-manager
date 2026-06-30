@@ -938,6 +938,18 @@
       "due": "2026-07-03",
       "created": "2026-06-30T13:49:30.909Z",
       "updated": "2026-06-30T13:49:30.909Z"
+    },
+    {
+      "id": "tm-1782827376958",
+      "title": "Send Email 1 — Wilma Eriksson, vloxq CPQ",
+      "notes": "Source: HubSpot",
+      "status": "scheduled",
+      "duration": 15,
+      "label": "Business Development",
+      "scheduled_on": "2026-07-03",
+      "due": "2026-07-03",
+      "created": "2026-06-30T13:49:36.958Z",
+      "updated": "2026-06-30T13:49:36.958Z"
     }
   ]
 }
