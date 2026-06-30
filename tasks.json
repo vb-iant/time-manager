@@ -907,7 +907,7 @@
     {
       "id": "8fb76699-452d-4729-bfb9-161825480d83",
       "title": "Send first email to Patrik Lindeberg — Crunchfish",
-      "notes": "No matching HubSpot task found — this may be a duplicate of the 'Follow up with Patrik Lindeberg' task (tm-1782826359371), or a manually added task. Needs review.",
+      "notes": "Source: HubSpot. Confirmed no prior email sent to Patrik (no lastengagementdate on contact) — HubSpot sequence wrongly queued this as a \"follow up\". This is actually the first email.",
       "status": "today",
       "duration": 15,
       "scheduled_on": "2026-06-30",
@@ -916,10 +916,11 @@
       "recurring": false,
       "priority": "High",
       "created": "2026-06-30T13:04:36.367Z",
-      "updated": "2026-06-30T13:34:48.530Z",
+      "updated": "2026-06-30T13:35:59.732Z",
       "status_updated": "2026-06-30T13:05:04.088Z",
-      "external_system": "",
-      "external_task_id": ""
+      "external_system": "hubspot",
+      "external_task_id": "501019684087",
+      "crm_contact_id": "802497840374"
     },
     {
       "id": "tm-1782824850943",
