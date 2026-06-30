@@ -958,14 +958,15 @@
     {
       "id": "tm-1782827390155",
       "title": "Follow up with Erik Forsberg",
-      "notes": "Source: HubSpot",
-      "status": "scheduled",
+      "notes": "Erik Forsberg (CTO) was the wrong commercial contact — swapped for Sofia Malmsten (CEO/co-founder), confirmed 30 June. Email 1 sent to Sofia instead. This follow-up is no longer relevant.",
+      "status": "done",
       "duration": 15,
       "label": "Business Development",
       "scheduled_on": "2026-07-01",
       "due": "2026-07-01",
       "created": "2026-06-30T13:49:50.138Z",
-      "updated": "2026-06-30T13:49:50.138Z"
+      "updated": "2026-06-30T20:08:19.152Z",
+      "status_updated": "2026-06-30T20:08:19.152Z"
     },
     {
       "id": "tm-1782827399389",
