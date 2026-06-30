@@ -595,9 +595,7 @@
       "scheduled_on": "2026-06-30",
       "due": "2026-07-03",
       "created": "2026-06-26T18:21:42.412Z",
-      "updated": "2026-06-30T13:34:07.566Z",
-      "external_system": "hubspot",
-      "external_task_id": "500019002616"
+      "updated": "2026-06-30T07:19:01.056Z"
     },
     {
       "id": "tm-1782546476574",
@@ -814,16 +812,14 @@
     {
       "id": "tm-1782720776694",
       "title": "Send Email 1 — Henrik Eckerby, DigiProc",
-      "notes": "Source: HubSpot. Staggered — wait for Carl-Johan to be sent first.",
+      "notes": "Source: HubSpot. Low priority.",
       "status": "scheduled",
       "duration": 15,
       "label": "Business Development",
       "scheduled_on": "2026-07-03",
       "due": "2026-07-03",
       "created": "2026-06-29T08:12:56.694Z",
-      "updated": "2026-06-30T13:34:04.082Z",
-      "external_system": "hubspot",
-      "external_task_id": "500759537877"
+      "updated": "2026-06-29T08:12:56.694Z"
     },
     {
       "id": "tm-1782726755763",
@@ -907,8 +903,8 @@
     {
       "id": "8fb76699-452d-4729-bfb9-161825480d83",
       "title": "Send first email to Patrik Lindeberg — Crunchfish",
-      "notes": "Source: HubSpot. Confirmed no prior email sent to Patrik (no lastengagementdate on contact) — HubSpot sequence wrongly queued this as a \"follow up\". This is actually the first email.",
-      "status": "today",
+      "notes": "",
+      "status": "done",
       "duration": 15,
       "scheduled_on": "2026-06-30",
       "due": null,
@@ -916,11 +912,8 @@
       "recurring": false,
       "priority": "High",
       "created": "2026-06-30T13:04:36.367Z",
-      "updated": "2026-06-30T13:35:59.732Z",
-      "status_updated": "2026-06-30T13:05:04.088Z",
-      "external_system": "hubspot",
-      "external_task_id": "501019684087",
-      "crm_contact_id": "802497840374"
+      "updated": "2026-06-30T13:39:11.269Z",
+      "status_updated": "2026-06-30T13:05:04.088Z"
     },
     {
       "id": "tm-1782824850943",
@@ -933,66 +926,6 @@
       "due": null,
       "created": "2026-06-30T13:07:30.925Z",
       "updated": "2026-06-30T13:07:30.925Z"
-    },
-    {
-      "id": "tm-1782826453361",
-      "title": "Send Email 1 — Carl-Johan Ernstsson, DigiProc",
-      "notes": "Source: HubSpot",
-      "status": "scheduled",
-      "duration": 15,
-      "label": "Business Development",
-      "scheduled_on": "2026-07-03",
-      "due": "2026-07-03",
-      "created": "2026-06-30T13:34:13.361Z",
-      "updated": "2026-06-30T13:34:13.361Z"
-    },
-    {
-      "id": "tm-1782826458044",
-      "title": "Send Email 1 — Wilma Eriksson, vloxq CPQ",
-      "notes": "Source: HubSpot",
-      "status": "scheduled",
-      "duration": 15,
-      "label": "Business Development",
-      "scheduled_on": "2026-07-03",
-      "due": "2026-07-03",
-      "created": "2026-06-30T13:34:18.044Z",
-      "updated": "2026-06-30T13:34:18.044Z"
-    },
-    {
-      "id": "tm-1782826462620",
-      "title": "Send Email 1 — Adrian Iredahl, Ampli Ventures",
-      "notes": "Source: HubSpot",
-      "status": "scheduled",
-      "duration": 15,
-      "label": "Business Development",
-      "scheduled_on": "2026-07-03",
-      "due": "2026-07-03",
-      "created": "2026-06-30T13:34:22.603Z",
-      "updated": "2026-06-30T13:34:22.603Z"
-    },
-    {
-      "id": "tm-1782826467305",
-      "title": "Send Email 1 — Andreas Massarsch, Tagd",
-      "notes": "Source: HubSpot",
-      "status": "scheduled",
-      "duration": 15,
-      "label": "Business Development",
-      "scheduled_on": "2026-07-03",
-      "due": "2026-07-03",
-      "created": "2026-06-30T13:34:27.305Z",
-      "updated": "2026-06-30T13:34:27.305Z"
-    },
-    {
-      "id": "tm-1782826472401",
-      "title": "Follow up with Erik Forsberg",
-      "notes": "Source: HubSpot",
-      "status": "scheduled",
-      "duration": 15,
-      "label": "Business Development",
-      "scheduled_on": "2026-07-01",
-      "due": "2026-07-01",
-      "created": "2026-06-30T13:34:32.368Z",
-      "updated": "2026-06-30T13:34:32.368Z"
     }
   ]
 }
