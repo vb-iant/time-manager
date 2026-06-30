@@ -812,14 +812,16 @@
     {
       "id": "tm-1782720776694",
       "title": "Send Email 1 — Henrik Eckerby, DigiProc",
-      "notes": "Source: HubSpot. Low priority.",
+      "notes": "Source: HubSpot. Staggered — wait for Carl-Johan to be sent first.",
       "status": "scheduled",
       "duration": 15,
       "label": "Business Development",
       "scheduled_on": "2026-07-03",
       "due": "2026-07-03",
       "created": "2026-06-29T08:12:56.694Z",
-      "updated": "2026-06-29T08:12:56.694Z"
+      "updated": "2026-06-30T13:34:04.082Z",
+      "external_system": "hubspot",
+      "external_task_id": "500759537877"
     },
     {
       "id": "tm-1782726755763",
