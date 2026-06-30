@@ -129,7 +129,7 @@
       "id": "tm-014",
       "title": "Send email to Pamela Nunez Wallgren — Finch fractional CMO",
       "notes": "",
-      "status": "scheduled",
+      "status": "today",
       "duration": 15,
       "scheduled_on": "2026-06-30",
       "due": "2026-06-26",
@@ -137,7 +137,7 @@
       "recurring": false,
       "priority": "Medium",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-29T09:57:46.934Z",
+      "updated": "2026-06-30T07:18:57.650Z",
       "status_updated": "2026-06-29T09:57:46.934Z"
     },
     {
@@ -589,13 +589,13 @@
       "id": "tm-1782498102412",
       "title": "Follow up with Adrian Iredahl — Ampli Ventures",
       "notes": "Source: HubSpot. Second email to Adrian — follow up if no reply to Email 1.",
-      "status": "scheduled",
+      "status": "today",
       "duration": 15,
       "label": "Business Development",
       "scheduled_on": "2026-06-30",
       "due": "2026-07-03",
       "created": "2026-06-26T18:21:42.412Z",
-      "updated": "2026-06-26T18:21:42.412Z"
+      "updated": "2026-06-30T07:18:57.650Z"
     },
     {
       "id": "tm-1782546476574",
@@ -701,7 +701,7 @@
       "id": "ef900868-743a-4aaa-9b43-7b2182d3b2bd",
       "title": "Tuesday 2¢",
       "notes": "",
-      "status": "scheduled",
+      "status": "today",
       "duration": 120,
       "scheduled_on": "2026-06-30",
       "due": "2026-06-30",
@@ -709,7 +709,7 @@
       "recurring": true,
       "priority": "Medium",
       "created": "2026-06-27T12:01:43.090Z",
-      "updated": "2026-06-29T09:57:39.868Z",
+      "updated": "2026-06-30T07:18:57.650Z",
       "status_updated": "2026-06-29T09:57:39.868Z"
     },
     {
