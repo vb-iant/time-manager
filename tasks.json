@@ -926,6 +926,18 @@
       "due": null,
       "created": "2026-06-30T13:07:30.925Z",
       "updated": "2026-06-30T13:07:30.925Z"
+    },
+    {
+      "id": "tm-1782826359371",
+      "title": "Follow up with Patrik Lindeberg",
+      "notes": "Source: HubSpot",
+      "status": "backlog",
+      "duration": 15,
+      "label": "Business Development",
+      "scheduled_on": null,
+      "due": "2026-07-01",
+      "created": "2026-06-30T13:32:39.355Z",
+      "updated": "2026-06-30T13:32:39.355Z"
     }
   ]
 }
