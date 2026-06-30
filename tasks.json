@@ -899,6 +899,21 @@
       "created": "2026-06-29T22:50:10.145Z",
       "updated": "2026-06-29T22:50:10.145Z",
       "status_updated": "2026-06-29T22:50:10.145Z"
+    },
+    {
+      "id": "8fb76699-452d-4729-bfb9-161825480d83",
+      "title": "Send first email to Patrik Lindeberg — Crunchfish",
+      "notes": "",
+      "status": "backlog",
+      "duration": 15,
+      "scheduled_on": null,
+      "due": null,
+      "label": "Business Development",
+      "recurring": false,
+      "priority": "High",
+      "created": "2026-06-30T13:04:36.367Z",
+      "updated": "2026-06-30T13:04:36.367Z",
+      "status_updated": "2026-06-30T13:04:36.367Z"
     }
   ]
 }
