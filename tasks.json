@@ -978,6 +978,18 @@
       "due": "2026-07-03",
       "created": "2026-06-30T13:34:22.603Z",
       "updated": "2026-06-30T13:34:22.603Z"
+    },
+    {
+      "id": "tm-1782826467305",
+      "title": "Send Email 1 — Andreas Massarsch, Tagd",
+      "notes": "Source: HubSpot",
+      "status": "scheduled",
+      "duration": 15,
+      "label": "Business Development",
+      "scheduled_on": "2026-07-03",
+      "due": "2026-07-03",
+      "created": "2026-06-30T13:34:27.305Z",
+      "updated": "2026-06-30T13:34:27.305Z"
     }
   ]
 }
