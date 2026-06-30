@@ -907,7 +907,7 @@
     {
       "id": "8fb76699-452d-4729-bfb9-161825480d83",
       "title": "Send first email to Patrik Lindeberg — Crunchfish",
-      "notes": "",
+      "notes": "Source: HubSpot — this is the Carl-Johan Ernstsson task, title in CTRL says Patrik Lindeberg but HubSpot ID points to Carl-Johan. Flagging for review.",
       "status": "today",
       "duration": 15,
       "scheduled_on": "2026-06-30",
@@ -916,8 +916,10 @@
       "recurring": false,
       "priority": "High",
       "created": "2026-06-30T13:04:36.367Z",
-      "updated": "2026-06-30T13:05:04.088Z",
-      "status_updated": "2026-06-30T13:05:04.088Z"
+      "updated": "2026-06-30T13:34:38.804Z",
+      "status_updated": "2026-06-30T13:05:04.088Z",
+      "external_system": "hubspot",
+      "external_task_id": "500881770698"
     },
     {
       "id": "tm-1782824850943",
