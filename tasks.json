@@ -914,6 +914,18 @@
       "created": "2026-06-30T13:04:36.367Z",
       "updated": "2026-06-30T13:05:04.088Z",
       "status_updated": "2026-06-30T13:05:04.088Z"
+    },
+    {
+      "id": "tm-1782824850943",
+      "title": "Add hubspot_task_id field for reliable HubSpot ↔ CTRL sync",
+      "notes": "Add a 'hubspot_task_id' field to the task schema. When tasks are created from HubSpot, store the HubSpot task ID. This allows reliable two-way sync (checking for duplicates, updating status) instead of fragile name-matching. Also consider a sync function that compares HubSpot open tasks against CTRL tasks with hubspot_task_id and flags/creates/updates as needed.",
+      "status": "backlog",
+      "duration": null,
+      "label": "Dev Project",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-06-30T13:07:30.925Z",
+      "updated": "2026-06-30T13:07:30.925Z"
     }
   ]
 }
