@@ -977,6 +977,18 @@
       "due": null,
       "created": "2026-06-30T13:49:59.389Z",
       "updated": "2026-06-30T13:49:59.389Z"
+    },
+    {
+      "id": "tm-1782832377769",
+      "title": "Send Email 1 — Sofia Malmsten, Parametric Solutions",
+      "notes": null,
+      "status": "done",
+      "duration": null,
+      "label": "Business Development",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-06-30T15:12:57.752Z",
+      "updated": "2026-06-30T15:12:57.752Z"
     }
   ]
 }
