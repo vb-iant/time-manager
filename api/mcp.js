@@ -56,7 +56,10 @@ const TOOLS = [
         scheduled_on: { type: 'string', description: 'Date to schedule task YYYY-MM-DD (optional)' },
         due: { type: 'string', description: 'Due date YYYY-MM-DD (optional)' },
         status: { type: 'string', description: 'Status: backlog, scheduled, today, doing, blocked, done. Defaults to backlog.' },
-        recurring: { type: 'boolean', description: 'Whether this is a weekly recurring task' }
+        recurring: { type: 'boolean', description: 'Whether this is a weekly recurring task' },
+        crm_contact_id: { type: 'string', description: 'CRM contact ID this task relates to (e.g. HubSpot contact ID)' },
+        external_system: { type: 'string', description: 'External system this task is linked to, e.g. hubspot, asana' },
+        external_task_id: { type: 'string', description: 'Task ID in the external system' }
       },
       required: ['title']
     }
@@ -76,7 +79,10 @@ const TOOLS = [
         scheduled_on: { type: 'string', description: 'New scheduled date YYYY-MM-DD' },
         due: { type: 'string', description: 'New due date YYYY-MM-DD' },
         priority: { type: 'string', description: 'New priority: High, Medium, Low' },
-        recurring: { type: 'boolean', description: 'Whether this is a weekly recurring task' }
+        recurring: { type: 'boolean', description: 'Whether this is a weekly recurring task' },
+        crm_contact_id: { type: 'string', description: 'CRM contact ID this task relates to (e.g. HubSpot contact ID)' },
+        external_system: { type: 'string', description: 'External system this task is linked to, e.g. hubspot, asana' },
+        external_task_id: { type: 'string', description: 'Task ID in the external system' }
       },
       required: ['id']
     }
@@ -117,6 +123,29 @@ const TOOLS = [
         label: { type: 'string', description: 'Label name to delete' }
       },
       required: ['label']
+    }
+  },
+  {
+    name: 'find_task_by_external_id',
+    description: 'Find a CTRL task linked to an external system (e.g. HubSpot, Asana) by its external task ID. Returns the matching task or null if not found. Use this before creating a task from an external sync to avoid duplicates.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        external_system: { type: 'string', description: 'External system name, e.g. hubspot, asana' },
+        external_task_id: { type: 'string', description: 'Task ID in the external system' }
+      },
+      required: ['external_system', 'external_task_id']
+    }
+  },
+  {
+    name: 'find_tasks_by_crm_contact',
+    description: 'Find all CTRL tasks linked to a CRM contact ID. Use this to check whether a contact already has any tasks before creating a new one from a CRM sweep.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        crm_contact_id: { type: 'string', description: 'CRM contact ID to search for' }
+      },
+      required: ['crm_contact_id']
     }
   },
   {
@@ -221,7 +250,7 @@ async function callTool(name, args) {
     if (!tasks[idx].status) tasks[idx].status = 'backlog';
     if (args.status === '') args.status = 'backlog';
     const prevStatus = tasks[idx].status;
-    const fields = ['title', 'notes', 'status', 'duration', 'label', 'scheduled_on', 'due', 'priority', 'recurring'];
+    const fields = ['title', 'notes', 'status', 'duration', 'label', 'scheduled_on', 'due', 'priority', 'recurring', 'crm_contact_id', 'external_system', 'external_task_id'];
     fields.forEach(f => { if (args[f] !== undefined) tasks[idx][f] = args[f]; });
     tasks[idx].updated = new Date().toISOString();
     if (args.status && args.status !== prevStatus) {
@@ -280,6 +309,20 @@ async function callTool(name, args) {
     data.labels = data.labels.filter(l => l !== args.label);
     await githubWrite('labels.json', JSON.stringify(data, null, 2));
     return `Label deleted: "${args.label}"`;
+  }
+  if (name === 'find_task_by_external_id') {
+    const raw = await githubRead('tasks.json');
+    const parsed = JSON.parse(raw);
+    const tasks = Array.isArray(parsed) ? parsed : (parsed.tasks || []);
+    const match = tasks.find(t => t.external_system === args.external_system && t.external_task_id === args.external_task_id);
+    return match ? JSON.stringify(match, null, 2) : 'null';
+  }
+  if (name === 'find_tasks_by_crm_contact') {
+    const raw = await githubRead('tasks.json');
+    const parsed = JSON.parse(raw);
+    const tasks = Array.isArray(parsed) ? parsed : (parsed.tasks || []);
+    const matches = tasks.filter(t => t.crm_contact_id === args.crm_contact_id);
+    return matches.length ? JSON.stringify(matches, null, 2) : '[]';
   }
   if (name === 'list_plans') {
     const GH_TOKEN = process.env.GITHUB_TOKEN;
