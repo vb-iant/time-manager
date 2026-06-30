@@ -942,6 +942,18 @@
       "due": "2026-07-01",
       "created": "2026-06-30T13:32:39.355Z",
       "updated": "2026-06-30T13:32:39.355Z"
+    },
+    {
+      "id": "tm-1782826453361",
+      "title": "Send Email 1 — Carl-Johan Ernstsson, DigiProc",
+      "notes": "Source: HubSpot",
+      "status": "scheduled",
+      "duration": 15,
+      "label": "Business Development",
+      "scheduled_on": "2026-07-03",
+      "due": "2026-07-03",
+      "created": "2026-06-30T13:34:13.361Z",
+      "updated": "2026-06-30T13:34:13.361Z"
     }
   ]
 }
