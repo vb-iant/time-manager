@@ -962,6 +962,18 @@
       "due": "2026-07-01",
       "created": "2026-06-30T13:49:50.138Z",
       "updated": "2026-06-30T13:49:50.138Z"
+    },
+    {
+      "id": "tm-1782827399389",
+      "title": "Two-way completion sync between CTRL and HubSpot",
+      "notes": "Currently marking a task done in CTRL does not update the linked HubSpot task, and vice versa. Build a sync mechanism: when a CTRL task with hubspot_task_id is marked done, call HubSpot API to mark that task COMPLETED too. Consider whether this should be automatic (webhook/trigger) or something Claude does explicitly via a tool call when updating status.",
+      "status": "backlog",
+      "duration": null,
+      "label": "Dev Project",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-06-30T13:49:59.389Z",
+      "updated": "2026-06-30T13:49:59.389Z"
     }
   ]
 }
