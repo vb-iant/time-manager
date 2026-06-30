@@ -966,6 +966,18 @@
       "due": "2026-07-03",
       "created": "2026-06-30T13:34:18.044Z",
       "updated": "2026-06-30T13:34:18.044Z"
+    },
+    {
+      "id": "tm-1782826462620",
+      "title": "Send Email 1 — Adrian Iredahl, Ampli Ventures",
+      "notes": "Source: HubSpot",
+      "status": "scheduled",
+      "duration": 15,
+      "label": "Business Development",
+      "scheduled_on": "2026-07-03",
+      "due": "2026-07-03",
+      "created": "2026-06-30T13:34:22.603Z",
+      "updated": "2026-06-30T13:34:22.603Z"
     }
   ]
 }
