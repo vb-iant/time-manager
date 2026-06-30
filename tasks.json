@@ -950,6 +950,18 @@
       "due": "2026-07-03",
       "created": "2026-06-30T13:49:36.958Z",
       "updated": "2026-06-30T13:49:36.958Z"
+    },
+    {
+      "id": "tm-1782827390155",
+      "title": "Follow up with Erik Forsberg",
+      "notes": "Source: HubSpot",
+      "status": "scheduled",
+      "duration": 15,
+      "label": "Business Development",
+      "scheduled_on": "2026-07-01",
+      "due": "2026-07-01",
+      "created": "2026-06-30T13:49:50.138Z",
+      "updated": "2026-06-30T13:49:50.138Z"
     }
   ]
 }
