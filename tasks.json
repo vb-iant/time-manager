@@ -112,7 +112,7 @@
       "due": "2026-07-10",
       "label": "VB Content",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-07-01T14:45:55.970Z"
+      "updated": "2026-07-01T07:35:45.311Z"
     },
     {
       "id": "tm-013",
@@ -153,13 +153,17 @@
     {
       "id": "tm-016",
       "title": "Follow up with Patrik Lindeberg — Crunchfish (email #2 if no reply)",
+      "notes": "",
       "status": "today",
-      "scheduled_on": "2026-07-01",
-      "due": "2026-07-01",
       "duration": 30,
+      "scheduled_on": null,
+      "due": "2026-07-08",
       "label": "Business Development",
+      "recurring": false,
+      "priority": null,
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-07-01T14:45:55.970Z"
+      "updated": "2026-07-01T07:36:53.486Z",
+      "status_updated": "2026-07-01T07:36:53.487Z"
     },
     {
       "id": "tm-017",
@@ -595,7 +599,9 @@
       "scheduled_on": "2026-06-30",
       "due": "2026-07-03",
       "created": "2026-06-26T18:21:42.412Z",
-      "updated": "2026-06-30T07:19:01.056Z"
+      "updated": "2026-06-30T13:57:29.575Z",
+      "external_system": "hubspot",
+      "external_task_id": "500019002616"
     },
     {
       "id": "tm-1782546476574",
@@ -613,13 +619,13 @@
       "id": "tm-1782547333416",
       "title": "Redraft opening paragraphs — Ampli (Adrian), Heartpace, Tagd",
       "notes": "Compare sent vs draft emails surfaced a consistent pattern: icebreakers fall flat when they describe what the company IS (tagline, market category, established position) rather than what they're DOING (SXSW attendance, specific client, exit history). Redraft just the first paragraphs for these three — use the \"could they have written this themselves?\" test.",
-      "status": "backlog",
+      "status": "done",
       "duration": null,
       "label": "Business Development",
       "scheduled_on": null,
       "due": "2026-06-29",
       "created": "2026-06-27T08:02:13.397Z",
-      "updated": "2026-06-27T08:02:13.397Z"
+      "updated": "2026-07-01T08:06:59.123Z"
     },
     {
       "id": "tm-1782549121817",
@@ -673,13 +679,13 @@
       "id": "tm-1782555694406",
       "title": "Triage next 8 Sweden suspects and add to HubSpot",
       "notes": "Companies to triage (Claude has the list ready): SPCE, Intric, Zynca, Eperoto, Evity HR, North House, ValueOrbit, Hives.co. Goal: get pipeline back to 20 suspects. Claude will add to HubSpot and pull contacts once you've confirmed each one.",
-      "status": "doing",
+      "status": "scheduled",
       "duration": 60,
       "label": "Business Development",
       "scheduled_on": "2026-07-04",
       "due": "2026-06-30",
       "created": "2026-06-27T10:21:34.388Z",
-      "updated": "2026-07-01T12:13:13.407Z",
+      "updated": "2026-06-29T09:58:03.954Z",
       "status_updated": "2026-06-29T09:58:03.954Z"
     },
     {
@@ -701,7 +707,7 @@
       "id": "ef900868-743a-4aaa-9b43-7b2182d3b2bd",
       "title": "Tuesday 2¢",
       "notes": "",
-      "status": "today",
+      "status": "done",
       "duration": 120,
       "scheduled_on": "2026-06-30",
       "due": "2026-06-30",
@@ -709,7 +715,7 @@
       "recurring": true,
       "priority": "Medium",
       "created": "2026-06-27T12:01:43.090Z",
-      "updated": "2026-06-30T13:03:52.297Z",
+      "updated": "2026-07-01T16:06:59.165Z",
       "status_updated": "2026-06-30T07:41:58.612Z"
     },
     {
@@ -781,7 +787,7 @@
       "scheduled_on": "2026-07-01",
       "due": "2026-07-01",
       "created": "2026-06-29T07:37:24.743Z",
-      "updated": "2026-07-01T14:45:55.970Z",
+      "updated": "2026-07-01T07:35:45.311Z",
       "status_updated": "2026-06-29T09:57:50.777Z"
     },
     {
@@ -794,7 +800,7 @@
       "scheduled_on": "2026-07-01",
       "due": "2026-07-01",
       "created": "2026-06-29T07:40:27.176Z",
-      "updated": "2026-07-01T14:45:55.970Z",
+      "updated": "2026-07-01T07:35:45.311Z",
       "status_updated": "2026-06-29T09:57:53.978Z"
     },
     {
@@ -825,13 +831,13 @@
       "id": "tm-1782726755763",
       "title": "Bug fix: update_task endpoint not persisting changes to GitHub",
       "notes": "update_task endpoint returns success but changes are not persisted to tasks.json in GitHub. add_task works correctly. Fix: ensure update_task commits the updated file back to the GitHub repo after modifying the task in memory. TEST: updating notes on this task to verify fix.",
-      "status": "scheduled",
+      "status": "done",
       "duration": null,
       "label": "Dev Project",
       "scheduled_on": null,
       "due": "2026-06-29",
       "created": "2026-06-29T09:52:35.746Z",
-      "updated": "2026-06-29T09:55:49.664Z",
+      "updated": "2026-07-01T08:06:17.093Z",
       "status_updated": "2026-06-29T09:55:49.681Z"
     },
     {
@@ -928,103 +934,124 @@
       "updated": "2026-06-30T13:07:30.925Z"
     },
     {
-      "id": "tm-1782916762716",
-      "title": "Triage SPCE — Sweden pipeline",
-      "notes": "Triage SPCE (spce.com) — partner portal/relationship management SaaS. Check: UK presence, pricing model, competitive landscape, CEO contact. Claude has context ready.",
+      "id": "tm-1782827370926",
+      "title": "Send Email 1 — Carl-Johan Ernstsson, DigiProc",
+      "notes": "Source: HubSpot",
       "status": "done",
-      "duration": 20,
-      "scheduled_on": null,
-      "due": "2026-07-02",
+      "duration": 15,
       "label": "Business Development",
+      "scheduled_on": "2026-07-03",
+      "due": "2026-07-03",
+      "created": "2026-06-30T13:49:30.909Z",
+      "updated": "2026-06-30T14:12:21.343Z",
+      "status_updated": "2026-06-30T14:12:21.359Z"
+    },
+    {
+      "id": "tm-1782827376958",
+      "title": "Send Email 1 — Wilma Eriksson, vloxq CPQ",
+      "notes": "vloxq qualified out — package-based pricing (not enterprise sales motion) plus DealHub already dominant in UK CPQ search visibility. No email sent.",
+      "status": "done",
+      "duration": 15,
+      "label": "Business Development",
+      "scheduled_on": "2026-07-03",
+      "due": "2026-07-03",
+      "created": "2026-06-30T13:49:36.958Z",
+      "updated": "2026-06-30T15:39:57.609Z",
+      "status_updated": "2026-06-30T15:39:57.626Z"
+    },
+    {
+      "id": "tm-1782827390155",
+      "title": "Follow up with Erik Forsberg",
+      "notes": "Erik Forsberg (CTO) was the wrong commercial contact — swapped for Sofia Malmsten (CEO/co-founder), confirmed 30 June. Email 1 sent to Sofia instead. This follow-up is no longer relevant.",
+      "status": "done",
+      "duration": 15,
+      "label": "Business Development",
+      "scheduled_on": "2026-07-01",
+      "due": "2026-07-01",
+      "created": "2026-06-30T13:49:50.138Z",
+      "updated": "2026-06-30T20:08:19.152Z",
+      "status_updated": "2026-06-30T20:08:19.152Z"
+    },
+    {
+      "id": "tm-1782827399389",
+      "title": "Two-way completion sync between CTRL and HubSpot",
+      "notes": "Currently marking a task done in CTRL does not update the linked HubSpot task, and vice versa. Build a sync mechanism: when a CTRL task with hubspot_task_id is marked done, call HubSpot API to mark that task COMPLETED too. Consider whether this should be automatic (webhook/trigger) or something Claude does explicitly via a tool call when updating status.",
+      "status": "backlog",
+      "duration": null,
+      "label": "Dev Project",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-06-30T13:49:59.389Z",
+      "updated": "2026-06-30T13:49:59.389Z"
+    },
+    {
+      "id": "tm-1782832377769",
+      "title": "Send Email 1 — Sofia Malmsten, Parametric Solutions",
+      "notes": null,
+      "status": "done",
+      "duration": null,
+      "label": "Business Development",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-06-30T15:12:57.752Z",
+      "updated": "2026-06-30T15:12:57.752Z"
+    },
+    {
+      "id": "tm-1782850093491",
+      "title": "Send Email 1 — Andreas Massarsch, Tagd",
+      "notes": "Source: HubSpot. Sent.",
+      "status": "done",
+      "duration": null,
+      "label": "Business Development",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-06-30T20:08:13.474Z",
+      "updated": "2026-06-30T20:08:13.474Z"
+    },
+    {
+      "id": "5fcccad8-23a3-45af-a23c-e92d146808a6",
+      "title": "Review Alex’s LinkedIn post",
+      "notes": "",
+      "status": "done",
+      "duration": 30,
+      "scheduled_on": "2026-07-01",
+      "due": "2026-07-01",
+      "label": "VB Content",
+      "recurring": false,
+      "priority": "High",
+      "created": "2026-07-01T07:58:26.356Z",
+      "updated": "2026-07-01T10:05:18.430Z",
+      "status_updated": "2026-07-01T07:58:26.356Z"
+    },
+    {
+      "id": "203b9058-ab99-4fd1-8958-099b3134b6a6",
+      "title": "Copy Tuesday 2c posts from LinkedIn to blog",
+      "notes": "",
+      "status": "backlog",
+      "duration": 30,
+      "scheduled_on": null,
+      "due": null,
+      "label": "Personal brand",
+      "recurring": false,
+      "priority": "Medium",
+      "created": "2026-07-01T08:05:46.682Z",
+      "updated": "2026-07-01T08:05:46.682Z",
+      "status_updated": "2026-07-01T08:05:46.682Z"
+    },
+    {
+      "id": "22b9b6a5-9964-45c5-a492-9bb82f894431",
+      "title": "Send invoice to Janka",
+      "notes": "",
+      "status": "backlog",
+      "duration": 15,
+      "scheduled_on": null,
+      "due": "2026-07-03",
+      "label": "Admin",
       "recurring": false,
       "priority": null,
-      "created": "2026-07-01T14:39:22.695Z",
-      "updated": "2026-07-01T14:46:11.994Z",
-      "status_updated": "2026-07-01T14:46:11.994Z"
-    },
-    {
-      "id": "tm-1782916769957",
-      "title": "Triage Intric — Sweden pipeline",
-      "notes": "Triage Intric (intric.ai) — AI for governments and enterprises, security-focused. Check: UK presence, pricing model, competitive landscape, CEO contact. Claude has context ready.",
-      "status": "backlog",
-      "duration": 20,
-      "label": "Business Development",
-      "scheduled_on": null,
-      "due": "2026-07-02",
-      "created": "2026-07-01T14:39:29.957Z",
-      "updated": "2026-07-01T14:39:29.957Z"
-    },
-    {
-      "id": "tm-1782916777324",
-      "title": "Triage Zynca — Sweden pipeline",
-      "notes": "Triage Zynca (zynca.com) — recruitment automation platform, HRTech. Check: UK presence, pricing model, competitive landscape, CEO contact. Claude has context ready.",
-      "status": "backlog",
-      "duration": 20,
-      "label": "Business Development",
-      "scheduled_on": null,
-      "due": "2026-07-02",
-      "created": "2026-07-01T14:39:37.324Z",
-      "updated": "2026-07-01T14:39:37.324Z"
-    },
-    {
-      "id": "tm-1782916784271",
-      "title": "Triage Eperoto — Sweden pipeline",
-      "notes": "Triage Eperoto (eperoto.com) — legal risk communication tool. Check: UK presence, pricing model, competitive landscape, CEO contact. Claude has context ready.",
-      "status": "backlog",
-      "duration": 20,
-      "label": "Business Development",
-      "scheduled_on": null,
-      "due": "2026-07-02",
-      "created": "2026-07-01T14:39:44.254Z",
-      "updated": "2026-07-01T14:39:44.254Z"
-    },
-    {
-      "id": "tm-1782916795477",
-      "title": "Triage Evity HR — Sweden pipeline",
-      "notes": "Triage Evity HR (evity.hr) — HR system/platform. Check: UK presence, pricing model, competitive landscape, CEO contact. Claude has context ready.",
-      "status": "backlog",
-      "duration": 20,
-      "label": "Business Development",
-      "scheduled_on": null,
-      "due": "2026-07-02",
-      "created": "2026-07-01T14:39:55.460Z",
-      "updated": "2026-07-01T14:39:55.460Z"
-    },
-    {
-      "id": "tm-1782916802209",
-      "title": "Triage North House — Sweden pipeline",
-      "notes": "Triage North House (northhouse.se) — governance/compliance platform. Check: UK presence, pricing model, competitive landscape, CEO contact. Claude has context ready.",
-      "status": "backlog",
-      "duration": 20,
-      "label": "Business Development",
-      "scheduled_on": null,
-      "due": "2026-07-02",
-      "created": "2026-07-01T14:40:02.192Z",
-      "updated": "2026-07-01T14:40:02.192Z"
-    },
-    {
-      "id": "tm-1782916808670",
-      "title": "Triage ValueOrbit — Sweden pipeline",
-      "notes": "Triage ValueOrbit (valueorbit.com) — AI-guided selling/sales methodology platform. Check: UK presence, pricing model, competitive landscape, CEO contact. Claude has context ready.",
-      "status": "backlog",
-      "duration": 20,
-      "label": "Business Development",
-      "scheduled_on": null,
-      "due": "2026-07-02",
-      "created": "2026-07-01T14:40:08.670Z",
-      "updated": "2026-07-01T14:40:08.670Z"
-    },
-    {
-      "id": "tm-1782916817544",
-      "title": "Triage Hives.co — Sweden pipeline",
-      "notes": "Triage Hives.co (hives.co) — idea/feedback management platform. Check: UK presence, pricing model, competitive landscape, CEO contact. Claude has context ready.",
-      "status": "backlog",
-      "duration": 20,
-      "label": "Business Development",
-      "scheduled_on": null,
-      "due": "2026-07-02",
-      "created": "2026-07-01T14:40:17.526Z",
-      "updated": "2026-07-01T14:40:17.526Z"
+      "created": "2026-07-01T08:09:30.213Z",
+      "updated": "2026-07-01T08:09:30.213Z",
+      "status_updated": "2026-07-01T08:09:30.213Z"
     }
   ]
 }
