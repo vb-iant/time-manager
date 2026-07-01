@@ -268,13 +268,14 @@
     {
       "id": "tm-026",
       "title": "LinkedIn reply to Thomas Peham",
-      "status": "done",
-      "scheduled_on": "2026-06-24",
+      "status": "scheduled",
+      "scheduled_on": "2026-07-01",
       "due": "2026-06-24",
       "duration": 15,
       "label": "Business Development",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-24T00:00:00.000Z"
+      "updated": "2026-07-01T10:12:38.203Z",
+      "status_updated": "2026-07-01T10:12:38.203Z"
     },
     {
       "id": "tm-027",
