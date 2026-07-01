@@ -1012,7 +1012,7 @@
       "id": "5fcccad8-23a3-45af-a23c-e92d146808a6",
       "title": "Review Alex’s LinkedIn post",
       "notes": "",
-      "status": "today",
+      "status": "done",
       "duration": 30,
       "scheduled_on": "2026-07-01",
       "due": "2026-07-01",
@@ -1020,7 +1020,7 @@
       "recurring": false,
       "priority": "High",
       "created": "2026-07-01T07:58:26.356Z",
-      "updated": "2026-07-01T07:58:26.356Z",
+      "updated": "2026-07-01T10:05:18.430Z",
       "status_updated": "2026-07-01T07:58:26.356Z"
     },
     {
