@@ -998,6 +998,18 @@
       "due": "2026-07-02",
       "created": "2026-07-01T14:40:02.192Z",
       "updated": "2026-07-01T14:40:02.192Z"
+    },
+    {
+      "id": "tm-1782916808670",
+      "title": "Triage ValueOrbit — Sweden pipeline",
+      "notes": "Triage ValueOrbit (valueorbit.com) — AI-guided selling/sales methodology platform. Check: UK presence, pricing model, competitive landscape, CEO contact. Claude has context ready.",
+      "status": "backlog",
+      "duration": 20,
+      "label": "Business Development",
+      "scheduled_on": null,
+      "due": "2026-07-02",
+      "created": "2026-07-01T14:40:08.670Z",
+      "updated": "2026-07-01T14:40:08.670Z"
     }
   ]
 }
