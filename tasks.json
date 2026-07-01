@@ -1057,14 +1057,14 @@
     {
       "id": "tm-1782907664997",
       "title": "Clean up personal and internal contacts in HubSpot",
-      "notes": "Clean up noise in HubSpot contacts and activity logs. Personal/internal addresses to remove: mark@velocity-b.com, ian@velocity-b.com, 143941905@bcc.eu1.hubspot.com (BCC tracking artifact — check email logging settings), genejohncass@gmail.com, gordon@gordonglenister.com, keith@theadvertist.com, ian@trussy.com, tiawucher@yahoo.com, gilallouche@gmail.com. Also check matt@spinakrsolutions.com for possible domain typo. BCC address suggests some emails logged via BCC rather than native integration — review under Settings > General > Email.",
+      "notes": "Clean up noise in HubSpot contacts and activity logs. Personal/internal addresses to remove as contacts: mark@velocity-b.com, ian@velocity-b.com, genejohncass@gmail.com, gordon@gordonglenister.com, keith@theadvertist.com, ian@trussy.com, tiawucher@yahoo.com, gilallouche@gmail.com. Also check matt@spinakrsolutions.com for possible domain typo. BCC address (143941905@bcc.eu1.hubspot.com) is a mobile logging artifact — not a contact to keep.\n\nHOW TO FIX LOGGING GOING FORWARD:\n1. In Gmail, click the sprocket icon > Log and track settings — set default logging preference here\n2. Add personal/internal addresses and domains to the Never Log list — do this once and they'll never log again. Can block for all users or just your account.\n3. Recommended: keep logging ON by default, use Never Log list to exclude personal contacts and internal domains — no manual toggling needed per email.\n4. IMPORTANT: HubSpot logging only works when sending from Gmail in Chrome with the extension active. Emails sent from mobile (iOS/Android), other browsers, or other mail clients are NOT automatically logged — BCC address is the only way to log those.",
       "status": "backlog",
       "duration": null,
       "label": "Business Development",
       "scheduled_on": null,
       "due": "2026-06-29",
       "created": "2026-07-01T12:07:44.983Z",
-      "updated": "2026-07-01T12:07:44.983Z"
+      "updated": "2026-07-01T12:12:40.112Z"
     }
   ]
 }
