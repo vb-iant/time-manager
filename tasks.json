@@ -926,6 +926,18 @@
       "due": null,
       "created": "2026-06-30T13:07:30.925Z",
       "updated": "2026-06-30T13:07:30.925Z"
+    },
+    {
+      "id": "tm-1782916762716",
+      "title": "Triage SPCE — Sweden pipeline",
+      "notes": "Triage SPCE (spce.com) — partner portal/relationship management SaaS. Check: UK presence, pricing model, competitive landscape, CEO contact. Claude has context ready.",
+      "status": "backlog",
+      "duration": 20,
+      "label": "Business Development",
+      "scheduled_on": null,
+      "due": "2026-07-02",
+      "created": "2026-07-01T14:39:22.695Z",
+      "updated": "2026-07-01T14:39:22.695Z"
     }
   ]
 }
