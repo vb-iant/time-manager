@@ -974,6 +974,18 @@
       "due": "2026-07-02",
       "created": "2026-07-01T14:39:44.254Z",
       "updated": "2026-07-01T14:39:44.254Z"
+    },
+    {
+      "id": "tm-1782916795477",
+      "title": "Triage Evity HR — Sweden pipeline",
+      "notes": "Triage Evity HR (evity.hr) — HR system/platform. Check: UK presence, pricing model, competitive landscape, CEO contact. Claude has context ready.",
+      "status": "backlog",
+      "duration": 20,
+      "label": "Business Development",
+      "scheduled_on": null,
+      "due": "2026-07-02",
+      "created": "2026-07-01T14:39:55.460Z",
+      "updated": "2026-07-01T14:39:55.460Z"
     }
   ]
 }
