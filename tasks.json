@@ -106,13 +106,13 @@
       "id": "tm-012",
       "title": "Work on Video script with Sukki",
       "notes": "",
-      "status": "today",
+      "status": "scheduled",
       "duration": 60,
       "scheduled_on": "2026-07-01",
       "due": "2026-07-10",
       "label": "VB Content",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-07-01T07:35:45.311Z"
+      "updated": "2026-06-26T11:47:05.716Z"
     },
     {
       "id": "tm-013",
@@ -153,17 +153,13 @@
     {
       "id": "tm-016",
       "title": "Follow up with Patrik Lindeberg — Crunchfish (email #2 if no reply)",
-      "notes": "",
-      "status": "today",
+      "status": "scheduled",
+      "scheduled_on": "2026-07-01",
+      "due": "2026-07-01",
       "duration": 30,
-      "scheduled_on": null,
-      "due": "2026-07-08",
       "label": "Business Development",
-      "recurring": false,
-      "priority": null,
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-07-01T07:36:53.486Z",
-      "status_updated": "2026-07-01T07:36:53.487Z"
+      "updated": "2026-06-25T00:00:00.000Z"
     },
     {
       "id": "tm-017",
@@ -268,14 +264,13 @@
     {
       "id": "tm-026",
       "title": "LinkedIn reply to Thomas Peham",
-      "status": "scheduled",
-      "scheduled_on": "2026-07-01",
+      "status": "done",
+      "scheduled_on": "2026-06-24",
       "due": "2026-06-24",
       "duration": 15,
       "label": "Business Development",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-07-01T10:12:38.203Z",
-      "status_updated": "2026-07-01T10:12:38.203Z"
+      "updated": "2026-06-24T00:00:00.000Z"
     },
     {
       "id": "tm-027",
@@ -600,9 +595,7 @@
       "scheduled_on": "2026-06-30",
       "due": "2026-07-03",
       "created": "2026-06-26T18:21:42.412Z",
-      "updated": "2026-06-30T13:57:29.575Z",
-      "external_system": "hubspot",
-      "external_task_id": "500019002616"
+      "updated": "2026-06-30T07:19:01.056Z"
     },
     {
       "id": "tm-1782546476574",
@@ -620,13 +613,13 @@
       "id": "tm-1782547333416",
       "title": "Redraft opening paragraphs — Ampli (Adrian), Heartpace, Tagd",
       "notes": "Compare sent vs draft emails surfaced a consistent pattern: icebreakers fall flat when they describe what the company IS (tagline, market category, established position) rather than what they're DOING (SXSW attendance, specific client, exit history). Redraft just the first paragraphs for these three — use the \"could they have written this themselves?\" test.",
-      "status": "done",
+      "status": "backlog",
       "duration": null,
       "label": "Business Development",
       "scheduled_on": null,
       "due": "2026-06-29",
       "created": "2026-06-27T08:02:13.397Z",
-      "updated": "2026-07-01T08:06:59.123Z"
+      "updated": "2026-06-27T08:02:13.397Z"
     },
     {
       "id": "tm-1782549121817",
@@ -680,13 +673,13 @@
       "id": "tm-1782555694406",
       "title": "Triage next 8 Sweden suspects and add to HubSpot",
       "notes": "Companies to triage (Claude has the list ready): SPCE, Intric, Zynca, Eperoto, Evity HR, North House, ValueOrbit, Hives.co. Goal: get pipeline back to 20 suspects. Claude will add to HubSpot and pull contacts once you've confirmed each one.",
-      "status": "scheduled",
+      "status": "doing",
       "duration": 60,
       "label": "Business Development",
       "scheduled_on": "2026-07-04",
       "due": "2026-06-30",
       "created": "2026-06-27T10:21:34.388Z",
-      "updated": "2026-06-29T09:58:03.954Z",
+      "updated": "2026-07-01T12:13:13.407Z",
       "status_updated": "2026-06-29T09:58:03.954Z"
     },
     {
@@ -708,16 +701,16 @@
       "id": "ef900868-743a-4aaa-9b43-7b2182d3b2bd",
       "title": "Tuesday 2¢",
       "notes": "",
-      "status": "scheduled",
+      "status": "today",
       "duration": 120,
-      "scheduled_on": "2026-07-01",
+      "scheduled_on": "2026-06-30",
       "due": "2026-06-30",
       "label": null,
       "recurring": true,
       "priority": "Medium",
       "created": "2026-06-27T12:01:43.090Z",
-      "updated": "2026-07-01T10:12:25.837Z",
-      "status_updated": "2026-07-01T10:12:25.853Z"
+      "updated": "2026-06-30T13:03:52.297Z",
+      "status_updated": "2026-06-30T07:41:58.612Z"
     },
     {
       "id": "585335ef-a798-4602-8765-5c46745bfbdd",
@@ -788,8 +781,8 @@
       "scheduled_on": "2026-07-01",
       "due": "2026-07-01",
       "created": "2026-06-29T07:37:24.743Z",
-      "updated": "2026-07-01T10:12:34.350Z",
-      "status_updated": "2026-07-01T10:12:34.350Z"
+      "updated": "2026-06-29T09:57:50.761Z",
+      "status_updated": "2026-06-29T09:57:50.777Z"
     },
     {
       "id": "tm-1782718827192",
@@ -801,8 +794,8 @@
       "scheduled_on": "2026-07-01",
       "due": "2026-07-01",
       "created": "2026-06-29T07:40:27.176Z",
-      "updated": "2026-07-01T10:12:30.637Z",
-      "status_updated": "2026-07-01T10:12:30.637Z"
+      "updated": "2026-06-29T09:57:53.978Z",
+      "status_updated": "2026-06-29T09:57:53.978Z"
     },
     {
       "id": "tm-1782719356850",
@@ -832,13 +825,13 @@
       "id": "tm-1782726755763",
       "title": "Bug fix: update_task endpoint not persisting changes to GitHub",
       "notes": "update_task endpoint returns success but changes are not persisted to tasks.json in GitHub. add_task works correctly. Fix: ensure update_task commits the updated file back to the GitHub repo after modifying the task in memory. TEST: updating notes on this task to verify fix.",
-      "status": "done",
+      "status": "scheduled",
       "duration": null,
       "label": "Dev Project",
       "scheduled_on": null,
       "due": "2026-06-29",
       "created": "2026-06-29T09:52:35.746Z",
-      "updated": "2026-07-01T08:06:17.093Z",
+      "updated": "2026-06-29T09:55:49.664Z",
       "status_updated": "2026-06-29T09:55:49.681Z"
     },
     {
@@ -933,138 +926,6 @@
       "due": null,
       "created": "2026-06-30T13:07:30.925Z",
       "updated": "2026-06-30T13:07:30.925Z"
-    },
-    {
-      "id": "tm-1782827370926",
-      "title": "Send Email 1 — Carl-Johan Ernstsson, DigiProc",
-      "notes": "Source: HubSpot",
-      "status": "done",
-      "duration": 15,
-      "label": "Business Development",
-      "scheduled_on": "2026-07-03",
-      "due": "2026-07-03",
-      "created": "2026-06-30T13:49:30.909Z",
-      "updated": "2026-06-30T14:12:21.343Z",
-      "status_updated": "2026-06-30T14:12:21.359Z"
-    },
-    {
-      "id": "tm-1782827376958",
-      "title": "Send Email 1 — Wilma Eriksson, vloxq CPQ",
-      "notes": "vloxq qualified out — package-based pricing (not enterprise sales motion) plus DealHub already dominant in UK CPQ search visibility. No email sent.",
-      "status": "done",
-      "duration": 15,
-      "label": "Business Development",
-      "scheduled_on": "2026-07-03",
-      "due": "2026-07-03",
-      "created": "2026-06-30T13:49:36.958Z",
-      "updated": "2026-06-30T15:39:57.609Z",
-      "status_updated": "2026-06-30T15:39:57.626Z"
-    },
-    {
-      "id": "tm-1782827390155",
-      "title": "Follow up with Erik Forsberg",
-      "notes": "Erik Forsberg (CTO) was the wrong commercial contact — swapped for Sofia Malmsten (CEO/co-founder), confirmed 30 June. Email 1 sent to Sofia instead. This follow-up is no longer relevant.",
-      "status": "done",
-      "duration": 15,
-      "label": "Business Development",
-      "scheduled_on": "2026-07-01",
-      "due": "2026-07-01",
-      "created": "2026-06-30T13:49:50.138Z",
-      "updated": "2026-06-30T20:08:19.152Z",
-      "status_updated": "2026-06-30T20:08:19.152Z"
-    },
-    {
-      "id": "tm-1782827399389",
-      "title": "Two-way completion sync between CTRL and HubSpot",
-      "notes": "Currently marking a task done in CTRL does not update the linked HubSpot task, and vice versa. Build a sync mechanism: when a CTRL task with hubspot_task_id is marked done, call HubSpot API to mark that task COMPLETED too. Consider whether this should be automatic (webhook/trigger) or something Claude does explicitly via a tool call when updating status.",
-      "status": "backlog",
-      "duration": null,
-      "label": "Dev Project",
-      "scheduled_on": null,
-      "due": null,
-      "created": "2026-06-30T13:49:59.389Z",
-      "updated": "2026-06-30T13:49:59.389Z"
-    },
-    {
-      "id": "tm-1782832377769",
-      "title": "Send Email 1 — Sofia Malmsten, Parametric Solutions",
-      "notes": null,
-      "status": "done",
-      "duration": null,
-      "label": "Business Development",
-      "scheduled_on": null,
-      "due": null,
-      "created": "2026-06-30T15:12:57.752Z",
-      "updated": "2026-06-30T15:12:57.752Z"
-    },
-    {
-      "id": "tm-1782850093491",
-      "title": "Send Email 1 — Andreas Massarsch, Tagd",
-      "notes": "Source: HubSpot. Sent.",
-      "status": "done",
-      "duration": null,
-      "label": "Business Development",
-      "scheduled_on": null,
-      "due": null,
-      "created": "2026-06-30T20:08:13.474Z",
-      "updated": "2026-06-30T20:08:13.474Z"
-    },
-    {
-      "id": "5fcccad8-23a3-45af-a23c-e92d146808a6",
-      "title": "Review Alex’s LinkedIn post",
-      "notes": "",
-      "status": "done",
-      "duration": 30,
-      "scheduled_on": "2026-07-01",
-      "due": "2026-07-01",
-      "label": "VB Content",
-      "recurring": false,
-      "priority": "High",
-      "created": "2026-07-01T07:58:26.356Z",
-      "updated": "2026-07-01T10:05:18.430Z",
-      "status_updated": "2026-07-01T07:58:26.356Z"
-    },
-    {
-      "id": "203b9058-ab99-4fd1-8958-099b3134b6a6",
-      "title": "Copy Tuesday 2c posts from LinkedIn to blog",
-      "notes": "",
-      "status": "backlog",
-      "duration": 30,
-      "scheduled_on": null,
-      "due": null,
-      "label": "Personal brand",
-      "recurring": false,
-      "priority": "Medium",
-      "created": "2026-07-01T08:05:46.682Z",
-      "updated": "2026-07-01T08:05:46.682Z",
-      "status_updated": "2026-07-01T08:05:46.682Z"
-    },
-    {
-      "id": "22b9b6a5-9964-45c5-a492-9bb82f894431",
-      "title": "Send invoice to Janka",
-      "notes": "",
-      "status": "backlog",
-      "duration": 15,
-      "scheduled_on": null,
-      "due": "2026-07-03",
-      "label": "Admin",
-      "recurring": false,
-      "priority": null,
-      "created": "2026-07-01T08:09:30.213Z",
-      "updated": "2026-07-01T08:09:30.213Z",
-      "status_updated": "2026-07-01T08:09:30.213Z"
-    },
-    {
-      "id": "tm-1782907664997",
-      "title": "Clean up personal and internal contacts in HubSpot",
-      "notes": "Clean up noise in HubSpot contacts and activity logs. Personal/internal addresses to remove as contacts: mark@velocity-b.com, ian@velocity-b.com, genejohncass@gmail.com, gordon@gordonglenister.com, keith@theadvertist.com, ian@trussy.com, tiawucher@yahoo.com, gilallouche@gmail.com. Also check matt@spinakrsolutions.com for possible domain typo. BCC address (143941905@bcc.eu1.hubspot.com) is a mobile logging artifact — not a contact to keep.\n\nHOW TO FIX LOGGING GOING FORWARD:\n1. In Gmail, click the sprocket icon > Log and track settings — set default logging preference here\n2. Add personal/internal addresses and domains to the Never Log list — do this once and they'll never log again. Can block for all users or just your account.\n3. Recommended: keep logging ON by default, use Never Log list to exclude personal contacts and internal domains — no manual toggling needed per email.\n4. IMPORTANT: HubSpot logging only works when sending from Gmail in Chrome with the extension active. Emails sent from mobile (iOS/Android), other browsers, or other mail clients are NOT automatically logged — BCC address is the only way to log those.",
-      "status": "backlog",
-      "duration": null,
-      "label": "Business Development",
-      "scheduled_on": null,
-      "due": "2026-06-29",
-      "created": "2026-07-01T12:07:44.983Z",
-      "updated": "2026-07-01T12:12:40.112Z"
     }
   ]
 }
