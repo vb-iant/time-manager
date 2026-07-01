@@ -153,13 +153,17 @@
     {
       "id": "tm-016",
       "title": "Follow up with Patrik Lindeberg — Crunchfish (email #2 if no reply)",
+      "notes": "",
       "status": "today",
-      "scheduled_on": "2026-07-01",
-      "due": "2026-07-01",
       "duration": 30,
+      "scheduled_on": null,
+      "due": "2026-07-08",
       "label": "Business Development",
+      "recurring": false,
+      "priority": null,
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-07-01T07:35:45.311Z"
+      "updated": "2026-07-01T07:36:53.486Z",
+      "status_updated": "2026-07-01T07:36:53.487Z"
     },
     {
       "id": "tm-017",
