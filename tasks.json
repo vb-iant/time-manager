@@ -1037,6 +1037,21 @@
       "created": "2026-07-01T08:05:46.682Z",
       "updated": "2026-07-01T08:05:46.682Z",
       "status_updated": "2026-07-01T08:05:46.682Z"
+    },
+    {
+      "id": "22b9b6a5-9964-45c5-a492-9bb82f894431",
+      "title": "Send invoice to Janka",
+      "notes": "",
+      "status": "backlog",
+      "duration": 15,
+      "scheduled_on": null,
+      "due": "2026-07-03",
+      "label": "Admin",
+      "recurring": false,
+      "priority": null,
+      "created": "2026-07-01T08:09:30.213Z",
+      "updated": "2026-07-01T08:09:30.213Z",
+      "status_updated": "2026-07-01T08:09:30.213Z"
     }
   ]
 }
