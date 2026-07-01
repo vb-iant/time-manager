@@ -1053,6 +1053,18 @@
       "created": "2026-07-01T08:09:30.213Z",
       "updated": "2026-07-01T08:09:30.213Z",
       "status_updated": "2026-07-01T08:09:30.213Z"
+    },
+    {
+      "id": "tm-1782907664997",
+      "title": "Clean up personal and internal contacts in HubSpot",
+      "notes": "Clean up noise in HubSpot contacts and activity logs. Personal/internal addresses to remove: mark@velocity-b.com, ian@velocity-b.com, 143941905@bcc.eu1.hubspot.com (BCC tracking artifact — check email logging settings), genejohncass@gmail.com, gordon@gordonglenister.com, keith@theadvertist.com, ian@trussy.com, tiawucher@yahoo.com, gilallouche@gmail.com. Also check matt@spinakrsolutions.com for possible domain typo. BCC address suggests some emails logged via BCC rather than native integration — review under Settings > General > Email.",
+      "status": "backlog",
+      "duration": null,
+      "label": "Business Development",
+      "scheduled_on": null,
+      "due": "2026-06-29",
+      "created": "2026-07-01T12:07:44.983Z",
+      "updated": "2026-07-01T12:07:44.983Z"
     }
   ]
 }
