@@ -707,16 +707,16 @@
       "id": "ef900868-743a-4aaa-9b43-7b2182d3b2bd",
       "title": "Tuesday 2¢",
       "notes": "",
-      "status": "today",
+      "status": "scheduled",
       "duration": 120,
-      "scheduled_on": "2026-06-30",
+      "scheduled_on": "2026-07-01",
       "due": "2026-06-30",
       "label": null,
       "recurring": true,
       "priority": "Medium",
       "created": "2026-06-27T12:01:43.090Z",
-      "updated": "2026-06-30T13:03:52.297Z",
-      "status_updated": "2026-06-30T07:41:58.612Z"
+      "updated": "2026-07-01T10:12:25.837Z",
+      "status_updated": "2026-07-01T10:12:25.853Z"
     },
     {
       "id": "585335ef-a798-4602-8765-5c46745bfbdd",
