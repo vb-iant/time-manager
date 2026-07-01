@@ -938,6 +938,18 @@
       "due": "2026-07-02",
       "created": "2026-07-01T14:39:22.695Z",
       "updated": "2026-07-01T14:39:22.695Z"
+    },
+    {
+      "id": "tm-1782916769957",
+      "title": "Triage Intric — Sweden pipeline",
+      "notes": "Triage Intric (intric.ai) — AI for governments and enterprises, security-focused. Check: UK presence, pricing model, competitive landscape, CEO contact. Claude has context ready.",
+      "status": "backlog",
+      "duration": 20,
+      "label": "Business Development",
+      "scheduled_on": null,
+      "due": "2026-07-02",
+      "created": "2026-07-01T14:39:29.957Z",
+      "updated": "2026-07-01T14:39:29.957Z"
     }
   ]
 }
