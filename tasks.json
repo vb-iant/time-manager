@@ -106,13 +106,13 @@
       "id": "tm-012",
       "title": "Work on Video script with Sukki",
       "notes": "",
-      "status": "scheduled",
+      "status": "today",
       "duration": 60,
       "scheduled_on": "2026-07-01",
       "due": "2026-07-10",
       "label": "VB Content",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-26T11:47:05.716Z"
+      "updated": "2026-07-01T07:35:25.425Z"
     },
     {
       "id": "tm-013",
@@ -153,13 +153,13 @@
     {
       "id": "tm-016",
       "title": "Follow up with Patrik Lindeberg — Crunchfish (email #2 if no reply)",
-      "status": "scheduled",
+      "status": "today",
       "scheduled_on": "2026-07-01",
       "due": "2026-07-01",
       "duration": 30,
       "label": "Business Development",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-06-25T00:00:00.000Z"
+      "updated": "2026-07-01T07:35:25.425Z"
     },
     {
       "id": "tm-017",
@@ -777,26 +777,26 @@
       "id": "tm-1782718644743",
       "title": "Decide on video platform before Wednesday meeting with Sukki",
       "notes": "Decide on video platform before Wednesday meeting with Sukki. Options to consider: Riverside, Zoom, Teams, Loom. Need a clear recommendation ready for the meeting.",
-      "status": "scheduled",
+      "status": "today",
       "duration": 30,
       "label": "Client Work",
       "scheduled_on": "2026-07-01",
       "due": "2026-07-01",
       "created": "2026-06-29T07:37:24.743Z",
-      "updated": "2026-06-29T09:57:50.761Z",
+      "updated": "2026-07-01T07:35:25.425Z",
       "status_updated": "2026-06-29T09:57:50.777Z"
     },
     {
       "id": "tm-1782718827192",
       "title": "Send MPN update note to John Cass — unable to attend this week",
       "notes": "Declined MPN meeting this week due to England vs DR Congo clash. Send a brief update to John Cass and the team with any relevant MPN activity or news before Wednesday.",
-      "status": "scheduled",
+      "status": "today",
       "duration": 15,
       "label": "MPN",
       "scheduled_on": "2026-07-01",
       "due": "2026-07-01",
       "created": "2026-06-29T07:40:27.176Z",
-      "updated": "2026-06-29T09:57:53.978Z",
+      "updated": "2026-07-01T07:35:25.425Z",
       "status_updated": "2026-06-29T09:57:53.978Z"
     },
     {
