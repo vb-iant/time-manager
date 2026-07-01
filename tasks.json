@@ -1022,6 +1022,21 @@
       "created": "2026-07-01T07:58:26.356Z",
       "updated": "2026-07-01T07:58:26.356Z",
       "status_updated": "2026-07-01T07:58:26.356Z"
+    },
+    {
+      "id": "203b9058-ab99-4fd1-8958-099b3134b6a6",
+      "title": "Copy Tuesday 2c posts from LinkedIn to blog",
+      "notes": "",
+      "status": "backlog",
+      "duration": 30,
+      "scheduled_on": null,
+      "due": null,
+      "label": "Personal brand",
+      "recurring": false,
+      "priority": "Medium",
+      "created": "2026-07-01T08:05:46.682Z",
+      "updated": "2026-07-01T08:05:46.682Z",
+      "status_updated": "2026-07-01T08:05:46.682Z"
     }
   ]
 }
