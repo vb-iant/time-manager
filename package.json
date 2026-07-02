@@ -2,9 +2,6 @@
   "name": "ctrl",
   "version": "1.0.0",
   "private": true,
-  "dependencies": {
-    "@libsql/client": "^0.14.0"
-  },
   "engines": {
     "node": ">=18"
   }
