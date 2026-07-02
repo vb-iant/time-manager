@@ -1,4 +1,4 @@
-import { createClient } from '@libsql/client';
+import { createClient } from '@libsql/client/web';
 
 const REPO = 'vb-iant/time-manager';
 const RAW_BASE = `https://raw.githubusercontent.com/${REPO}/main`;
