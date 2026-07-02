@@ -268,13 +268,13 @@
     {
       "id": "tm-026",
       "title": "LinkedIn reply to Thomas Peham",
-      "status": "scheduled",
+      "status": "today",
       "scheduled_on": "2026-07-02",
       "due": "2026-06-24",
       "duration": 15,
       "label": "Business Development",
       "created": "2026-06-24T00:00:00.000Z",
-      "updated": "2026-07-02T09:15:57.813Z",
+      "updated": "2026-07-02T10:57:51.542Z",
       "status_updated": "2026-07-02T09:15:57.829Z"
     },
     {
@@ -782,13 +782,13 @@
       "id": "tm-1782718644743",
       "title": "Decide on video platform before Wednesday meeting with Sukki",
       "notes": "Decide on video platform before Wednesday meeting with Sukki. Options to consider: Riverside, Zoom, Teams, Loom. Need a clear recommendation ready for the meeting.",
-      "status": "scheduled",
+      "status": "today",
       "duration": 30,
       "label": "Client Work",
       "scheduled_on": "2026-07-02",
       "due": "2026-07-01",
       "created": "2026-06-29T07:37:24.743Z",
-      "updated": "2026-07-02T09:15:53.355Z",
+      "updated": "2026-07-02T10:57:51.542Z",
       "status_updated": "2026-07-02T09:15:53.355Z"
     },
     {
@@ -1043,7 +1043,7 @@
       "id": "22b9b6a5-9964-45c5-a492-9bb82f894431",
       "title": "Send invoice to Janka",
       "notes": "",
-      "status": "scheduled",
+      "status": "today",
       "duration": 15,
       "scheduled_on": "2026-07-02",
       "due": "2026-07-03",
@@ -1051,7 +1051,7 @@
       "recurring": false,
       "priority": null,
       "created": "2026-07-01T08:09:30.213Z",
-      "updated": "2026-07-02T09:15:40.117Z",
+      "updated": "2026-07-02T10:57:51.542Z",
       "status_updated": "2026-07-02T09:15:40.150Z"
     },
     {
@@ -1178,13 +1178,13 @@
       "id": "tm-1782983476089",
       "title": "VB Newsletter — send this week's edition",
       "notes": "Weekly recurring task — VB newsletter send. Due every Thursday.",
-      "status": "scheduled",
+      "status": "today",
       "duration": 30,
       "label": "VB Content",
       "scheduled_on": "2026-07-02",
       "due": "2026-07-02",
       "created": "2026-07-02T09:11:16.089Z",
-      "updated": "2026-07-02T09:11:16.089Z"
+      "updated": "2026-07-02T10:57:51.542Z"
     },
     {
       "id": "tm-1782983482915",
@@ -1202,13 +1202,13 @@
       "id": "tm-1782983488724",
       "title": "Follow up with Joe Phillips — Beyond Borders",
       "notes": "Follow up with Joe Phillips at Beyond Borders.",
-      "status": "scheduled",
+      "status": "today",
       "duration": null,
       "label": "Business Development",
       "scheduled_on": "2026-07-02",
       "due": "2026-07-02",
       "created": "2026-07-02T09:11:28.724Z",
-      "updated": "2026-07-02T09:15:46.950Z",
+      "updated": "2026-07-02T10:57:51.542Z",
       "status_updated": "2026-07-02T09:15:46.950Z"
     },
     {
