@@ -446,9 +446,9 @@
 
 <script>
 const PASSWORD = 'timemanager2026';
-const TASKS_URL = '/api/data?type=tasks';
-const SAVE_TASK_URL = '/api/data?type=tasks';
-const LABELS_URL = '/api/data?type=labels';
+const TASKS_URL = '/api/tasks';
+const SAVE_TASK_URL = '/api/save-task';
+const LABELS_URL = '/api/labels';
 
 let tasks = [];
 
@@ -738,17 +738,6 @@ async function saveTask() {
   }
 
 
-  // Save new label if typed
-  const chosenLabel = getSelectedLabel();
-  if (chosenLabel && !labels.includes(chosenLabel)) {
-    labels.push(chosenLabel);
-    labels.sort();
-    fetch(UPLOAD_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ path: 'labels.json', content: JSON.stringify({ labels }, null, 2) })
-    });
-  }
   renderBoard();
   closeModal();
   setStatus('Saving...');
