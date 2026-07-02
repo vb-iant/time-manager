@@ -148,7 +148,7 @@
 
 <script>
 const PASSWORD = 'timemanager2026';
-const RAW_URL = 'https://raw.githubusercontent.com/vb-iant/time-manager/main/tasks.json';
+const RAW_URL = '/api/tasks';
 
 let tasks = [];
 let weekOffset = 0;
@@ -176,7 +176,7 @@ if (localStorage.getItem('tm_auth') === '1') {
 async function loadTasks() {
   setStatus('Loading...');
   try {
-    const res = await fetch(RAW_URL + '?t=' + Date.now());
+    const res = await fetch(RAW_URL);
     const data = await res.json();
     tasks = Array.isArray(data) ? data : (data.tasks || []);
     renderCalendar();
