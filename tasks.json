@@ -1160,6 +1160,18 @@
       "due": null,
       "created": "2026-07-02T09:11:05.780Z",
       "updated": "2026-07-02T09:11:05.780Z"
+    },
+    {
+      "id": "tm-1782983471127",
+      "title": "Decide next steps after 5-email sequence for US suspects",
+      "notes": "Discuss in tomorrow's Friday meeting. What happens after the 5-email sequence ends for US suspects — move to newsletter, pause, or different cadence?",
+      "status": "backlog",
+      "duration": null,
+      "label": "Business Development",
+      "scheduled_on": null,
+      "due": "2026-07-10",
+      "created": "2026-07-02T09:11:11.127Z",
+      "updated": "2026-07-02T09:11:11.127Z"
     }
   ]
 }
