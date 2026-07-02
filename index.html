@@ -603,7 +603,18 @@ function renderBoard() {
       task.status = status;
       task.updated = new Date().toISOString();
       renderBoard();
-      await saveTasks(`Move task to ${status}: ${task.title}`);
+      setStatus('Saving...');
+      const result = await saveTask(task);
+      if (result.recurring_clone_id) {
+        const clone = cloneRecurring(task);
+        clone.id = result.recurring_clone_id;
+        clone.scheduled_on = result.recurring_scheduled_on;
+        tasks.push(clone);
+        renderBoard();
+        setStatus(`"${task.title}" done — next copy scheduled for ${clone.scheduled_on}`);
+      } else {
+        setStatus('Saved ✓');
+      }
     });
   });
 
