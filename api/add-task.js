@@ -1,4 +1,4 @@
-const TURSO_URL = process.env.TURSO_URL;
+const TURSO_URL = (process.env.TURSO_URL || '').replace('libsql://', 'https://');
 const TURSO_TOKEN = process.env.TURSO_TOKEN;
 
 async function turso(sql, args = []) {
