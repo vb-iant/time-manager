@@ -1,15 +1,4 @@
 {
-  "functions": {
-    "api/oauth/*.js": {
-      "maxDuration": 10
-    },
-    "api/wellknown.js": {
-      "maxDuration": 10
-    },
-    "api/update.js": {
-      "maxDuration": 10
-    }
-  },
   "rewrites": [
     {
       "source": "/.well-known/:path*",
