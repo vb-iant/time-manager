@@ -712,11 +712,11 @@
       "scheduled_on": "2026-06-30",
       "due": "2026-06-30",
       "label": null,
-      "recurring": false,
+      "recurring": true,
       "priority": "Medium",
       "created": "2026-06-27T12:01:43.090Z",
-      "updated": "2026-07-02T15:27:52.819Z",
-      "status_updated": "2026-07-02T15:27:52.819Z"
+      "updated": "2026-07-01T16:06:59.165Z",
+      "status_updated": "2026-06-30T07:41:58.612Z"
     },
     {
       "id": "585335ef-a798-4602-8765-5c46745bfbdd",
@@ -1054,19 +1054,19 @@
       "status_updated": "2026-07-01T08:09:30.213Z"
     },
     {
-      "id": "4866fc75-bd58-4892-a01b-3425cda73ff3",
-      "title": "Update Janka's IT team on new DNS settings",
+      "id": "326b45f7-14f8-435a-b086-a99388e34e23",
+      "title": "get alternative email from Julia Haglind at Northhouse",
       "notes": "",
       "status": "backlog",
-      "duration": 15,
+      "duration": null,
       "scheduled_on": null,
       "due": null,
-      "label": "Client Work",
+      "label": "Business Development",
       "recurring": false,
-      "priority": null,
-      "created": "2026-07-02T15:16:18.307Z",
-      "updated": "2026-07-02T15:26:04.770Z",
-      "status_updated": "2026-07-02T15:26:04.770Z"
+      "priority": "Medium",
+      "created": "2026-07-02T15:32:31.749Z",
+      "updated": "2026-07-02T15:32:31.749Z",
+      "status_updated": "2026-07-02T15:32:31.749Z"
     }
   ]
 }
