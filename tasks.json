@@ -1070,6 +1070,21 @@
       "created": "2026-07-02T15:32:31.749Z",
       "updated": "2026-07-02T15:32:31.749Z",
       "status_updated": "2026-07-02T15:32:31.749Z"
+    },
+    {
+      "id": "0d226916-3a89-4dbd-b85a-4aff66618423",
+      "title": "Fix weekly recurring tasks - create new tasks.",
+      "notes": "",
+      "status": "backlog",
+      "duration": null,
+      "scheduled_on": null,
+      "due": null,
+      "label": "Business Development",
+      "recurring": false,
+      "priority": null,
+      "created": "2026-07-02T15:33:34.148Z",
+      "updated": "2026-07-02T15:33:34.148Z",
+      "status_updated": "2026-07-02T15:33:34.148Z"
     }
   ]
 }
