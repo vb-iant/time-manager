@@ -1,7 +1,7 @@
 const REPO = 'vb-iant/time-manager';
 const RAW_BASE = `https://raw.githubusercontent.com/${REPO}/main`;
 const API_BASE = `https://api.github.com/repos/${REPO}/contents`;
-const TURSO_URL = process.env.TURSO_URL;
+const TURSO_URL = (process.env.TURSO_URL || '').replace('libsql://', 'https://');
 const TURSO_TOKEN = process.env.TURSO_TOKEN;
 
 async function turso(sql, args = []) {
