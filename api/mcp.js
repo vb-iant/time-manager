@@ -1,35 +1,37 @@
-import { createClient } from '@libsql/client/web';
-
 const REPO = 'vb-iant/time-manager';
 const RAW_BASE = `https://raw.githubusercontent.com/${REPO}/main`;
 const API_BASE = `https://api.github.com/repos/${REPO}/contents`;
+const TURSO_URL = process.env.TURSO_URL;
+const TURSO_TOKEN = process.env.TURSO_TOKEN;
 
-function getDb() {
-  return createClient({
-    url: process.env.TURSO_URL,
-    authToken: process.env.TURSO_TOKEN,
+async function turso(sql, args = []) {
+  const res = await fetch(`${TURSO_URL}/v2/pipeline`, {
+    method: 'POST',
+    headers: { 'Authorization': `Bearer ${TURSO_TOKEN}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ requests: [
+      { type: 'execute', stmt: { sql, args: args.map(v => {
+        if (v === null) return { type: 'null' };
+        if (typeof v === 'number') return { type: 'integer', value: v };
+        return { type: 'text', value: String(v) };
+      })}},
+      { type: 'close' }
+    ]})
   });
+  const data = await res.json();
+  if (data.results?.[0]?.type === 'error') throw new Error(data.results[0].error.message);
+  return data.results?.[0]?.response?.result;
 }
 
-function taskFromRow(row) {
-  return {
-    id: row.id,
-    title: row.title,
-    notes: row.notes || null,
-    status: row.status || 'backlog',
-    priority: row.priority || null,
-    duration: row.duration || null,
-    label: row.label || null,
-    scheduled_on: row.scheduled_on || null,
-    due: row.due || null,
-    recurring: row.recurring === 1 || row.recurring === true,
-    crm_contact_id: row.crm_contact_id || null,
-    external_system: row.external_system || null,
-    external_task_id: row.external_task_id || null,
-    created: row.created,
-    updated: row.updated,
-    status_updated: row.status_updated || null,
-  };
+function rowToTask(cols, row) {
+  const obj = {};
+  cols.forEach((col, i) => {
+    const val = row[i];
+    if (val.type === 'null') obj[col.name] = null;
+    else if (col.name === 'recurring') obj[col.name] = val.value === '1' || val.value === 1;
+    else if (col.name === 'duration') obj[col.name] = val.value ? parseInt(val.value) : null;
+    else obj[col.name] = val.value;
+  });
+  return obj;
 }
 
 async function githubRead(path) {
@@ -194,7 +196,6 @@ const TOOLS = [
 ];
 
 async function callTool(name, args) {
-  const db = getDb();
   const now = new Date().toISOString();
 
   if (name === 'get_tasks') {
@@ -258,33 +259,27 @@ async function callTool(name, args) {
   }
 
   if (name === 'find_task_by_external_id') {
-    const result = await db.execute({
-      sql: 'SELECT * FROM tasks WHERE external_system = ? AND external_task_id = ? LIMIT 1',
-      args: [args.external_system, args.external_task_id]
-    });
-    return result.rows.length ? JSON.stringify(taskFromRow(result.rows[0]), null, 2) : 'null';
+    const result = await turso('SELECT * FROM tasks WHERE external_system = ? AND external_task_id = ? LIMIT 1', [args.external_system, args.external_task_id]);
+    return result.rows.length ? JSON.stringify(rowToTask(result.cols, result.rows[0]), null, 2) : 'null';
   }
 
   if (name === 'find_tasks_by_crm_contact') {
-    const result = await db.execute({
-      sql: 'SELECT * FROM tasks WHERE crm_contact_id = ?',
-      args: [args.crm_contact_id]
-    });
-    return JSON.stringify(result.rows.map(taskFromRow), null, 2);
+    const result = await turso('SELECT * FROM tasks WHERE crm_contact_id = ?', [args.crm_contact_id]);
+    return JSON.stringify(result.rows.map(row => rowToTask(result.cols, row)), null, 2);
   }
 
   if (name === 'get_labels') {
-    const result = await db.execute('SELECT name FROM labels ORDER BY name');
-    return JSON.stringify({ labels: result.rows.map(r => r.name) }, null, 2);
+    const result = await turso('SELECT name FROM labels ORDER BY name');
+    return JSON.stringify({ labels: result.rows.map(r => r[0].value) }, null, 2);
   }
 
   if (name === 'add_label') {
-    await db.execute({ sql: 'INSERT OR IGNORE INTO labels (name) VALUES (?)', args: [args.label] });
+    await turso('INSERT OR IGNORE INTO labels (name) VALUES (?)', [args.label]);
     return `Label added: "${args.label}"`;
   }
 
   if (name === 'delete_label') {
-    await db.execute({ sql: 'DELETE FROM labels WHERE name = ?', args: [args.label] });
+    await turso('DELETE FROM labels WHERE name = ?', [args.label]);
     return `Label deleted: "${args.label}"`;
   }
 
