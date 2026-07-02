@@ -682,12 +682,12 @@
       "status": "scheduled",
       "duration": 60,
       "scheduled_on": "2026-07-03",
-      "due": "2026-06-30",
+      "due": "2026-07-03",
       "label": "Business Development",
       "recurring": false,
       "priority": null,
       "created": "2026-06-27T10:21:34.388Z",
-      "updated": "2026-07-02T16:52:03.177Z",
+      "updated": "2026-07-02T16:52:35.495Z",
       "status_updated": "2026-06-29T09:58:03.954Z"
     },
     {
