@@ -1252,6 +1252,18 @@
       "created": "2026-07-02T10:59:45.200Z",
       "updated": "2026-07-02T10:59:45.200Z",
       "status_updated": "2026-07-02T10:59:45.200Z"
+    },
+    {
+      "id": "tm-1782993029825",
+      "title": "CTRL Links — InMail link tracking app",
+      "notes": "New CTRL suite app for tracking LinkedIn InMail link opens (replaces the Airtable + UTM + JS listener hack).\n\nSpec so far:\n- BD/sales person creates a link: destination URL + LinkedIn URL (contact key) + campaign label\n- App generates individualised UTM + short code, served at go.velocity-b.com/ABCD (subdomain, since root domain is HubSpot CMS)\n- Short link resolves via interstitial page: JS beacon fires \"confirmed_open\" (filters out LinkedIn's link-preview crawler, which hits the server-side redirect but doesn't execute JS) before bouncing to real destination\n- Two event types logged: redirect_hit (server-side, includes bots) vs confirmed_open (JS-fired, real human)\n- Stack: new Vercel project (vb-iant/ctrl-links), Turso DB (links + events tables) — not GitHub-as-DB\n- v1 scope: single shared link list (no per-user views yet)\n- DNS: CNAME for go.velocity-b.com → Vercel, Ian to set up himself when ready\n\nAdded spec item: HubSpot integration — use HubSpot's Timeline Events API to define a custom event type (e.g. \"InMail Link Opened\") and post events to the matching contact record, so opens show up natively in the contact's HubSpot activity feed alongside HubSpot's own web activity/email opens. Need to figure out contact matching (LinkedIn URL property vs email lookup).\n\nTo pick up after other CTRL dev tasks are finished.",
+      "status": "backlog",
+      "duration": null,
+      "label": "Dev Project",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-07-02T11:50:29.808Z",
+      "updated": "2026-07-02T11:50:29.808Z"
     }
   ]
 }
