@@ -1210,6 +1210,18 @@
       "created": "2026-07-02T09:11:28.724Z",
       "updated": "2026-07-02T09:15:46.950Z",
       "status_updated": "2026-07-02T09:15:46.950Z"
+    },
+    {
+      "id": "tm-1782986798716",
+      "title": "Embed Claude chat into CTRL app",
+      "notes": "Add a chat sidebar/drawer to the CTRL board. Claude has access to task context and can read/write tasks directly. Use rolling memory.json file in repo for cross-session memory. Needs Anthropic API key in Vercel env vars. Migrate to Turso storage when database migration happens.",
+      "status": "backlog",
+      "duration": null,
+      "label": "Dev Project",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-07-02T10:06:38.702Z",
+      "updated": "2026-07-02T10:06:38.702Z"
     }
   ]
 }
