@@ -367,4 +367,4 @@ export default async function handler(req) {
   }), { status: 404, headers });
 }
 
-export const config = { runtime: 'nodejs' };
+export const config = { runtime: 'edge' };
