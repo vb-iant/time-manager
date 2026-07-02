@@ -1057,7 +1057,7 @@
       "id": "4866fc75-bd58-4892-a01b-3425cda73ff3",
       "title": "Update Janka's IT team on new DNS settings",
       "notes": "",
-      "status": "done",
+      "status": "backlog",
       "duration": 15,
       "scheduled_on": null,
       "due": null,
@@ -1065,8 +1065,8 @@
       "recurring": false,
       "priority": null,
       "created": "2026-07-02T15:16:18.307Z",
-      "updated": "2026-07-02T15:16:18.307Z",
-      "status_updated": "2026-07-02T15:16:18.307Z"
+      "updated": "2026-07-02T15:26:04.770Z",
+      "status_updated": "2026-07-02T15:26:04.770Z"
     }
   ]
 }
