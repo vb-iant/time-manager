@@ -1271,7 +1271,7 @@
       "id": "8c99527a-6649-40fc-ae1f-93a2b4106db0",
       "title": "Add accountants invoice to Xero",
       "notes": "",
-      "status": "backlog",
+      "status": "done",
       "duration": null,
       "scheduled_on": null,
       "due": null,
@@ -1279,7 +1279,7 @@
       "recurring": false,
       "priority": "High",
       "created": "2026-07-02T12:38:06.968Z",
-      "updated": "2026-07-02T12:38:06.968Z",
+      "updated": "2026-07-02T12:44:26.887Z",
       "status_updated": "2026-07-02T12:38:06.968Z"
     }
   ]
