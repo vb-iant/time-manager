@@ -1094,14 +1094,15 @@
     {
       "id": "tm-1782979363802",
       "title": "Triage Evity HR — Sweden pipeline",
-      "notes": "Website: https://evity.hr | LinkedIn: https://www.linkedin.com/company/evity-hr (verify) | HR platform. Check: UK presence, pricing model, competitive landscape, CEO contact. Claude has context ready.",
-      "status": "backlog",
+      "notes": "Qualified out — Swedish-only website, 110 SEK/employee/month pricing (~£8, far too low), 7 employees, built around Swedish labour law. Too early stage, wrong pricing motion, and UK HR market already dominated by HiBob, Darwinbox etc.",
+      "status": "done",
       "duration": 20,
       "label": "Business Development",
       "scheduled_on": null,
       "due": null,
       "created": "2026-07-02T08:02:43.785Z",
-      "updated": "2026-07-02T08:02:43.785Z"
+      "updated": "2026-07-02T13:54:20.375Z",
+      "status_updated": "2026-07-02T13:54:20.390Z"
     },
     {
       "id": "tm-1782979370857",
