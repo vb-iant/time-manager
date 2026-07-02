@@ -446,12 +446,11 @@
 
 <script>
 const PASSWORD = 'timemanager2026';
-const RAW_URL = 'https://raw.githubusercontent.com/vb-iant/time-manager/main/tasks.json';
-const API_URL = 'https://api.github.com/repos/vb-iant/time-manager/contents/tasks.json';
-const UPLOAD_URL = '/api/update';
+const TASKS_URL = '/api/tasks';
+const SAVE_TASK_URL = '/api/save-task';
+const LABELS_URL = '/api/labels';
 
 let tasks = [];
-let currentSha = null;
 
 // --- AUTH ---
 function tryLogin() {
@@ -483,7 +482,7 @@ let labels = [];
 
 async function loadLabels() {
   try {
-    const res = await fetch('https://raw.githubusercontent.com/vb-iant/time-manager/main/labels.json?t=' + Date.now());
+    const res = await fetch(LABELS_URL);
     const data = await res.json();
     labels = data.labels || [];
     populateLabelSelect();
@@ -524,56 +523,46 @@ function getSelectedLabel() {
 async function loadTasks() {
   setStatus('Loading...');
   try {
-    const res = await fetch(RAW_URL + '?t=' + Date.now());
+    const res = await fetch(TASKS_URL);
     const data = await res.json();
-    tasks = Array.isArray(data) ? data : (data.tasks || []);
+    tasks = data.tasks || [];
+
     // Auto-move scheduled tasks for today into Today column
     const today = new Date().toISOString().slice(0, 10);
-    let moved = 0;
-    tasks.forEach(t => {
-      if (t.status === 'scheduled' && t.scheduled_on === today) {
-        t.status = 'today';
-        t.updated = new Date().toISOString();
-        moved++;
-      }
-    });
-    // Get SHA for writes
-    const meta = await fetch(API_URL);
-    const metaJson = await meta.json();
-    currentSha = metaJson.sha;
+    const toMove = tasks.filter(t => t.status === 'scheduled' && t.scheduled_on === today);
+    for (const t of toMove) {
+      t.status = 'today';
+      await fetch(SAVE_TASK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...t, status: 'today' })
+      });
+    }
+
     renderBoard();
     document.getElementById('last-sync').textContent = 'Synced ' + new Date().toLocaleTimeString();
-    setStatus(`${tasks.length} task${tasks.length !== 1 ? 's' : ''} loaded${moved ? ` — ${moved} moved to Today` : ''}`);
-    if (moved) await saveTasks(`Auto-move ${moved} task(s) to Today`);
+    setStatus(`${tasks.length} task${tasks.length !== 1 ? 's' : ''} loaded${toMove.length ? ` — ${toMove.length} moved to Today` : ''}`);
   } catch(e) {
     setStatus('Error loading tasks: ' + e.message);
   }
 }
 
-async function saveTasks(message) {
-  setStatus('Saving...');
-  try {
-    const res = await fetch(UPLOAD_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        path: 'tasks.json',
-        content: JSON.stringify({ version: '1.0', tasks }, null, 2)
-      })
-    });
-    const data = await res.json();
-    if (data.ok) {
-      currentSha = data.sha;
-      setStatus('Saved ✓');
-      return true;
-    } else {
-      setStatus('Save error: ' + (data.error || 'Unknown'));
-      return false;
-    }
-  } catch(e) {
-    setStatus('Save error: ' + e.message);
-    return false;
-  }
+async function saveTask(task) {
+  const res = await fetch(SAVE_TASK_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(task)
+  });
+  return res.json();
+}
+
+async function deleteTaskFromDb(id) {
+  const res = await fetch(SAVE_TASK_URL, {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id })
+  });
+  return res.json();
 }
 
 // --- RENDER ---
@@ -751,7 +740,20 @@ async function saveTask() {
   }
   renderBoard();
   closeModal();
-  await saveTasks(id ? `Update task: ${title}` : `Add task: ${title}`);
+  setStatus('Saving...');
+  await saveTask(task);
+  setStatus('Saved ✓');
+  // Add new label to database if needed
+  const chosenLabel = getSelectedLabel();
+  if (chosenLabel && !labels.includes(chosenLabel)) {
+    labels.push(chosenLabel);
+    labels.sort();
+    fetch(LABELS_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ label: chosenLabel })
+    });
+  }
 }
 
 async function deleteTask() {
@@ -761,7 +763,9 @@ async function deleteTask() {
   tasks = tasks.filter(t => t.id !== id);
   renderBoard();
   closeModal();
-  await saveTasks(`Delete task: ${task.title}`);
+  setStatus('Deleting...');
+  await deleteTaskFromDb(id);
+  setStatus('Deleted ✓');
 }
 
 function setStatus(msg) {
