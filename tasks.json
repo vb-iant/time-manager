@@ -1148,6 +1148,18 @@
       "due": "2026-07-04",
       "created": "2026-07-02T08:04:44.781Z",
       "updated": "2026-07-02T08:04:44.781Z"
+    },
+    {
+      "id": "tm-1782983465813",
+      "title": "Add get_current_time tool to CTRL MCP",
+      "notes": "Add a get_current_time MCP tool that returns the current server timestamp and timezone. Simple GET endpoint: { datetime: ISO string, timezone: string }. Claude calls this at the start of every check-in to know the accurate date and time.",
+      "status": "backlog",
+      "duration": null,
+      "label": "Dev Project",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-07-02T09:11:05.780Z",
+      "updated": "2026-07-02T09:11:05.780Z"
     }
   ]
 }
