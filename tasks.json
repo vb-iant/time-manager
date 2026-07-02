@@ -1090,7 +1090,7 @@
       "id": "0cd6c27d-ab33-457c-9d0e-29ea1ed164e7",
       "title": "VB Newsletter — send this week's edition",
       "notes": "",
-      "status": "scheduled",
+      "status": "today",
       "duration": null,
       "scheduled_on": "2026-07-02",
       "due": null,
@@ -1098,7 +1098,7 @@
       "recurring": false,
       "priority": null,
       "created": "2026-07-02T16:54:42.397Z",
-      "updated": "2026-07-02T16:54:42.397Z",
+      "updated": "2026-07-02T17:45:14.815Z",
       "status_updated": "2026-07-02T16:54:42.397Z"
     }
   ]
