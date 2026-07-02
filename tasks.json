@@ -1196,6 +1196,18 @@
       "due": "2026-07-07",
       "created": "2026-07-02T09:11:22.898Z",
       "updated": "2026-07-02T09:11:22.898Z"
+    },
+    {
+      "id": "tm-1782983488724",
+      "title": "Follow up with Joe Phillips — Beyond Borders",
+      "notes": "Follow up with Joe Phillips at Beyond Borders.",
+      "status": "backlog",
+      "duration": null,
+      "label": "Business Development",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-07-02T09:11:28.724Z",
+      "updated": "2026-07-02T09:11:28.724Z"
     }
   ]
 }
