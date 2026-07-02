@@ -1160,6 +1160,18 @@
       "due": "2026-07-04",
       "created": "2026-07-02T08:04:18.493Z",
       "updated": "2026-07-02T08:04:18.493Z"
+    },
+    {
+      "id": "tm-1782979462880",
+      "title": "Research — Zynca",
+      "notes": "Triage: confirm commercial fit, find right contact, check UK expansion intent.",
+      "status": "scheduled",
+      "duration": null,
+      "label": "Business Development",
+      "scheduled_on": null,
+      "due": "2026-07-04",
+      "created": "2026-07-02T08:04:22.880Z",
+      "updated": "2026-07-02T08:04:22.880Z"
     }
   ]
 }
