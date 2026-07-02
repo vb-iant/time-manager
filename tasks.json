@@ -1138,18 +1138,6 @@
       "updated": "2026-07-02T08:03:09.784Z"
     },
     {
-      "id": "tm-1782979452341",
-      "title": "Research — SPCE",
-      "notes": "Triage: confirm commercial fit, find right contact, check UK expansion intent.",
-      "status": "scheduled",
-      "duration": null,
-      "label": "Business Development",
-      "scheduled_on": null,
-      "due": "2026-07-04",
-      "created": "2026-07-02T08:04:12.324Z",
-      "updated": "2026-07-02T08:04:12.324Z"
-    },
-    {
       "id": "tm-1782979458493",
       "title": "Research — Intric",
       "notes": "Triage: confirm commercial fit, find right contact, check UK expansion intent.",
