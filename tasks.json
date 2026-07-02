@@ -681,13 +681,11 @@
       "notes": "Companies to triage (Claude has the list ready): SPCE, Intric, Zynca, Eperoto, Evity HR, North House, ValueOrbit, Hives.co. Goal: get pipeline back to 20 suspects. Claude will add to HubSpot and pull contacts once you've confirmed each one.",
       "status": "scheduled",
       "duration": 60,
-      "scheduled_on": "2026-07-03",
-      "due": "2026-07-03",
       "label": "Business Development",
-      "recurring": false,
-      "priority": null,
+      "scheduled_on": "2026-07-04",
+      "due": "2026-06-30",
       "created": "2026-06-27T10:21:34.388Z",
-      "updated": "2026-07-02T16:52:35.495Z",
+      "updated": "2026-06-29T09:58:03.954Z",
       "status_updated": "2026-06-29T09:58:03.954Z"
     },
     {
@@ -1047,7 +1045,7 @@
       "id": "22b9b6a5-9964-45c5-a492-9bb82f894431",
       "title": "Send invoice to Janka",
       "notes": "",
-      "status": "scheduled",
+      "status": "backlog",
       "duration": 15,
       "scheduled_on": null,
       "due": "2026-07-03",
@@ -1055,8 +1053,8 @@
       "recurring": false,
       "priority": null,
       "created": "2026-07-01T08:09:30.213Z",
-      "updated": "2026-07-02T16:50:13.143Z",
-      "status_updated": "2026-07-02T16:50:13.143Z"
+      "updated": "2026-07-01T08:09:30.213Z",
+      "status_updated": "2026-07-01T08:09:30.213Z"
     },
     {
       "id": "326b45f7-14f8-435a-b086-a99388e34e23",
@@ -1087,6 +1085,21 @@
       "created": "2026-07-02T15:33:34.148Z",
       "updated": "2026-07-02T15:33:34.148Z",
       "status_updated": "2026-07-02T15:33:34.148Z"
+    },
+    {
+      "id": "0cd6c27d-ab33-457c-9d0e-29ea1ed164e7",
+      "title": "VB Newsletter — send this week's edition",
+      "notes": "",
+      "status": "scheduled",
+      "duration": null,
+      "scheduled_on": "2026-07-02",
+      "due": null,
+      "label": "VB Content",
+      "recurring": false,
+      "priority": null,
+      "created": "2026-07-02T16:54:42.397Z",
+      "updated": "2026-07-02T16:54:42.397Z",
+      "status_updated": "2026-07-02T16:54:42.397Z"
     }
   ]
 }
