@@ -1058,18 +1058,18 @@
     },
     {
       "id": "326b45f7-14f8-435a-b086-a99388e34e23",
-      "title": "get alternative email from Julia Haglind at Northhouse",
+      "title": "get alternative email for Julia Haglind at Northhouse * resend",
       "notes": "",
-      "status": "backlog",
-      "duration": null,
+      "status": "done",
+      "duration": 15,
       "scheduled_on": null,
-      "due": null,
+      "due": "2026-07-03",
       "label": "Business Development",
       "recurring": false,
       "priority": "Medium",
       "created": "2026-07-02T15:32:31.749Z",
-      "updated": "2026-07-02T15:32:31.749Z",
-      "status_updated": "2026-07-02T15:32:31.749Z"
+      "updated": "2026-07-02T17:45:49.560Z",
+      "status_updated": "2026-07-02T17:45:49.560Z"
     },
     {
       "id": "0d226916-3a89-4dbd-b85a-4aff66618423",
