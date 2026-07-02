@@ -2,7 +2,8 @@ import crypto from 'crypto';
 
 export default function handler(req, res) {
   const base = `https://${req.headers.host}`;
-  const action = req.url.split('/').pop().split('?')[0];
+  const urlObj = new URL(req.url, `https://${req.headers.host}`);
+  const action = urlObj.searchParams.get('action') || req.url.split('/').pop().split('?')[0];
 
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
