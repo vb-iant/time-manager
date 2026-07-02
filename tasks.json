@@ -1045,7 +1045,7 @@
       "id": "22b9b6a5-9964-45c5-a492-9bb82f894431",
       "title": "Send invoice to Janka",
       "notes": "",
-      "status": "backlog",
+      "status": "scheduled",
       "duration": 15,
       "scheduled_on": null,
       "due": "2026-07-03",
@@ -1053,8 +1053,8 @@
       "recurring": false,
       "priority": null,
       "created": "2026-07-01T08:09:30.213Z",
-      "updated": "2026-07-01T08:09:30.213Z",
-      "status_updated": "2026-07-01T08:09:30.213Z"
+      "updated": "2026-07-02T16:50:13.143Z",
+      "status_updated": "2026-07-02T16:50:13.143Z"
     },
     {
       "id": "326b45f7-14f8-435a-b086-a99388e34e23",
