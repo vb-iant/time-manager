@@ -1167,6 +1167,18 @@
       "created": "2026-07-02T13:46:07.915Z",
       "updated": "2026-07-02T13:46:07.915Z",
       "status_updated": "2026-07-02T13:46:07.915Z"
+    },
+    {
+      "id": "tm-1783002855474",
+      "title": "Send Email 1 — Julia Haglind, North House",
+      "notes": "Email sent. Referenced AI governance blog post and coaching client in governance consulting (Copper Fern) as context for research. UK Expansion GTM pitch. Julia Haglind, Founder & CEO, 25 years at Nasdaq.",
+      "status": "done",
+      "duration": null,
+      "label": "Business Development",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-07-02T14:34:15.457Z",
+      "updated": "2026-07-02T14:34:15.457Z"
     }
   ]
 }
