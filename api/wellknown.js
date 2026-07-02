@@ -1,5 +1,5 @@
 export default function handler(req, res) {
-  const base = `https://${req.headers.host}`;
+  const base = 'https://ctrl.day';
   const path = req.url.split('?')[0];
   res.setHeader('Access-Control-Allow-Origin', '*');
 
