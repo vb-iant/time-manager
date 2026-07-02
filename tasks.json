@@ -1201,13 +1201,14 @@
       "id": "tm-1782983488724",
       "title": "Follow up with Joe Phillips — Beyond Borders",
       "notes": "Follow up with Joe Phillips at Beyond Borders.",
-      "status": "backlog",
+      "status": "scheduled",
       "duration": null,
       "label": "Business Development",
-      "scheduled_on": null,
-      "due": null,
+      "scheduled_on": "2026-07-02",
+      "due": "2026-07-02",
       "created": "2026-07-02T09:11:28.724Z",
-      "updated": "2026-07-02T09:11:28.724Z"
+      "updated": "2026-07-02T09:15:46.950Z",
+      "status_updated": "2026-07-02T09:15:46.950Z"
     }
   ]
 }
