@@ -1172,6 +1172,18 @@
       "due": "2026-07-10",
       "created": "2026-07-02T09:11:11.127Z",
       "updated": "2026-07-02T09:11:11.127Z"
+    },
+    {
+      "id": "tm-1782983476089",
+      "title": "VB Newsletter — send this week's edition",
+      "notes": "Weekly recurring task — VB newsletter send. Due every Thursday.",
+      "status": "scheduled",
+      "duration": 30,
+      "label": "VB Content",
+      "scheduled_on": "2026-07-02",
+      "due": "2026-07-02",
+      "created": "2026-07-02T09:11:16.089Z",
+      "updated": "2026-07-02T09:11:16.089Z"
     }
   ]
 }
