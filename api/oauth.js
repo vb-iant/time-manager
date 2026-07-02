@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 
 export default function handler(req, res) {
-  const base = `https://${req.headers.host}`;
+  const base = 'https://ctrl.day';
   
   // Get action from query param or path
   const rawUrl = req.url || '';
