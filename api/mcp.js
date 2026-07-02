@@ -367,4 +367,4 @@ export default async function handler(req) {
   }), { status: 404, headers });
 }
 
-// Node.js runtime (required for @libsql/client)
+export const config = { runtime: 'nodejs' };
