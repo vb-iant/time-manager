@@ -2,8 +2,13 @@ import crypto from 'crypto';
 
 export default function handler(req, res) {
   const base = `https://${req.headers.host}`;
-  const urlObj = new URL(req.url, `https://${req.headers.host}`);
-  const action = urlObj.searchParams.get('action') || req.url.split('/').pop().split('?')[0];
+  
+  // Get action from query param or path
+  const rawUrl = req.url || '';
+  const qIndex = rawUrl.indexOf('?');
+  const queryString = qIndex >= 0 ? rawUrl.slice(qIndex + 1) : '';
+  const params = new URLSearchParams(queryString);
+  const action = params.get('action') || rawUrl.split('/').pop().split('?')[0];
 
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -26,7 +31,8 @@ export default function handler(req, res) {
 
   // Authorize
   if (action === 'authorize') {
-    const { redirect_uri, state, code_challenge, code_challenge_method } = req.method === 'POST' ? req.body : req.query;
+    const q = req.method === 'POST' ? (req.body || {}) : Object.fromEntries(params);
+    const { redirect_uri, state, code_challenge, code_challenge_method } = q;
 
     if (req.method === 'POST') {
       const secret = process.env.OAUTH_SECRET || 'fallback-secret';
@@ -40,9 +46,8 @@ export default function handler(req, res) {
       return res.redirect(302, redirectUrl.toString());
     }
 
-    const params = new URLSearchParams(req.query).toString();
-    res.setHeader('Content-Type', 'text/html');
-    return res.send(`<!DOCTYPE html>
+    // GET — show consent page
+    return res.setHeader('Content-Type', 'text/html').send(`<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -74,7 +79,7 @@ export default function handler(req, res) {
       <div class="tool">📖 <span>get_plan / list_plans</span></div>
       <div class="tool">🏷️ <span>manage labels</span></div>
     </div>
-    <form method="POST" action="/api/oauth?${params}">
+    <form method="POST" action="/api/oauth?${queryString}">
       <button type="submit">Authorize Claude</button>
     </form>
   </div>
@@ -94,10 +99,10 @@ export default function handler(req, res) {
       return res.status(400).json({ error: 'invalid_grant' });
     }
     const secret = process.env.OAUTH_SECRET || 'fallback-secret';
-    const payload = `ctrl-access-${Date.now()}`;
+    const payload = \`ctrl-access-\${Date.now()}\`;
     const sig = crypto.createHmac('sha256', secret).update(payload).digest('hex').slice(0, 16);
     return res.json({
-      access_token: `${payload}-${sig}`,
+      access_token: \`\${payload}-\${sig}\`,
       token_type: 'Bearer',
       expires_in: 7776000,
     });
