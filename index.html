@@ -738,17 +738,6 @@ async function saveTask() {
   }
 
 
-  // Save new label if typed
-  const chosenLabel = getSelectedLabel();
-  if (chosenLabel && !labels.includes(chosenLabel)) {
-    labels.push(chosenLabel);
-    labels.sort();
-    fetch(UPLOAD_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ path: 'labels.json', content: JSON.stringify({ labels }, null, 2) })
-    });
-  }
   renderBoard();
   closeModal();
   setStatus('Saving...');
