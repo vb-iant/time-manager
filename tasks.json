@@ -1044,14 +1044,15 @@
     {
       "id": "tm-1782979342856",
       "title": "Triage Intric — Sweden pipeline",
-      "notes": "Website: https://intric.ai | LinkedIn: https://www.linkedin.com/company/intric-ai (verify) | ⚠️ Public sector/regulated industries focus — may be too niche. €3.8M pre-seed Feb 2026. 60+ orgs across Sweden/Norway/Finland/Germany. Check: is public sector vertical too niche for VB? Claude has context ready.",
-      "status": "backlog",
+      "notes": "Qualified out — public sector/government focus. Won International Expansion Award at Techarena Challenge 25 Jun 2026 (great signal, wrong category). Selling into UK government requires credibility and relationships Velocity B doesn't have.",
+      "status": "done",
       "duration": 20,
       "label": "Business Development",
       "scheduled_on": null,
       "due": null,
       "created": "2026-07-02T08:02:22.840Z",
-      "updated": "2026-07-02T08:02:22.840Z"
+      "updated": "2026-07-02T13:30:00.784Z",
+      "status_updated": "2026-07-02T13:30:00.799Z"
     },
     {
       "id": "tm-1782979350212",
