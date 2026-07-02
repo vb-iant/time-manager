@@ -13,9 +13,9 @@ export default function handler(req, res) {
   if (path.includes('oauth-authorization-server')) {
     return res.json({
       issuer: base,
-      authorization_endpoint: `${base}/api/oauth/authorize`,
-      token_endpoint: `${base}/api/oauth/token`,
-      registration_endpoint: `${base}/api/oauth/register`,
+      authorization_endpoint: `${base}/api/oauth?action=authorize`,
+      token_endpoint: `${base}/api/oauth?action=token`,
+      registration_endpoint: `${base}/api/oauth?action=register`,
       response_types_supported: ['code'],
       grant_types_supported: ['authorization_code'],
       code_challenge_methods_supported: ['S256'],
