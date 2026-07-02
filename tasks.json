@@ -1081,14 +1081,15 @@
     {
       "id": "tm-1782979356243",
       "title": "Triage Eperoto — Sweden pipeline",
-      "notes": "Website: https://eperoto.com | LinkedIn: https://www.linkedin.com/company/eperoto (verify) | Legal risk communication tool. Check: UK presence, pricing model, competitive landscape, CEO contact. Claude has context ready.",
-      "status": "backlog",
+      "notes": "Qualified out — UK Director confirmed on LinkedIn. Already operating in UK with clients including Allen & Overy and Gowling WLG. CEO Rory Kingan has deep UK legal market background (Freshfields). No gap for Velocity B.",
+      "status": "done",
       "duration": 20,
       "label": "Business Development",
       "scheduled_on": null,
       "due": null,
       "created": "2026-07-02T08:02:36.243Z",
-      "updated": "2026-07-02T08:02:36.243Z"
+      "updated": "2026-07-02T13:51:41.119Z",
+      "status_updated": "2026-07-02T13:51:41.136Z"
     },
     {
       "id": "tm-1782979363802",
