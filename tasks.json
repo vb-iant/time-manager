@@ -1184,6 +1184,18 @@
       "due": "2026-07-02",
       "created": "2026-07-02T09:11:16.089Z",
       "updated": "2026-07-02T09:11:16.089Z"
+    },
+    {
+      "id": "tm-1782983482915",
+      "title": "Follow up with Lawrence at AAANow",
+      "notes": "Follow up by email.",
+      "status": "scheduled",
+      "duration": 15,
+      "label": "Business Development",
+      "scheduled_on": "2026-07-07",
+      "due": "2026-07-07",
+      "created": "2026-07-02T09:11:22.898Z",
+      "updated": "2026-07-02T09:11:22.898Z"
     }
   ]
 }
