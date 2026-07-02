@@ -1052,6 +1052,18 @@
       "created": "2026-07-01T08:09:30.213Z",
       "updated": "2026-07-01T08:09:30.213Z",
       "status_updated": "2026-07-01T08:09:30.213Z"
+    },
+    {
+      "id": "tm-1782979342856",
+      "title": "Triage Intric — Sweden pipeline",
+      "notes": "Website: https://intric.ai | LinkedIn: https://www.linkedin.com/company/intric-ai (verify) | ⚠️ Public sector/regulated industries focus — may be too niche. €3.8M pre-seed Feb 2026. 60+ orgs across Sweden/Norway/Finland/Germany. Check: is public sector vertical too niche for VB? Claude has context ready.",
+      "status": "backlog",
+      "duration": 20,
+      "label": "Business Development",
+      "scheduled_on": null,
+      "due": null,
+      "created": "2026-07-02T08:02:22.840Z",
+      "updated": "2026-07-02T08:02:22.840Z"
     }
   ]
 }
