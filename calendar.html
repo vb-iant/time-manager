@@ -5,90 +5,88 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <title>CTRL — Calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@500&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f2f5; color: #1a1a2e; min-height: 100vh; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #FAFAF8; color: #1C1C1A; min-height: 100vh; font-size: 13px; }
 
   /* LOGIN */
-  #login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #1a1a2e; }
-  .login-box { background: white; border-radius: 12px; padding: 40px; width: 340px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
-  .login-box h1 { font-size: 22px; margin-bottom: 6px; }
-  .login-box p { color: #888; font-size: 13px; margin-bottom: 24px; }
-  .login-box input { width: 100%; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 15px; margin-bottom: 12px; outline: none; }
-  .login-box input:focus { border-color: #4f46e5; }
-  .login-box button { width: 100%; padding: 12px; background: #4f46e5; color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; }
-  .login-error { color: #e53e3e; font-size: 13px; margin-top: 8px; }
-
-  /* APP */
+  #login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #1C1C1A; }
+  .login-box { background: #FAFAF8; border-radius: 12px; padding: 40px; width: 340px; text-align: center; }
+  .login-box h1 { font-family: 'Lora', serif; font-size: 20px; font-weight: 500; margin-bottom: 6px; }
+  .login-box p { color: #999; font-size: 13px; margin-bottom: 24px; }
+  .login-box input { width: 100%; padding: 10px 14px; border: 0.5px solid #E0DDD6; border-radius: 8px; font-size: 14px; margin-bottom: 12px; outline: none; background: white; font-family: 'Inter', sans-serif; }
+  .login-box input:focus { border-color: #4C3D8F; }
+  .login-box button { width: 100%; padding: 10px; background: #4C3D8F; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .login-box button:hover { background: #3D3075; }
+  .login-error { color: #E24B4A; font-size: 12px; margin-top: 8px; }
   #app { display: none; }
 
-  header { background: #1a1a2e; color: white; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
-  header h1 { font-size: 18px; font-weight: 600; }
-  .top-nav { display: flex; gap: 6px; }
-  .top-nav a { font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 6px; text-decoration: none; color: rgba(255,255,255,0.7); transition: all 0.15s; }
-  .top-nav a:hover { background: rgba(255,255,255,0.15); color: white; }
-  .top-nav .nav-active { background: rgba(255,255,255,0.2); color: white; }
+  /* HEADER */
+  header { background: #1C1C1A; color: white; padding: 12px 24px; display: flex; flex-direction: row; align-items: center; gap: 28px; }
+  .logo-mark { display: flex; flex-direction: row; align-items: center; gap: 9px; text-decoration: none; flex-shrink: 0; }
+  .logo-icon { width: 22px; height: 22px; flex-shrink: 0; }
+  .logo-text { font-family: 'Lora', serif; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; color: white; }
+  .top-nav { display: flex; flex-direction: row; gap: 0; }
+  .top-nav a { font-family: 'Lora', serif; font-size: 13px; font-weight: 500; padding: 4px 14px 4px 0; text-decoration: none; color: rgba(255,255,255,0.38); transition: color 0.15s; }
+  .top-nav a:hover { color: rgba(255,255,255,0.7); }
+  .top-nav .nav-active { color: rgba(255,255,255,0.9); }
+  header .meta { font-size: 11px; color: rgba(255,255,255,0.3); margin-left: auto; white-space: nowrap; }
 
-  /* WEEK NAV */
-  .week-nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: white; border-bottom: 1px solid #e5e7eb; }
-  .week-nav h2 { font-size: 16px; font-weight: 700; }
+  /* BUTTONS */
+  .btn { padding: 7px 14px; border-radius: 7px; border: 0.5px solid #E0DDD6; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; background: white; color: #555; }
+  .btn:hover { border-color: #C5C0B8; background: #F5F4F0; }
+  .btn-primary { background: #4C3D8F; color: white; border-color: #4C3D8F; }
+  .btn-primary:hover { background: #3D3075; border-color: #3D3075; }
+  .btn-ghost { background: transparent; border-color: transparent; color: #999; }
+  .btn-ghost:hover { background: #F0EFEB; color: #555; border-color: transparent; }
+
+  /* STATUS */
+  .status-bar { padding: 6px 24px; font-size: 11px; color: #B0ADA6; background: #F4F3F0; border-top: 0.5px solid #ECEAE4; }
+  .version-bar { padding: 4px 24px; font-size: 10px; color: #D0CEC8; background: #F4F3F0; text-align: right; }
+
+  /* CALENDAR */
+  .week-nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; background: white; border-bottom: 0.5px solid #E8E5DF; }
+  .week-nav h2 { font-family: 'Lora', serif; font-size: 15px; font-weight: 500; color: #1C1C1A; }
   .week-nav-buttons { display: flex; gap: 8px; align-items: center; }
-  .btn { padding: 7px 14px; border-radius: 7px; border: 1px solid #ddd; background: white; font-size: 13px; font-weight: 600; cursor: pointer; color: #555; transition: all 0.15s; }
-  .btn:hover { background: #f5f5f5; }
-  .btn-today { background: #4f46e5; color: white; border-color: #4f46e5; }
-  .btn-today:hover { background: #4338ca; }
-
-  /* CALENDAR GRID */
   .calendar { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; padding: 20px 24px; align-items: start; }
-
-  .day-col { background: white; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); overflow: hidden; }
-  .day-col.today { box-shadow: 0 0 0 2px #4f46e5, 0 1px 4px rgba(0,0,0,0.08); }
-
-  .day-header { padding: 12px 14px 10px; border-bottom: 1px solid #f0f0f0; }
-  .day-name { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #aaa; }
-  .day-date { font-size: 22px; font-weight: 700; color: #1a1a2e; line-height: 1.2; }
-  .day-col.today .day-name { color: #4f46e5; }
-  .day-col.today .day-date { color: #4f46e5; }
-  .day-duration { font-size: 11px; color: #aaa; margin-top: 2px; }
-  .day-duration.heavy { color: #dc2626; font-weight: 600; }
-
+  .day-col { background: white; border-radius: 10px; border: 0.5px solid #E8E5DF; overflow: hidden; }
+  .day-col.today { border-color: #4C3D8F; border-width: 1px; }
+  .day-header { padding: 12px 14px 10px; border-bottom: 0.5px solid #F0EEE8; }
+  .day-name { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.7px; color: #B0ADA6; }
+  .day-date { font-family: 'Lora', serif; font-size: 20px; font-weight: 500; color: #1C1C1A; line-height: 1.2; }
+  .day-col.today .day-name { color: #4C3D8F; }
+  .day-col.today .day-date { color: #4C3D8F; }
+  .day-duration { font-size: 11px; color: #B0ADA6; margin-top: 2px; }
+  .day-duration.heavy { color: #E24B4A; font-weight: 500; }
   .day-tasks { padding: 10px; min-height: 60px; }
-
-  .cal-task { border-radius: 6px; padding: 8px 10px; margin-bottom: 6px; cursor: pointer; transition: transform 0.1s, box-shadow 0.1s; border-left: 3px solid transparent; }
-  .cal-task:hover { transform: translateY(-1px); box-shadow: 0 3px 8px rgba(0,0,0,0.12); }
-  .cal-task-title { font-size: 12px; font-weight: 600; line-height: 1.3; margin-bottom: 3px; }
+  .cal-task { border-radius: 7px; padding: 8px 10px; margin-bottom: 6px; cursor: pointer; transition: opacity 0.1s; border-left: 2px solid transparent; }
+  .cal-task:hover { opacity: 0.8; }
+  .cal-task-title { font-family: 'Lora', serif; font-size: 12px; font-weight: 500; line-height: 1.3; margin-bottom: 3px; color: #1C1C1A; }
   .cal-task-meta { display: flex; gap: 4px; flex-wrap: wrap; align-items: center; }
-  .cal-tag { font-size: 10px; padding: 1px 6px; border-radius: 10px; font-weight: 500; }
-
-  .empty-day { text-align: center; color: #ddd; font-size: 12px; padding: 16px 0; }
-
-  /* LABEL COLOURS */
-  .label-bd       { background: #dbeafe; border-left-color: #3b82f6; }
-  .label-admin    { background: #f3f4f6; border-left-color: #9ca3af; }
-  .label-podcast  { background: #ede9fe; border-left-color: #8b5cf6; }
-  .label-client   { background: #d1fae5; border-left-color: #10b981; }
-  .label-vb       { background: #fef3c7; border-left-color: #f59e0b; }
-  .label-personal { background: #fee2e2; border-left-color: #ef4444; }
-  .label-dev      { background: #e0f2fe; border-left-color: #0ea5e9; }
-  .label-default  { background: #f9fafb; border-left-color: #e5e7eb; }
-
-  .priority-high   { background: #fee2e2; color: #991b1b; }
-  .priority-medium { background: #fef3c7; color: #92400e; }
-  .priority-low    { background: #f0fdf4; color: #166534; }
-
-  .status-bar { padding: 8px 24px; font-size: 12px; color: #888; background: white; border-top: 1px solid #e5e7eb; }
-
-  /* MODAL (reused from board) */
-  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center; }
+  .cal-tag { font-size: 10px; padding: 1px 6px; border-radius: 10px; font-weight: 400; font-family: 'Inter', sans-serif; }
+  .label-bd { background: #EDF2FA; border-left-color: #4A6FA5; }
+  .label-admin { background: #F4F3F0; border-left-color: #B0ADA6; }
+  .label-podcast { background: #F0EDF8; border-left-color: #6B5DB8; }
+  .label-client { background: #EDF6F0; border-left-color: #3B6D11; }
+  .label-vb { background: #FEF6EA; border-left-color: #A07020; }
+  .label-personal { background: #FDEEED; border-left-color: #E24B4A; }
+  .label-dev { background: #EDF2FA; border-left-color: #4A6FA5; }
+  .label-default { background: #F4F3F0; border-left-color: #E0DDD6; }
+  .priority-high { background: #FDEEED; color: #A32D2D; }
+  .priority-medium { background: #FEF6EA; color: #A07020; }
+  .priority-low { background: #EDF6F0; color: #3B6D11; }
+  .empty-day { text-align: center; color: #E0DDD6; font-size: 12px; padding: 16px 0; }
+  .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(28,28,26,0.4); z-index: 100; align-items: center; justify-content: center; }
   .modal-overlay.open { display: flex; }
-  .modal { background: white; border-radius: 12px; width: 480px; max-width: 95vw; padding: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
-  .modal h2 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-  .modal .meta { font-size: 12px; color: #888; margin-bottom: 16px; }
-  .modal .detail { font-size: 13px; color: #444; margin-bottom: 8px; }
-  .modal .detail span { font-weight: 600; color: #1a1a2e; }
+  .modal { background: #FAFAF8; border-radius: 12px; width: 480px; max-width: 95vw; padding: 24px; border: 0.5px solid #E0DDD6; }
+  .modal h2 { font-family: 'Lora', serif; font-size: 16px; font-weight: 500; margin-bottom: 4px; }
+  .modal .meta { font-size: 12px; color: #B0ADA6; margin-bottom: 16px; }
+  .modal .detail { font-size: 13px; color: #555; margin-bottom: 8px; }
+  .modal .detail span { font-weight: 500; color: #1C1C1A; }
   .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 20px; }
-  .btn-primary { background: #4f46e5; color: white; border: none; border-radius: 7px; padding: 8px 18px; font-size: 13px; font-weight: 600; cursor: pointer; }
-  .btn-ghost { background: white; color: #555; border: 1px solid #ddd; border-radius: 7px; padding: 8px 18px; font-size: 13px; font-weight: 600; cursor: pointer; }
+  .btn-open { padding: 8px 18px; background: #4C3D8F; color: white; border: none; border-radius: 7px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; }
 </style>
 </head>
 <body>
@@ -96,7 +94,7 @@
 <!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
-    <h1>⌨️ CTRL</h1>
+    <h1>CTRL</h1>
     <p>Enter your password to continue</p>
     <input type="password" id="pwd-input" placeholder="Password" />
     <button onclick="tryLogin()">Unlock</button>
@@ -107,13 +105,20 @@
 <!-- APP -->
 <div id="app">
   <header>
-    <h1>⌨️ CTRL</h1>
+        <a href="index.html" class="logo-mark">
+      <svg class="logo-icon" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="11" cy="11" r="9.5" stroke="white" stroke-width="1.5" opacity="0.85"/>
+        <circle cx="11" cy="11" r="3.5" fill="white" opacity="0.9"/>
+        <circle cx="16.5" cy="5.5" r="2" fill="#6B5DB8"/>
+      </svg>
+      <span class="logo-text">CTRL</span>
+    </a>
     <nav class="top-nav">
-      <a href="index.html" class="nav-link">📋 Board</a>
-      <a href="plans.html" class="nav-link">📝 Plans</a>
-      <a href="calendar.html" class="nav-active">📅 Calendar</a>
+      <a href="index.html" class="nav-link">Board</a>
+      <a href="plans.html" class="nav-link">Plans</a>
+      <a href="calendar.html" class="nav-active">Calendar</a>
     </nav>
-    <span style="font-size:12px; color:#888;" id="sync-time"></span>
+    <span style="font-size:12px; color:rgba(255,255,255,0.3);" id="sync-time"></span>
   </header>
 
   <div class="week-nav">
