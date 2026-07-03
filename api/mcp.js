@@ -10,7 +10,7 @@ async function turso(sql, args = []) {
     body: JSON.stringify({ requests: [
       { type: 'execute', stmt: { sql, args: args.map(v => {
         if (v === null) return { type: 'null' };
-        if (typeof v === 'number') return { type: 'integer', value: v };
+        if (typeof v === 'number') return { type: 'integer', value: String(v) };
         return { type: 'text', value: String(v) };
       })}},
       { type: 'close' }
