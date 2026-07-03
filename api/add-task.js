@@ -26,8 +26,16 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
+  // Read raw body via stream
+  const rawBody = await new Promise((resolve, reject) => {
+    let data = '';
+    req.on('data', chunk => { data += chunk; });
+    req.on('end', () => resolve(data));
+    req.on('error', reject);
+  });
+  const reqBody = rawBody ? JSON.parse(rawBody) : {};
   let { title, label, priority, duration, scheduled_on, status, notes, recurring,
-        crm_contact_id, external_system, external_task_id } = req.body;
+        crm_contact_id, external_system, external_task_id } = reqBody;
 
   if (!title) return res.status(400).json({ error: 'title is required' });
 
