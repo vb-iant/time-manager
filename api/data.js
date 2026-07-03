@@ -49,8 +49,17 @@ export default async function handler(req, res) {
   const qs = rawUrl.includes('?') ? rawUrl.slice(rawUrl.indexOf('?') + 1) : '';
   const type = new URLSearchParams(qs).get('type');
 
-  // Vercel automatically parses JSON bodies — req.body is available
-  const body = req.body || {};
+  // Read raw body via stream
+  let body = {};
+  if (req.method === 'POST' || req.method === 'DELETE') {
+    const rawBody = await new Promise((resolve, reject) => {
+      let data = '';
+      req.on('data', chunk => { data += chunk; });
+      req.on('end', () => resolve(data));
+      req.on('error', reject);
+    });
+    try { body = rawBody ? JSON.parse(rawBody) : {}; } catch(e) { body = {}; }
+  }
 
   try {
     const now = new Date().toISOString();
