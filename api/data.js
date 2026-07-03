@@ -21,7 +21,9 @@ async function turso(sql, args = []) {
     })
   });
   const data = await res.json();
-  if (data.results?.[0]?.type === 'error') throw new Error(data.results[0].error.message);
+  if (data.results?.[0]?.type === 'error') {
+    throw new Error(`Turso error: ${data.results[0].error.message} | SQL: ${sql}`);
+  }
   return data.results?.[0]?.response?.result;
 }
 
@@ -138,6 +140,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'type must be tasks or labels' });
 
   } catch(e) {
+    console.error('data.js error:', e.message);
     return res.status(500).json({ error: e.message });
   }
 }
