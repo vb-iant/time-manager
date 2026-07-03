@@ -59,6 +59,7 @@ async function githubWrite(path, content) {
 }
 
 const TOOLS = [
+  { name: 'get_now', description: 'Get the current date, time and day of week from the server', inputSchema: { type: 'object', properties: {}, required: [] } },
   { name: 'get_tasks', description: 'Get all current tasks from CTRL', inputSchema: { type: 'object', properties: {}, required: [] } },
   { name: 'add_task', description: 'Add a single new task', inputSchema: { type: 'object', properties: {
     title: { type: 'string' }, notes: { type: 'string' },
@@ -90,6 +91,16 @@ const TOOLS = [
 async function callTool(name, args) {
   const now = new Date().toISOString();
 
+  if (name === 'get_now') {
+    const now = new Date();
+    return JSON.stringify({
+      iso: now.toISOString(),
+      date: now.toISOString().slice(0, 10),
+      time: now.toTimeString().slice(0, 8),
+      day: now.toLocaleDateString('en-GB', { weekday: 'long' }),
+      datetime: now.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }) + ' ' + now.toTimeString().slice(0, 5) + ' UTC'
+    });
+  }
   if (name === 'get_tasks') {
     const result = await turso('SELECT * FROM tasks ORDER BY created DESC');
     const tasks = result.rows.map(row => rowToTask(result.cols, row));
