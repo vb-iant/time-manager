@@ -440,6 +440,7 @@ function renderBoard() {
 
   // Drag start on cards (must happen after innerHTML is set)
   document.querySelectorAll('.task-card[draggable]').forEach(card => {
+    card.addEventListener('click', () => openModal(card.dataset.id));
     card.addEventListener('dragstart', e => {
       e.dataTransfer.setData('text/plain', card.dataset.id);
       setTimeout(() => card.classList.add('dragging'), 0);
