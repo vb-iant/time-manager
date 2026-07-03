@@ -54,6 +54,19 @@ export default async function handler(req, res) {
   const params = new URLSearchParams(queryString);
   const type = params.get('type');
 
+  // Parse body for POST/DELETE requests
+  let body = {};
+  if (req.method === 'POST' || req.method === 'DELETE') {
+    try {
+      const chunks = [];
+      for await (const chunk of req) chunks.push(chunk);
+      const raw = Buffer.concat(chunks).toString('utf8');
+      body = raw ? JSON.parse(raw) : {};
+    } catch(e) {
+      return res.status(400).json({ error: 'Invalid JSON body' });
+    }
+  }
+
   try {
     const now = new Date().toISOString();
 
@@ -66,7 +79,7 @@ export default async function handler(req, res) {
       }
 
       if (req.method === 'POST') {
-        const t = req.body;
+        const t = body;
         if (!t.id) return res.status(400).json({ error: 'id required' });
 
         const existing = await turso('SELECT id, status, recurring FROM tasks WHERE id = ?', [t.id]);
@@ -109,7 +122,7 @@ export default async function handler(req, res) {
       }
 
       if (req.method === 'DELETE') {
-        const { id } = req.body;
+        const { id } = body;
         if (!id) return res.status(400).json({ error: 'id required' });
         await turso('DELETE FROM tasks WHERE id = ?', [id]);
         return res.json({ ok: true });
@@ -123,13 +136,13 @@ export default async function handler(req, res) {
         return res.json({ labels: result.rows.map(r => r[0].value) });
       }
       if (req.method === 'POST') {
-        const { label } = req.body;
+        const { label } = body;
         if (!label) return res.status(400).json({ error: 'label required' });
         await turso('INSERT OR IGNORE INTO labels (name) VALUES (?)', [label]);
         return res.json({ ok: true });
       }
       if (req.method === 'DELETE') {
-        const { label } = req.body;
+        const { label } = body;
         if (!label) return res.status(400).json({ error: 'label required' });
         await turso('DELETE FROM labels WHERE name = ?', [label]);
         return res.json({ ok: true });
