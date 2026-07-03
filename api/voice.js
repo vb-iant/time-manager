@@ -26,7 +26,15 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { action, title } = req.body;
+  // Read raw body via stream
+  const rawBody = await new Promise((resolve, reject) => {
+    let data = '';
+    req.on('data', chunk => { data += chunk; });
+    req.on('end', () => resolve(data));
+    req.on('error', reject);
+  });
+  const reqBody = rawBody ? JSON.parse(rawBody) : {};
+  const { action, title } = reqBody;
   const today = new Date().toISOString().slice(0, 10);
 
   try {
