@@ -43,8 +43,16 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  const url = new URL(req.url, `https://${req.headers.host}`);
-  const type = url.searchParams.get('type');
+  // Debug: check env vars are present
+  if (!process.env.TURSO_URL || !process.env.TURSO_TOKEN) {
+    return res.status(500).json({ error: 'Missing Turso env vars', hasUrl: !!process.env.TURSO_URL, hasToken: !!process.env.TURSO_TOKEN });
+  }
+
+  const rawUrl = req.url || '';
+  const qIndex = rawUrl.indexOf('?');
+  const queryString = qIndex >= 0 ? rawUrl.slice(qIndex + 1) : '';
+  const params = new URLSearchParams(queryString);
+  const type = params.get('type');
 
   try {
     const now = new Date().toISOString();
