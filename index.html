@@ -741,8 +741,13 @@ async function saveTask() {
   renderBoard();
   closeModal();
   setStatus('Saving...');
-  await saveTaskToDb(task);
-  setStatus('Saved ✓');
+  const saveResult = await saveTaskToDb(task);
+  if (saveResult && saveResult.ok) {
+    setStatus('Saved ✓');
+  } else {
+    setStatus('Save error: ' + (saveResult?.error || 'Unknown'));
+    console.error('Save failed:', saveResult);
+  }
   // Add new label to database if needed
   const chosenLabel = getSelectedLabel();
   if (chosenLabel && !labels.includes(chosenLabel)) {
