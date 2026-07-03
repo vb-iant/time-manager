@@ -43,35 +43,19 @@ export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  // Debug: check env vars are present
-  if (!process.env.TURSO_URL || !process.env.TURSO_TOKEN) {
-    return res.status(500).json({ error: 'Missing Turso env vars', hasUrl: !!process.env.TURSO_URL, hasToken: !!process.env.TURSO_TOKEN });
-  }
-
   const rawUrl = req.url || '';
-  const qIndex = rawUrl.indexOf('?');
-  const queryString = qIndex >= 0 ? rawUrl.slice(qIndex + 1) : '';
-  const params = new URLSearchParams(queryString);
-  const type = params.get('type');
+  const qs = rawUrl.includes('?') ? rawUrl.slice(rawUrl.indexOf('?') + 1) : '';
+  const type = new URLSearchParams(qs).get('type');
 
-  // Parse body for POST/DELETE requests
-  let body = {};
-  if (req.method === 'POST' || req.method === 'DELETE') {
-    try {
-      const chunks = [];
-      for await (const chunk of req) chunks.push(chunk);
-      const raw = Buffer.concat(chunks).toString('utf8');
-      body = raw ? JSON.parse(raw) : {};
-    } catch(e) {
-      return res.status(400).json({ error: 'Invalid JSON body' });
-    }
-  }
+  // Vercel automatically parses JSON bodies — req.body is available
+  const body = req.body || {};
 
   try {
     const now = new Date().toISOString();
 
     // --- TASKS ---
     if (type === 'tasks') {
+
       if (req.method === 'GET') {
         const result = await turso('SELECT * FROM tasks ORDER BY created DESC');
         const tasks = result.rows.map(row => rowToTask(result.cols, row));
@@ -80,14 +64,15 @@ export default async function handler(req, res) {
 
       if (req.method === 'POST') {
         const t = body;
-        if (!t.id) return res.status(400).json({ error: 'id required' });
+        if (!t || !t.id) return res.status(400).json({ error: 'id required', received: JSON.stringify(t) });
 
         const existing = await turso('SELECT id, status, recurring FROM tasks WHERE id = ?', [t.id]);
-        
+
         if (existing.rows.length) {
+          // Update existing task
           const prev = rowToTask(existing.cols, existing.rows[0]);
           const statusChanged = t.status && t.status !== prev.status;
-          
+
           if (statusChanged) {
             await turso(
               'UPDATE tasks SET title=?, notes=?, status=?, priority=?, duration=?, label=?, scheduled_on=?, due=?, recurring=?, updated=?, status_updated=? WHERE id=?',
@@ -101,7 +86,7 @@ export default async function handler(req, res) {
               const nextDate = next.toISOString().slice(0, 10);
               const newId = 'tm-' + Date.now();
               await turso(
-                'INSERT INTO tasks (id, title, notes, status, priority, duration, label, scheduled_on, due, recurring, created, updated, status_updated) VALUES (?, ?, ?, \'scheduled\', ?, ?, ?, ?, ?, 1, ?, ?, ?)',
+                "INSERT INTO tasks (id, title, notes, status, priority, duration, label, scheduled_on, due, recurring, created, updated, status_updated) VALUES (?, ?, ?, 'scheduled', ?, ?, ?, ?, ?, 1, ?, ?, ?)",
                 [newId, t.title, t.notes||null, t.priority||null, t.duration||null, t.label||null, nextDate, t.due?nextDate:null, now, now, now]
               );
               return res.json({ ok: true, recurring_clone_id: newId, recurring_scheduled_on: nextDate });
@@ -113,6 +98,7 @@ export default async function handler(req, res) {
             );
           }
         } else {
+          // Insert new task
           await turso(
             'INSERT INTO tasks (id, title, notes, status, priority, duration, label, scheduled_on, due, recurring, created, updated, status_updated) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
             [t.id, t.title, t.notes||null, t.status||'backlog', t.priority||null, t.duration||null, t.label||null, t.scheduled_on||null, t.due||null, t.recurring?1:0, now, now, now]
