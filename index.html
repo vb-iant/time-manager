@@ -230,9 +230,11 @@
       <div class="field-row">
         <div class="field">
           <label>Label</label>
-          <select id="task-label">
+          <select id="task-label-select" onchange="onLabelSelectChange(this.value)">
             <option value="">— Select a label —</option>
           </select>
+          <input type="text" id="task-label-new" placeholder="Type new label name..."
+            style="display:none; margin-top:6px; width:100%; padding:8px 12px; border:0.5px solid #4C3D8F; border-radius:7px; font-size:13px; outline:none; font-family:'Inter',sans-serif;" />
         </div>
         <div class="field">
           <label>Priority</label>
