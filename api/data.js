@@ -12,8 +12,8 @@ async function turso(sql, args = []) {
       requests: [
         { type: 'execute', stmt: { sql, args: args.map(v => {
           if (v === null) return { type: 'null' };
-          if (typeof v === 'boolean') return { type: 'integer', value: v ? 1 : 0 };
-          if (typeof v === 'number') return { type: 'integer', value: v };
+          if (typeof v === 'boolean') return { type: 'integer', value: v ? '1' : '0' };
+          if (typeof v === 'number') return { type: 'integer', value: String(v) };
           return { type: 'text', value: String(v) };
         })}},
         { type: 'close' }
