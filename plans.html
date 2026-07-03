@@ -6,88 +6,87 @@
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <title>CTRL — Plans</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@500&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f0f2f5; color: #1a1a2e; min-height: 100vh; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #FAFAF8; color: #1C1C1A; min-height: 100vh; font-size: 13px; }
 
   /* LOGIN */
-  #login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #1a1a2e; }
-  .login-box { background: white; border-radius: 12px; padding: 40px; width: 340px; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
-  .login-box h1 { font-size: 22px; margin-bottom: 6px; }
-  .login-box p { color: #888; font-size: 13px; margin-bottom: 24px; }
-  .login-box input { width: 100%; padding: 12px 16px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 15px; margin-bottom: 12px; outline: none; }
-  .login-box input:focus { border-color: #4f46e5; }
-  .login-box button { width: 100%; padding: 12px; background: #4f46e5; color: white; border: none; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; }
-  .login-box button:hover { background: #4338ca; }
-  .login-error { color: #e53e3e; font-size: 13px; margin-top: 8px; }
-
-  /* APP */
+  #login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #1C1C1A; }
+  .login-box { background: #FAFAF8; border-radius: 12px; padding: 40px; width: 340px; text-align: center; }
+  .login-box h1 { font-family: 'Lora', serif; font-size: 20px; font-weight: 500; margin-bottom: 6px; }
+  .login-box p { color: #999; font-size: 13px; margin-bottom: 24px; }
+  .login-box input { width: 100%; padding: 10px 14px; border: 0.5px solid #E0DDD6; border-radius: 8px; font-size: 14px; margin-bottom: 12px; outline: none; background: white; font-family: 'Inter', sans-serif; }
+  .login-box input:focus { border-color: #4C3D8F; }
+  .login-box button { width: 100%; padding: 10px; background: #4C3D8F; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .login-box button:hover { background: #3D3075; }
+  .login-error { color: #E24B4A; font-size: 12px; margin-top: 8px; }
   #app { display: none; }
 
-  header { background: #1a1a2e; color: white; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; }
-  header h1 { font-size: 18px; font-weight: 600; }
-  .top-nav { display: flex; gap: 6px; }
-  .top-nav a { font-size: 13px; font-weight: 600; padding: 6px 14px; border-radius: 6px; text-decoration: none; color: rgba(255,255,255,0.7); transition: all 0.15s; }
-  .top-nav a:hover { background: rgba(255,255,255,0.15); color: white; }
-  .top-nav .nav-active { background: rgba(255,255,255,0.2); color: white; }
+  /* HEADER */
+  header { background: #1C1C1A; color: white; padding: 12px 24px; display: flex; flex-direction: row; align-items: center; gap: 28px; }
+  .logo-mark { display: flex; flex-direction: row; align-items: center; gap: 9px; text-decoration: none; flex-shrink: 0; }
+  .logo-icon { width: 22px; height: 22px; flex-shrink: 0; }
+  .logo-text { font-family: 'Lora', serif; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; color: white; }
+  .top-nav { display: flex; flex-direction: row; gap: 0; }
+  .top-nav a { font-family: 'Lora', serif; font-size: 13px; font-weight: 500; padding: 4px 14px 4px 0; text-decoration: none; color: rgba(255,255,255,0.38); transition: color 0.15s; }
+  .top-nav a:hover { color: rgba(255,255,255,0.7); }
+  .top-nav .nav-active { color: rgba(255,255,255,0.9); }
+  header .meta { font-size: 11px; color: rgba(255,255,255,0.3); margin-left: auto; white-space: nowrap; }
 
-  /* LAYOUT */
+  /* BUTTONS */
+  .btn { padding: 7px 14px; border-radius: 7px; border: 0.5px solid #E0DDD6; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; background: white; color: #555; }
+  .btn:hover { border-color: #C5C0B8; background: #F5F4F0; }
+  .btn-primary { background: #4C3D8F; color: white; border-color: #4C3D8F; }
+  .btn-primary:hover { background: #3D3075; border-color: #3D3075; }
+  .btn-ghost { background: transparent; border-color: transparent; color: #999; }
+  .btn-ghost:hover { background: #F0EFEB; color: #555; border-color: transparent; }
+
+  /* STATUS */
+  .status-bar { padding: 6px 24px; font-size: 11px; color: #B0ADA6; background: #F4F3F0; border-top: 0.5px solid #ECEAE4; }
+  .version-bar { padding: 4px 24px; font-size: 10px; color: #D0CEC8; background: #F4F3F0; text-align: right; }
+
+  /* PLANS LAYOUT */
   .layout { display: flex; height: calc(100vh - 57px); }
-
-  /* SIDEBAR */
-  .sidebar { width: 260px; background: white; border-right: 1px solid #e5e7eb; display: flex; flex-direction: column; flex-shrink: 0; }
-  .tab-bar { display: flex; border-bottom: 1px solid #e5e7eb; }
-  .tab { flex: 1; padding: 10px 4px; font-size: 12px; font-weight: 600; text-align: center; cursor: pointer; color: #888; border-bottom: 2px solid transparent; transition: all 0.15s; }
-  .tab.active { color: #4f46e5; border-bottom-color: #4f46e5; }
+  .sidebar { width: 240px; background: white; border-right: 0.5px solid #E8E5DF; display: flex; flex-direction: column; flex-shrink: 0; }
+  .tab-bar { display: flex; border-bottom: 0.5px solid #E8E5DF; }
+  .tab { flex: 1; padding: 10px 4px; font-size: 12px; font-weight: 500; text-align: center; cursor: pointer; color: #B0ADA6; border-bottom: 2px solid transparent; transition: all 0.15s; font-family: 'Inter', sans-serif; }
+  .tab.active { color: #4C3D8F; border-bottom-color: #4C3D8F; }
   .file-list { flex: 1; overflow-y: auto; padding: 8px; }
-  .file-item { padding: 10px 12px; border-radius: 7px; cursor: pointer; font-size: 13px; color: #444; transition: background 0.1s; margin-bottom: 2px; }
-  .file-item:hover { background: #f5f5f5; }
-  .file-item.active { background: #ede9fe; color: #4f46e5; font-weight: 600; }
-  .file-item .file-date { font-size: 11px; color: #aaa; margin-top: 2px; }
-  .file-item.active .file-date { color: #a78bfa; }
-  .empty-list { padding: 20px 12px; font-size: 13px; color: #bbb; text-align: center; }
-
-  /* NEW FILE BUTTON */
-  .sidebar-footer { padding: 10px; border-top: 1px solid #e5e7eb; }
-  .btn-new { width: 100%; padding: 8px; background: #4f46e5; color: white; border: none; border-radius: 7px; font-size: 13px; font-weight: 600; cursor: pointer; }
-  .btn-new:hover { background: #4338ca; }
-
-  /* CONTENT */
+  .file-item { padding: 9px 12px; border-radius: 7px; cursor: pointer; font-size: 13px; color: #555; transition: background 0.1s; margin-bottom: 2px; font-family: 'Lora', serif; }
+  .file-item:hover { background: #F4F3F0; }
+  .file-item.active { background: #F0EDF8; color: #4C3D8F; }
+  .file-item .file-date { font-size: 11px; color: #B0ADA6; margin-top: 2px; font-family: 'Inter', sans-serif; }
+  .file-item.active .file-date { color: #9B8FCC; }
+  .empty-list { padding: 20px 12px; font-size: 13px; color: #C8C5BE; text-align: center; }
+  .sidebar-footer { padding: 10px; border-top: 0.5px solid #E8E5DF; }
+  .btn-new { width: 100%; padding: 8px; background: #4C3D8F; color: white; border: none; border-radius: 7px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .btn-new:hover { background: #3D3075; }
   .content { flex: 1; overflow-y: auto; padding: 32px 40px; }
-  .content-empty { display: flex; align-items: center; justify-content: center; height: 100%; color: #bbb; font-size: 15px; }
-
-  /* MARKDOWN RENDERED */
-  .md-body { max-width: 720px; line-height: 1.7; }
-  .md-body h1 { font-size: 24px; font-weight: 700; margin-bottom: 16px; color: #1a1a2e; border-bottom: 2px solid #e5e7eb; padding-bottom: 10px; }
-  .md-body h2 { font-size: 18px; font-weight: 700; margin: 24px 0 10px; color: #1a1a2e; }
-  .md-body h3 { font-size: 15px; font-weight: 700; margin: 18px 0 8px; color: #444; }
-  .md-body p { margin-bottom: 12px; color: #333; }
-  .md-body ul, .md-body ol { margin: 0 0 12px 24px; color: #333; }
+  .content-empty { display: flex; align-items: center; justify-content: center; height: 100%; color: #C8C5BE; font-size: 14px; font-family: 'Lora', serif; font-style: italic; }
+  .md-body { max-width: 680px; line-height: 1.75; }
+  .md-body h1 { font-family: 'Lora', serif; font-size: 22px; font-weight: 500; margin-bottom: 16px; color: #1C1C1A; border-bottom: 0.5px solid #E8E5DF; padding-bottom: 12px; }
+  .md-body h2 { font-family: 'Lora', serif; font-size: 17px; font-weight: 500; margin: 24px 0 10px; color: #1C1C1A; }
+  .md-body h3 { font-family: 'Lora', serif; font-size: 14px; font-weight: 500; margin: 18px 0 8px; color: #444; }
+  .md-body p { margin-bottom: 12px; color: #333; font-size: 14px; }
+  .md-body ul, .md-body ol { margin: 0 0 12px 24px; color: #333; font-size: 14px; }
   .md-body li { margin-bottom: 4px; }
-  .md-body strong { font-weight: 700; }
-  .md-body em { font-style: italic; }
-  .md-body code { background: #f3f4f6; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: monospace; }
-  .md-body pre { background: #f3f4f6; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 12px; }
-  .md-body blockquote { border-left: 3px solid #4f46e5; padding-left: 16px; color: #666; margin-bottom: 12px; }
-  .md-body hr { border: none; border-top: 1px solid #e5e7eb; margin: 24px 0; }
-
-  /* FILE HEADER */
+  .md-body code { background: #F4F3F0; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-family: monospace; }
+  .md-body pre { background: #F4F3F0; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 12px; }
+  .md-body blockquote { border-left: 2px solid #4C3D8F; padding-left: 16px; color: #888; margin-bottom: 12px; }
+  .md-body hr { border: none; border-top: 0.5px solid #E8E5DF; margin: 24px 0; }
   .file-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
-  .file-header h2 { font-size: 13px; color: #888; font-weight: 500; }
-  .btn-edit { padding: 6px 14px; background: white; border: 1px solid #ddd; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer; color: #555; }
-  .btn-edit:hover { background: #f5f5f5; }
-
-  /* EDITOR */
-  .editor-wrap { max-width: 720px; }
-  .editor-wrap textarea { width: 100%; min-height: 500px; padding: 16px; border: 1.5px solid #e0e0e0; border-radius: 8px; font-size: 14px; font-family: 'SF Mono', 'Fira Code', monospace; line-height: 1.6; resize: vertical; outline: none; }
-  .editor-wrap textarea:focus { border-color: #4f46e5; }
+  .file-header h2 { font-family: 'Inter', sans-serif; font-size: 12px; color: #B0ADA6; font-weight: 400; text-transform: uppercase; letter-spacing: 0.5px; }
+  .btn-edit { padding: 6px 14px; background: white; border: 0.5px solid #E0DDD6; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer; color: #555; font-family: 'Inter', sans-serif; }
+  .btn-edit:hover { background: #F4F3F0; }
+  .editor-wrap { max-width: 680px; }
+  .editor-wrap textarea { width: 100%; min-height: 500px; padding: 16px; border: 0.5px solid #E0DDD6; border-radius: 8px; font-size: 14px; font-family: 'SF Mono', 'Fira Code', monospace; line-height: 1.6; resize: vertical; outline: none; background: white; }
+  .editor-wrap textarea:focus { border-color: #4C3D8F; }
   .editor-actions { display: flex; gap: 8px; margin-top: 12px; }
-  .btn-save { padding: 8px 20px; background: #4f46e5; color: white; border: none; border-radius: 7px; font-size: 13px; font-weight: 600; cursor: pointer; }
-  .btn-save:hover { background: #4338ca; }
-  .btn-cancel { padding: 8px 20px; background: white; color: #555; border: 1px solid #ddd; border-radius: 7px; font-size: 13px; font-weight: 600; cursor: pointer; }
-
-  .status-bar { padding: 8px 24px; font-size: 12px; color: #888; background: #f9fafb; border-top: 1px solid #e5e7eb; }
-
+  .btn-save { padding: 8px 20px; background: #4C3D8F; color: white; border: none; border-radius: 7px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .btn-save:hover { background: #3D3075; }
+  .btn-cancel { padding: 8px 20px; background: white; color: #555; border: 0.5px solid #E0DDD6; border-radius: 7px; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; }
 </style>
 </head>
 <body>
@@ -95,7 +94,7 @@
 <!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
-    <h1>⌨️ CTRL</h1>
+    <h1>CTRL</h1>
     <p>Enter your password to continue</p>
     <input type="password" id="pwd-input" placeholder="Password" />
     <button onclick="tryLogin()">Unlock</button>
@@ -106,13 +105,20 @@
 <!-- APP -->
 <div id="app">
   <header>
-    <h1>⌨️ CTRL</h1>
+        <a href="index.html" class="logo-mark">
+      <svg class="logo-icon" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="11" cy="11" r="9.5" stroke="white" stroke-width="1.5" opacity="0.85"/>
+        <circle cx="11" cy="11" r="3.5" fill="white" opacity="0.9"/>
+        <circle cx="16.5" cy="5.5" r="2" fill="#6B5DB8"/>
+      </svg>
+      <span class="logo-text">CTRL</span>
+    </a>
     <nav class="top-nav">
-      <a href="index.html" class="nav-link">📋 Board</a>
-      <a href="plans.html" class="nav-active">📝 Plans</a>
-      <a href="calendar.html" class="nav-link">📅 Calendar</a>
+      <a href="index.html" class="nav-link">Board</a>
+      <a href="plans.html" class="nav-active">Plans</a>
+      <a href="calendar.html" class="nav-link">Calendar</a>
     </nav>
-    <span style="font-size:12px; color:#888;" id="status-text"></span>
+    <span style="font-size:12px; color:rgba(255,255,255,0.3);" id="status-text"></span>
   </header>
 
   <div class="layout">
