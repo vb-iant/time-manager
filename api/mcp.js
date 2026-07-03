@@ -1,14 +1,10 @@
 const REPO = 'vb-iant/time-manager';
 const RAW_BASE = `https://raw.githubusercontent.com/${REPO}/main`;
 const API_BASE = `https://api.github.com/repos/${REPO}/contents`;
-const TURSO_TOKEN = process.env.TURSO_TOKEN;
-
-function getTursoUrl() {
-  return (process.env.TURSO_URL || '').replace('libsql://', 'https://');
-}
-
 async function turso(sql, args = []) {
-  const res = await fetch(`${getTursoUrl()}/v2/pipeline`, {
+  const TURSO_URL = (process.env.TURSO_URL || '').replace('libsql://', 'https://');
+  const TURSO_TOKEN = process.env.TURSO_TOKEN;
+  const res = await fetch(`${TURSO_URL}/v2/pipeline`, {
     method: 'POST',
     headers: { 'Authorization': `Bearer ${TURSO_TOKEN}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({ requests: [
