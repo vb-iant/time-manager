@@ -60,7 +60,14 @@ async function githubWrite(path, content) {
 
 const TOOLS = [
   { name: 'get_now', description: 'Get the current date, time and day of week from the server', inputSchema: { type: 'object', properties: {}, required: [] } },
-  { name: 'get_tasks', description: 'Get all current tasks from CTRL', inputSchema: { type: 'object', properties: {}, required: [] } },
+  { name: 'get_tasks', description: 'Get tasks from CTRL with optional filters. Use filters to reduce data — avoid fetching all tasks unless necessary.', inputSchema: { type: 'object', properties: {
+    status: { type: 'string', description: 'Filter by status or comma-separated statuses e.g. "today" or "today,doing,blocked"' },
+    label: { type: 'string', description: 'Filter by label e.g. "Business Development"' },
+    scheduled_on: { type: 'string', description: 'Filter by exact scheduled date YYYY-MM-DD' },
+    scheduled_from: { type: 'string', description: 'Filter tasks scheduled on or after this date YYYY-MM-DD' },
+    scheduled_to: { type: 'string', description: 'Filter tasks scheduled on or before this date YYYY-MM-DD' },
+    limit: { type: 'number', description: 'Max number of tasks to return (default 100)' }
+  }, required: [] } },
   { name: 'add_task', description: 'Add a single new task', inputSchema: { type: 'object', properties: {
     title: { type: 'string' }, notes: { type: 'string' },
     status: { type: 'string', description: 'backlog | scheduled | today | doing | blocked | done. Defaults to backlog.' },
@@ -102,9 +109,43 @@ async function callTool(name, args) {
     });
   }
   if (name === 'get_tasks') {
-    const result = await turso('SELECT * FROM tasks ORDER BY created DESC');
+    const conditions = [];
+    const params = [];
+
+    if (args.status) {
+      const statuses = args.status.split(',').map(s => s.trim());
+      if (statuses.length === 1) {
+        conditions.push('status = ?');
+        params.push(statuses[0]);
+      } else {
+        conditions.push(`status IN (${statuses.map(() => '?').join(',')})`);
+        params.push(...statuses);
+      }
+    }
+    if (args.label) {
+      conditions.push('label = ?');
+      params.push(args.label);
+    }
+    if (args.scheduled_on) {
+      conditions.push('scheduled_on = ?');
+      params.push(args.scheduled_on);
+    }
+    if (args.scheduled_from) {
+      conditions.push('scheduled_on >= ?');
+      params.push(args.scheduled_from);
+    }
+    if (args.scheduled_to) {
+      conditions.push('scheduled_on <= ?');
+      params.push(args.scheduled_to);
+    }
+
+    const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
+    const limit = args.limit ? `LIMIT ${parseInt(args.limit)}` : 'LIMIT 100';
+    const sql = `SELECT * FROM tasks ${where} ORDER BY created DESC ${limit}`;
+
+    const result = await turso(sql, params);
     const tasks = result.rows.map(row => rowToTask(result.cols, row));
-    return JSON.stringify({ version: '1.0', tasks }, null, 2);
+    return JSON.stringify({ version: '1.0', tasks, count: tasks.length, filtered: conditions.length > 0 }, null, 2);
   }
 
   if (name === 'add_task') {
