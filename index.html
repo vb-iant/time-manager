@@ -144,6 +144,9 @@
   <div class="toolbar">
     <button class="btn btn-primary" onclick="openModal()">+ New task</button>
     <button class="btn btn-ghost" onclick="loadTasks()">↻ Refresh</button>
+    <select id="label-filter" onchange="applyFilter()" style="margin-left:8px; padding:7px 12px; border:0.5px solid #E0DDD6; border-radius:7px; font-size:13px; font-family:'Inter',sans-serif; background:white; color:#555; cursor:pointer; outline:none;">
+      <option value="">All labels</option>
+    </select>
   </div>
 
   <div class="board">
@@ -302,15 +305,29 @@ if (localStorage.getItem('tm_auth') === '1') {
 // --- DATA ---
 let labels = [];
 
+let activeFilter = '';
+
 async function loadLabels() {
   try {
     const res = await fetch(LABELS_URL);
     const data = await res.json();
     labels = data.labels || [];
     populateLabelSelect();
+    // Populate filter dropdown
+    const filter = document.getElementById('label-filter');
+    if (filter) {
+      filter.innerHTML = '<option value="">All labels</option>' +
+        labels.map(l => `<option value="${l}">${l}</option>`).join('');
+      filter.value = activeFilter;
+    }
   } catch(e) {
     console.warn('Could not load labels:', e);
   }
+}
+
+function applyFilter() {
+  activeFilter = document.getElementById('label-filter').value;
+  renderBoard();
 }
 
 function populateLabelSelect(selected) {
@@ -390,7 +407,8 @@ async function deleteTaskFromDb(id) {
 // --- RENDER ---
 function renderBoard() {
   const cols = { backlog: [], scheduled: [], today: [], doing: [], blocked: [], done: [] };
-  tasks.forEach(t => { const s = t.status || 'backlog'; if (cols[s]) cols[s].push(t); else cols['backlog'].push(t); });
+  const filtered = activeFilter ? tasks.filter(t => t.label === activeFilter) : tasks;
+  filtered.forEach(t => { const s = t.status || 'backlog'; if (cols[s]) cols[s].push(t); else cols['backlog'].push(t); });
 
   Object.entries(cols).forEach(([status, items]) => {
     const el = document.getElementById('col-' + status);
