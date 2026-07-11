@@ -61,6 +61,7 @@ async function githubWrite(path, content) {
 const TOOLS = [
   { name: 'get_now', description: 'Get the current date, time and day of week from the server', inputSchema: { type: 'object', properties: {}, required: [] } },
   { name: 'get_tasks', description: 'Get tasks from CTRL with optional filters. Use filters to reduce data — avoid fetching all tasks unless necessary.', inputSchema: { type: 'object', properties: {
+    board_id: { type: 'string', description: 'Filter by board ID e.g. "main". Defaults to "main" if not specified.' },
     status: { type: 'string', description: 'Filter by status or comma-separated statuses e.g. "today" or "today,doing,blocked"' },
     label: { type: 'string', description: 'Filter by label e.g. "Business Development"' },
     scheduled_on: { type: 'string', description: 'Filter by exact scheduled date YYYY-MM-DD' },
@@ -75,7 +76,8 @@ const TOOLS = [
     duration: { type: 'number', description: 'Minutes' },
     label: { type: 'string' }, scheduled_on: { type: 'string', description: 'YYYY-MM-DD' },
     due: { type: 'string', description: 'YYYY-MM-DD' }, recurring: { type: 'boolean' },
-    crm_contact_id: { type: 'string' }, external_system: { type: 'string' }, external_task_id: { type: 'string' }
+    crm_contact_id: { type: 'string' }, external_system: { type: 'string' }, external_task_id: { type: 'string' },
+    board_id: { type: 'string', description: 'Board to add task to, defaults to main' }
   }, required: ['title'] }},
   { name: 'update_task', description: 'Update a single task by id — only fields provided will change', inputSchema: { type: 'object', properties: {
     id: { type: 'string' }, title: { type: 'string' }, notes: { type: 'string' },
@@ -87,6 +89,11 @@ const TOOLS = [
   { name: 'delete_task', description: 'Delete a task by id', inputSchema: { type: 'object', properties: { id: { type: 'string' } }, required: ['id'] }},
   { name: 'find_task_by_external_id', description: 'Find a CTRL task by external system and task ID. Returns task or null.', inputSchema: { type: 'object', properties: { external_system: { type: 'string' }, external_task_id: { type: 'string' } }, required: ['external_system', 'external_task_id'] }},
   { name: 'find_tasks_by_crm_contact', description: 'Find all CTRL tasks linked to a CRM contact ID', inputSchema: { type: 'object', properties: { crm_contact_id: { type: 'string' } }, required: ['crm_contact_id'] }},
+  { name: 'get_boards', description: 'Get all boards', inputSchema: { type: 'object', properties: {}, required: [] } },
+  { name: 'create_board', description: 'Create a new board', inputSchema: { type: 'object', properties: {
+    name: { type: 'string', description: 'Board name' },
+    label: { type: 'string', description: 'Optional label to filter tasks for this board' }
+  }, required: ['name'] } },
   { name: 'get_labels', description: 'Get all task labels', inputSchema: { type: 'object', properties: {}, required: [] }},
   { name: 'add_label', description: 'Add a new label', inputSchema: { type: 'object', properties: { label: { type: 'string' } }, required: ['label'] }},
   { name: 'delete_label', description: 'Delete a label', inputSchema: { type: 'object', properties: { label: { type: 'string' } }, required: ['label'] }},
@@ -111,6 +118,10 @@ async function callTool(name, args) {
   if (name === 'get_tasks') {
     const conditions = [];
     const params = [];
+
+    // Default to main board
+    conditions.push('board_id = ?');
+    params.push(args.board_id || 'main');
 
     if (args.status) {
       const statuses = args.status.split(',').map(s => s.trim());
@@ -151,8 +162,8 @@ async function callTool(name, args) {
   if (name === 'add_task') {
     const id = 'tm-' + Date.now();
     await turso(
-      'INSERT INTO tasks (id, title, notes, status, priority, duration, label, scheduled_on, due, recurring, crm_contact_id, external_system, external_task_id, created, updated, status_updated) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [id, args.title, args.notes||null, args.status||'backlog', args.priority||null, args.duration||null, args.label||null, args.scheduled_on||null, args.due||null, args.recurring?1:0, args.crm_contact_id||null, args.external_system||null, args.external_task_id||null, now, now, now]
+      'INSERT INTO tasks (id, title, notes, status, priority, duration, label, scheduled_on, due, recurring, crm_contact_id, external_system, external_task_id, board_id, created, updated, status_updated) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [id, args.title, args.notes||null, args.status||'backlog', args.priority||null, args.duration||null, args.label||null, args.scheduled_on||null, args.due||null, args.recurring?1:0, args.crm_contact_id||null, args.external_system||null, args.external_task_id||null, args.board_id||'main', now, now, now]
     );
     return `Task added: "${args.title}" (id: ${id})`;
   }
@@ -207,6 +218,31 @@ async function callTool(name, args) {
   if (name === 'find_tasks_by_crm_contact') {
     const result = await turso('SELECT * FROM tasks WHERE crm_contact_id = ?', [args.crm_contact_id]);
     return JSON.stringify(result.rows.map(row => rowToTask(result.cols, row)), null, 2);
+  }
+
+  if (name === 'get_boards') {
+    const result = await turso('SELECT * FROM boards ORDER BY created ASC');
+    const boards = result.rows.map(row => rowToTask(result.cols, row));
+    // Get statuses for each board
+    const statusResult = await turso('SELECT * FROM board_statuses ORDER BY board_id, position ASC');
+    const statuses = statusResult.rows.map(row => rowToTask(statusResult.cols, row));
+    boards.forEach(b => { b.statuses = statuses.filter(s => s.board_id === b.id); });
+    return JSON.stringify(boards, null, 2);
+  }
+
+  if (name === 'create_board') {
+    const id = 'board-' + Date.now();
+    const now = new Date().toISOString();
+    await turso('INSERT INTO boards (id, name, created) VALUES (?, ?, ?)', [id, args.name, now]);
+    // Clone default statuses from main board
+    const defaultStatuses = ['backlog', 'doing', 'done'];
+    const statusNames = { backlog: 'Backlog', doing: 'In Progress', done: 'Done' };
+    for (let i = 0; i < defaultStatuses.length; i++) {
+      const slug = defaultStatuses[i];
+      await turso('INSERT INTO board_statuses (id, board_id, name, slug, position) VALUES (?, ?, ?, ?, ?)',
+        [`${id}-${slug}`, id, statusNames[slug], slug, i]);
+    }
+    return `Board created: "${args.name}" (id: ${id})`;
   }
 
   if (name === 'get_labels') {
