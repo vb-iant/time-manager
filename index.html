@@ -35,6 +35,23 @@
   .top-nav .nav-active { color: rgba(255,255,255,0.9); }
   header .meta { font-size: 11px; color: rgba(255,255,255,0.3); margin-left: auto; white-space: nowrap; }
 
+  /* BOARD NAV */
+  .board-nav { display: flex; flex-direction: row; align-items: center; gap: 0; padding: 0 24px; background: white; border-bottom: 0.5px solid #E8E5DF; overflow-x: auto; }
+  .board-tab { font-family: 'Lora', serif; font-size: 13px; font-weight: 500; padding: 10px 16px; cursor: pointer; color: #B0ADA6; border-bottom: 2px solid transparent; white-space: nowrap; transition: all 0.15s; background: none; border-top: none; border-left: none; border-right: none; }
+  .board-tab:hover { color: #555; }
+  .board-tab.active { color: #4C3D8F; border-bottom-color: #4C3D8F; }
+  .board-tab-add { font-size: 16px; padding: 8px 12px; cursor: pointer; color: #C8C5BE; background: none; border: none; transition: color 0.15s; line-height: 1; }
+  .board-tab-add:hover { color: #4C3D8F; }
+
+  /* NEW BOARD MODAL */
+  .new-board-form { display: none; position: fixed; inset: 0; background: rgba(28,28,26,0.4); z-index: 200; align-items: center; justify-content: center; }
+  .new-board-form.open { display: flex; }
+  .new-board-inner { background: #FAFAF8; border-radius: 12px; padding: 28px; width: 360px; border: 0.5px solid #E0DDD6; }
+  .new-board-inner h3 { font-family: 'Lora', serif; font-size: 16px; font-weight: 500; margin-bottom: 16px; }
+  .new-board-inner input { width: 100%; padding: 9px 12px; border: 0.5px solid #E0DDD6; border-radius: 7px; font-size: 13px; font-family: 'Inter', sans-serif; outline: none; margin-bottom: 12px; background: white; }
+  .new-board-inner input:focus { border-color: #4C3D8F; }
+  .new-board-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 4px; }
+
   /* TOOLBAR */
   .toolbar { padding: 16px 24px 12px; display: flex; gap: 8px; align-items: center; }
   .btn { padding: 7px 14px; border-radius: 7px; border: 0.5px solid #E0DDD6; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; background: white; color: #555; }
@@ -141,6 +158,10 @@
     <span class="meta" id="last-sync">Loading...</span>
   </header>
 
+  <div class="board-nav" id="board-nav">
+    <!-- populated by JS -->
+  </div>
+
   <div class="toolbar">
     <button class="btn btn-primary" onclick="openModal()">+ New task</button>
     <button class="btn btn-ghost" onclick="loadTasks()">↻ Refresh</button>
@@ -184,6 +205,18 @@
 
   <div class="status-bar" id="status-bar">Ready</div>
   <div class="version-bar">CTRL v2.3 — deployed 2026-07-03 13:30 UTC</div>
+</div>
+
+<!-- NEW BOARD FORM -->
+<div class="new-board-form" id="new-board-form">
+  <div class="new-board-inner">
+    <h3>New board</h3>
+    <input type="text" id="new-board-name" placeholder="Board name e.g. VB Content" />
+    <div class="new-board-actions">
+      <button class="btn btn-ghost" onclick="closeNewBoard()">Cancel</button>
+      <button class="btn btn-primary" onclick="createBoard()">Create</button>
+    </div>
+  </div>
 </div>
 
 <!-- MODAL -->
@@ -271,7 +304,11 @@
 
 <script>
 const PASSWORD = 'timemanager2026';
+const BOARDS_URL = '/api/data?type=boards';
+let boards = [];
+let activeBoardId = localStorage.getItem('ctrl_board') || 'main';
 const TASKS_URL = '/api/data?type=tasks';
+function getTasksUrl() { return `${TASKS_URL}&board_id=${activeBoardId}`; }
 const SAVE_TASK_URL = '/api/data?type=tasks';
 const LABELS_URL = '/api/data?type=labels';
 
@@ -284,6 +321,7 @@ function tryLogin() {
     localStorage.setItem('tm_auth', '1');
     document.getElementById('login-screen').style.display = 'none';
     document.getElementById('app').style.display = 'block';
+    loadBoards();
     loadLabels();
     loadTasks();
   } else {
@@ -298,6 +336,7 @@ document.getElementById('pwd-input').addEventListener('keydown', e => {
 if (localStorage.getItem('tm_auth') === '1') {
   document.getElementById('login-screen').style.display = 'none';
   document.getElementById('app').style.display = 'block';
+  loadBoards();
   loadLabels();
   loadTasks();
 }
@@ -359,10 +398,71 @@ function getSelectedLabel() {
   return sel.value || null;
 }
 
+async function loadBoards() {
+  try {
+    const res = await fetch(BOARDS_URL);
+    const data = await res.json();
+    boards = data.boards || [];
+    renderBoardNav();
+  } catch(e) {
+    console.warn('Could not load boards:', e);
+  }
+}
+
+function renderBoardNav() {
+  const nav = document.getElementById('board-nav');
+  if (!nav) return;
+  nav.innerHTML = boards.map(b => `
+    <button class="board-tab ${b.id === activeBoardId ? 'active' : ''}"
+      onclick="switchBoard('${b.id}')">${b.name}</button>
+  `).join('') + `<button class="board-tab-add" onclick="openNewBoard()" title="New board">+</button>`;
+}
+
+function switchBoard(id) {
+  activeBoardId = id;
+  localStorage.setItem('ctrl_board', id);
+  renderBoardNav();
+  loadTasks();
+}
+
+function openNewBoard() {
+  document.getElementById('new-board-form').classList.add('open');
+  document.getElementById('new-board-name').value = '';
+  setTimeout(() => document.getElementById('new-board-name').focus(), 50);
+}
+
+function closeNewBoard() {
+  document.getElementById('new-board-form').classList.remove('open');
+}
+
+async function createBoard() {
+  const name = document.getElementById('new-board-name').value.trim();
+  if (!name) return;
+  setStatus('Creating board...');
+  const res = await fetch(BOARDS_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name })
+  });
+  const data = await res.json();
+  if (data.ok) {
+    closeNewBoard();
+    await loadBoards();
+    switchBoard(data.id);
+    setStatus(`Board "${name}" created`);
+  } else {
+    setStatus('Error creating board: ' + (data.error || 'Unknown'));
+  }
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeNewBoard();
+});
+
 async function loadTasks() {
   setStatus('Loading...');
   try {
-    const res = await fetch(TASKS_URL);
+    const res = await fetch(getTasksUrl());
     const data = await res.json();
     tasks = data.tasks || [];
 
@@ -374,7 +474,7 @@ async function loadTasks() {
       await fetch(SAVE_TASK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...t, status: 'today' })
+        body: JSON.stringify({ ...t, status: 'today', board_id: activeBoardId })
       });
     }
 
@@ -552,6 +652,7 @@ async function saveTask() {
 
   const task = {
     id: id || crypto.randomUUID(),
+    board_id: id ? (tasks.find(t => t.id === id)?.board_id || activeBoardId) : activeBoardId,
     title,
     notes: document.getElementById('task-notes').value.trim(),
     status: document.getElementById('task-status').value,
