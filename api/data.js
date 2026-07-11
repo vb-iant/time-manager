@@ -98,8 +98,8 @@ export default async function handler(req, res) {
               const nextDate = next.toISOString().slice(0, 10);
               const newId = 'tm-' + Date.now();
               await turso(
-                "INSERT INTO tasks (id, title, notes, status, priority, duration, label, scheduled_on, due, recurring, created, updated, status_updated) VALUES (?, ?, ?, 'scheduled', ?, ?, ?, ?, ?, 1, ?, ?, ?)",
-                [newId, t.title, t.notes||null, t.priority||null, t.duration||null, t.label||null, nextDate, t.due?nextDate:null, now, now, now]
+                "INSERT INTO tasks (id, title, notes, status, priority, duration, label, scheduled_on, due, recurring, board_id, created, updated, status_updated) VALUES (?, ?, ?, 'scheduled', ?, ?, ?, ?, ?, 1, ?, ?, ?, ?)",
+                [newId, t.title, t.notes||null, t.priority||null, t.duration||null, t.label||null, nextDate, t.due?nextDate:null, t.board_id||'main', now, now, now]
               );
               return res.json({ ok: true, recurring_clone_id: newId, recurring_scheduled_on: nextDate });
             }
