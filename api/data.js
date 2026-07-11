@@ -175,7 +175,7 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'type must be tasks, labels or boards' });
 
   } catch(e) {
-    console.error('data.js error:', e.message);
-    return res.status(500).json({ error: e.message });
+    console.error('data.js error:', e.message, e.stack);
+    return res.status(500).json({ error: e.message, stack: e.stack?.split('\n')[0] });
   }
 }
