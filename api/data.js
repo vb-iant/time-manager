@@ -68,7 +68,8 @@ export default async function handler(req, res) {
     if (type === 'tasks') {
 
       if (req.method === 'GET') {
-        const result = await turso('SELECT * FROM tasks ORDER BY created DESC');
+        const boardId = params.get('board_id') || 'main';
+        const result = await turso('SELECT * FROM tasks WHERE board_id = ? ORDER BY created DESC', [boardId]);
         const tasks = result.rows.map(row => rowToTask(result.cols, row));
         return res.json({ version: '1.0', tasks });
       }
@@ -111,8 +112,8 @@ export default async function handler(req, res) {
         } else {
           // Insert new task
           await turso(
-            'INSERT INTO tasks (id, title, notes, status, priority, duration, label, scheduled_on, due, recurring, created, updated, status_updated) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-            [t.id, t.title, t.notes||null, t.status||'backlog', t.priority||null, t.duration||null, t.label||null, t.scheduled_on||null, t.due||null, t.recurring?1:0, now, now, now]
+            'INSERT INTO tasks (id, title, notes, status, priority, duration, label, scheduled_on, due, recurring, board_id, created, updated, status_updated) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+            [t.id, t.title, t.notes||null, t.status||'backlog', t.priority||null, t.duration||null, t.label||null, t.scheduled_on||null, t.due||null, t.recurring?1:0, t.board_id||'main', now, now, now]
           );
         }
         return res.json({ ok: true });
@@ -146,7 +147,32 @@ export default async function handler(req, res) {
       }
     }
 
-    return res.status(400).json({ error: 'type must be tasks or labels' });
+    // --- BOARDS ---
+    if (type === 'boards') {
+      if (req.method === 'GET') {
+        const boards = await turso('SELECT * FROM boards ORDER BY created ASC');
+        const statuses = await turso('SELECT * FROM board_statuses ORDER BY board_id, position ASC');
+        const boardList = boards.rows.map(row => rowToTask(boards.cols, row));
+        const statusList = statuses.rows.map(row => rowToTask(statuses.cols, row));
+        boardList.forEach(b => { b.statuses = statusList.filter(s => s.board_id === b.id); });
+        return res.json({ boards: boardList });
+      }
+      if (req.method === 'POST') {
+        const { name, id } = body;
+        if (!name) return res.status(400).json({ error: 'name required' });
+        const boardId = id || 'board-' + Date.now();
+        await turso('INSERT OR IGNORE INTO boards (id, name, created) VALUES (?, ?, ?)', [boardId, name, now]);
+        // Default statuses
+        const defaults = [['Backlog','backlog',0],['In Progress','doing',1],['Done','done',2]];
+        for (const [sname, slug, pos] of defaults) {
+          await turso('INSERT OR IGNORE INTO board_statuses (id, board_id, name, slug, position) VALUES (?, ?, ?, ?, ?)',
+            [`${boardId}-${slug}`, boardId, sname, slug, pos]);
+        }
+        return res.json({ ok: true, id: boardId });
+      }
+    }
+
+    return res.status(400).json({ error: 'type must be tasks, labels or boards' });
 
   } catch(e) {
     console.error('data.js error:', e.message);
