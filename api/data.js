@@ -47,7 +47,8 @@ export default async function handler(req, res) {
 
   const rawUrl = req.url || '';
   const qs = rawUrl.includes('?') ? rawUrl.slice(rawUrl.indexOf('?') + 1) : '';
-  const type = new URLSearchParams(qs).get('type');
+  const params = new URLSearchParams(qs);
+  const type = params.get('type');
 
   // Read raw body via stream
   let body = {};
