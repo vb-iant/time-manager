@@ -84,7 +84,8 @@ const TOOLS = [
     status: { type: 'string' }, priority: { type: 'string' }, duration: { type: 'number' },
     label: { type: 'string' }, scheduled_on: { type: 'string' }, due: { type: 'string' },
     recurring: { type: 'boolean' }, crm_contact_id: { type: 'string' },
-    external_system: { type: 'string' }, external_task_id: { type: 'string' }
+    external_system: { type: 'string' }, external_task_id: { type: 'string' },
+    board_id: { type: 'string', description: 'Move task to a different board' }
   }, required: ['id'] }},
   { name: 'delete_task', description: 'Delete a task by id', inputSchema: { type: 'object', properties: { id: { type: 'string' } }, required: ['id'] }},
   { name: 'find_task_by_external_id', description: 'Find a CTRL task by external system and task ID. Returns task or null.', inputSchema: { type: 'object', properties: { external_system: { type: 'string' }, external_task_id: { type: 'string' } }, required: ['external_system', 'external_task_id'] }},
@@ -174,7 +175,7 @@ async function callTool(name, args) {
     const task = rowToTask(existing.cols, existing.rows[0]);
     const prevStatus = task.status;
 
-    const fields = ['title', 'notes', 'priority', 'duration', 'label', 'scheduled_on', 'due', 'crm_contact_id', 'external_system', 'external_task_id'];
+    const fields = ['title', 'notes', 'priority', 'duration', 'label', 'scheduled_on', 'due', 'crm_contact_id', 'external_system', 'external_task_id', 'board_id'];
     const updates = ['updated = ?'];
     const values = [now];
     for (const f of fields) {
