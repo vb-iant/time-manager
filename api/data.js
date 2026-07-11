@@ -69,8 +69,15 @@ export default async function handler(req, res) {
     if (type === 'tasks') {
 
       if (req.method === 'GET') {
+        // Auto-archive done tasks older than 30 days
+        const cutoff = new Date();
+        cutoff.setDate(cutoff.getDate() - 30);
+        await turso(
+          "UPDATE tasks SET archived = 1 WHERE status = 'done' AND status_updated < ? AND (archived = 0 OR archived IS NULL)",
+          [cutoff.toISOString()]
+        );
         const boardId = params.get('board_id') || 'main';
-        const result = await turso('SELECT * FROM tasks WHERE board_id = ? ORDER BY created DESC', [boardId]);
+        const result = await turso('SELECT * FROM tasks WHERE board_id = ? AND (archived = 0 OR archived IS NULL) ORDER BY created DESC', [boardId]);
         const tasks = result.rows.map(row => rowToTask(result.cols, row));
         return res.json({ version: '1.0', tasks });
       }
@@ -173,7 +180,25 @@ export default async function handler(req, res) {
       }
     }
 
-    return res.status(400).json({ error: 'type must be tasks, labels or boards' });
+    // --- ARCHIVE ---
+    if (type === 'archive') {
+      if (req.method === 'GET') {
+        // List all archived tasks for this board
+        const boardId = params.get('board_id') || 'main';
+        const result = await turso('SELECT * FROM tasks WHERE board_id = ? AND archived = 1 ORDER BY status_updated DESC', [boardId]);
+        const tasks = result.rows.map(row => rowToTask(result.cols, row));
+        return res.json({ version: '1.0', tasks });
+      }
+      if (req.method === 'POST') {
+        // Archive or unarchive a task
+        const { id, archived } = body;
+        if (!id) return res.status(400).json({ error: 'id required' });
+        await turso('UPDATE tasks SET archived = ?, updated = ? WHERE id = ?', [archived ? 1 : 0, now, id]);
+        return res.json({ ok: true });
+      }
+    }
+
+    return res.status(400).json({ error: 'type must be tasks, labels, boards or archive' });
 
   } catch(e) {
     console.error('data.js error:', e.message, e.stack);
