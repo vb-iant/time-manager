@@ -121,6 +121,22 @@
   .btn-danger { background: #FDEEED; color: #A32D2D; border-color: #F5C5C5; }
   .btn-danger:hover { background: #FAD5D5; }
 
+  /* ARCHIVE DRAWER */
+  .archive-overlay { display: none; position: fixed; inset: 0; background: rgba(28,28,26,0.4); z-index: 100; align-items: flex-end; justify-content: center; }
+  .archive-overlay.open { display: flex; }
+  .archive-drawer { background: #FAFAF8; border-radius: 12px 12px 0 0; width: 100%; max-width: 680px; max-height: 70vh; display: flex; flex-direction: column; border: 0.5px solid #E0DDD6; }
+  .archive-header { padding: 18px 24px; display: flex; justify-content: space-between; align-items: center; border-bottom: 0.5px solid #ECEAE4; }
+  .archive-header h2 { font-family: 'Lora', serif; font-size: 15px; font-weight: 500; }
+  .archive-close { background: none; border: none; font-size: 18px; cursor: pointer; color: #B0ADA6; }
+  .archive-list { overflow-y: auto; padding: 12px 24px; flex: 1; }
+  .archive-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 0.5px solid #F4F3F0; gap: 12px; }
+  .archive-item:last-child { border-bottom: none; }
+  .archive-item-title { font-family: 'Lora', serif; font-size: 13px; color: #888; flex: 1; }
+  .archive-item-meta { font-size: 11px; color: #C8C5BE; white-space: nowrap; }
+  .archive-item-restore { font-size: 11px; color: #4C3D8F; cursor: pointer; background: none; border: none; padding: 4px 8px; border-radius: 5px; font-family: 'Inter', sans-serif; }
+  .archive-item-restore:hover { background: #F0EDF8; }
+  .archive-empty { text-align: center; color: #C8C5BE; font-size: 13px; padding: 32px 0; font-family: 'Lora', serif; font-style: italic; }
+
   /* STATUS */
   .status-bar { padding: 6px 24px; font-size: 11px; color: #B0ADA6; background: #F4F3F0; border-top: 0.5px solid #ECEAE4; }
   .version-bar { padding: 4px 24px; font-size: 10px; color: #D0CEC8; background: #F4F3F0; text-align: right; }
@@ -165,6 +181,7 @@
   <div class="toolbar">
     <button class="btn btn-primary" onclick="openModal()">+ New task</button>
     <button class="btn btn-ghost" onclick="loadTasks()">↻ Refresh</button>
+    <button class="btn btn-ghost" onclick="openArchive()" title="Archived tasks" style="margin-left:auto;">🗑</button>
     <select id="label-filter" onchange="applyFilter()" style="margin-left:8px; padding:7px 12px; border:0.5px solid #E0DDD6; border-radius:7px; font-size:13px; font-family:'Inter',sans-serif; background:white; color:#555; cursor:pointer; outline:none;">
       <option value="">All labels</option>
     </select>
@@ -204,7 +221,7 @@
   </div>
 
   <div class="status-bar" id="status-bar">Ready</div>
-  <div class="version-bar">CTRL v2.5 — deployed 2026-07-11</div>
+  <div class="version-bar">CTRL v2.6 — deployed 2026-07-11</div>
 </div>
 
 <!-- NEW BOARD FORM -->
@@ -215,6 +232,19 @@
     <div class="new-board-actions">
       <button class="btn btn-ghost" onclick="closeNewBoard()">Cancel</button>
       <button class="btn btn-primary" onclick="createBoard()">Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- ARCHIVE DRAWER -->
+<div class="archive-overlay" id="archive-overlay">
+  <div class="archive-drawer">
+    <div class="archive-header">
+      <h2>Archived tasks</h2>
+      <button class="archive-close" onclick="closeArchive()">✕</button>
+    </div>
+    <div class="archive-list" id="archive-list">
+      <div class="archive-empty">Loading...</div>
     </div>
   </div>
 </div>
@@ -295,6 +325,7 @@
       <div class="modal-actions">
         <button class="btn btn-danger" id="btn-delete" onclick="deleteTask()" style="display:none">Delete</button>
         <button class="btn btn-ghost" id="btn-duplicate" onclick="duplicateTask()" style="display:none">Duplicate</button>
+        <button class="btn btn-ghost" id="btn-archive" onclick="archiveTask()" style="display:none">Archive</button>
         <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
         <button class="btn btn-primary" onclick="saveTask()">Save task</button>
       </div>
@@ -635,6 +666,7 @@ function openModal(id) {
   }
   document.getElementById('btn-delete').style.display = task ? 'block' : 'none';
   document.getElementById('btn-duplicate').style.display = task ? 'block' : 'none';
+  document.getElementById('btn-archive').style.display = task ? 'block' : 'none';
   document.getElementById('modal-overlay').classList.add('open');
   document.getElementById('task-title').focus();
 }
@@ -646,6 +678,71 @@ function closeModal() {
 document.getElementById('modal-overlay').addEventListener('click', e => {
   if (e.target === document.getElementById('modal-overlay')) closeModal();
 });
+
+const ARCHIVE_URL = '/api/data?type=archive';
+
+async function openArchive() {
+  document.getElementById('archive-overlay').classList.add('open');
+  const list = document.getElementById('archive-list');
+  list.innerHTML = '<div class="archive-empty">Loading...</div>';
+  try {
+    const res = await fetch(`${ARCHIVE_URL}&board_id=${activeBoardId}`);
+    const data = await res.json();
+    const archived = data.tasks || [];
+    if (archived.length === 0) {
+      list.innerHTML = '<div class="archive-empty">No archived tasks</div>';
+      return;
+    }
+    list.innerHTML = archived.map(t => `
+      <div class="archive-item">
+        <span class="archive-item-title">${escHtml(t.title)}</span>
+        <span class="archive-item-meta">${t.status_updated ? t.status_updated.slice(0,10) : ''}</span>
+        <button class="archive-item-restore" onclick="restoreTask('${t.id}')">Restore</button>
+      </div>
+    `).join('');
+  } catch(e) {
+    list.innerHTML = '<div class="archive-empty">Error loading archive</div>';
+  }
+}
+
+function closeArchive() {
+  document.getElementById('archive-overlay').classList.remove('open');
+}
+
+document.getElementById('archive-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('archive-overlay')) closeArchive();
+});
+
+async function archiveTask() {
+  const id = document.getElementById('task-id').value;
+  const task = tasks.find(t => t.id === id);
+  if (!task || !confirm(`Archive "${task.title}"?`)) return;
+  tasks = tasks.filter(t => t.id !== id);
+  renderBoard();
+  closeModal();
+  setStatus('Archiving...');
+  await fetch(ARCHIVE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id, archived: true })
+  });
+  setStatus(`"${task.title}" archived`);
+}
+
+async function restoreTask(id) {
+  setStatus('Restoring...');
+  const res = await fetch(ARCHIVE_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id, archived: false })
+  });
+  const data = await res.json();
+  if (data.ok) {
+    closeArchive();
+    await loadTasks();
+    setStatus('Task restored');
+  }
+}
 
 async function duplicateTask() {
   const id = document.getElementById('task-id').value;
