@@ -204,7 +204,7 @@
   </div>
 
   <div class="status-bar" id="status-bar">Ready</div>
-  <div class="version-bar">CTRL v2.4 — deployed 2026-07-11</div>
+  <div class="version-bar">CTRL v2.5 — deployed 2026-07-11</div>
 </div>
 
 <!-- NEW BOARD FORM -->
@@ -633,6 +633,7 @@ function openModal(id) {
     metaDiv.style.display = 'none';
   }
   document.getElementById('btn-delete').style.display = task ? 'block' : 'none';
+  document.getElementById('btn-duplicate').style.display = task ? 'block' : 'none';
   document.getElementById('modal-overlay').classList.add('open');
   document.getElementById('task-title').focus();
 }
@@ -644,6 +645,36 @@ function closeModal() {
 document.getElementById('modal-overlay').addEventListener('click', e => {
   if (e.target === document.getElementById('modal-overlay')) closeModal();
 });
+
+async function duplicateTask() {
+  const id = document.getElementById('task-id').value;
+  const original = tasks.find(t => t.id === id);
+  if (!original) return;
+
+  const newTask = {
+    ...original,
+    id: crypto.randomUUID(),
+    title: original.title + ' (copy)',
+    created: new Date().toISOString(),
+    updated: new Date().toISOString(),
+    status_updated: new Date().toISOString(),
+    status: 'backlog'
+  };
+
+  tasks.push(newTask);
+  renderBoard();
+  closeModal();
+
+  setStatus('Saving duplicate...');
+  const result = await saveTaskToDb(newTask);
+  if (result && result.ok) {
+    setStatus(`Duplicated — "${newTask.title}" added to backlog`);
+    // Open the new task modal
+    setTimeout(() => openModal(newTask.id), 200);
+  } else {
+    setStatus('Duplicate error: ' + (result?.error || 'Unknown'));
+  }
+}
 
 async function saveTask() {
   const id = document.getElementById('task-id').value;
