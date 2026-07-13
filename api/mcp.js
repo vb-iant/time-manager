@@ -58,10 +58,24 @@ async function githubWrite(path, content) {
   return data.content.sha;
 }
 
+async function resolveBoardId(input) {
+  if (!input) return { id: 'main', all: false };
+  if (String(input).toLowerCase() === 'all') return { id: null, all: true };
+  const result = await turso('SELECT id, name FROM boards');
+  const boards = result.rows.map(row => ({ id: row[0].value, name: row[1].value }));
+  const exact = boards.find(b => b.id === input);
+  if (exact) return { id: exact.id, all: false };
+  const byName = boards.find(b => b.name.toLowerCase() === String(input).toLowerCase());
+  if (byName) return { id: byName.id, all: false };
+  const available = boards.map(b => `${b.id} (${b.name})`).join(', ');
+  throw new Error(`Board not found: "${input}". Available boards: ${available}`);
+}
+
 const TOOLS = [
   { name: 'get_now', description: 'Get the current date, time and day of week from the server', inputSchema: { type: 'object', properties: {}, required: [] } },
+  { name: 'get_readme', description: 'Returns a capability reference for CTRL: the data model, full tool list, and key conventions. Call this first if you have not already done so this session and the user asks you to do anything with CTRL.', inputSchema: { type: 'object', properties: {}, required: [] } },
   { name: 'get_tasks', description: 'Get tasks from CTRL with optional filters. Use filters to reduce data — avoid fetching all tasks unless necessary.', inputSchema: { type: 'object', properties: {
-    board_id: { type: 'string', description: 'Filter by board ID e.g. "main". Defaults to "main" if not specified.' },
+    board_id: { type: 'string', description: 'Filter by board ID, board name (case-insensitive), or "all" for tasks across every board. Defaults to "main" if not specified. Call get_boards first if resolving a name you are unsure of.' },
     status: { type: 'string', description: 'Filter by status or comma-separated statuses e.g. "today" or "today,doing,blocked"' },
     label: { type: 'string', description: 'Filter by label e.g. "Business Development"' },
     scheduled_on: { type: 'string', description: 'Filter by exact scheduled date YYYY-MM-DD' },
@@ -120,9 +134,11 @@ async function callTool(name, args) {
     const conditions = [];
     const params = [];
 
-    // Default to main board
-    conditions.push('board_id = ?');
-    params.push(args.board_id || 'main');
+    const resolvedBoard = await resolveBoardId(args.board_id);
+    if (!resolvedBoard.all) {
+      conditions.push('board_id = ?');
+      params.push(resolvedBoard.id);
+    }
 
     if (args.status) {
       const statuses = args.status.split(',').map(s => s.trim());
@@ -259,6 +275,10 @@ async function callTool(name, args) {
   if (name === 'delete_label') {
     await turso('DELETE FROM labels WHERE name = ?', [args.label]);
     return `Label deleted: "${args.label}"`;
+  }
+
+  if (name === 'get_readme') {
+    return await githubRead('CTRL-README.md');
   }
 
   if (name === 'get_plan') {
