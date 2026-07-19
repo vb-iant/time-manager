@@ -178,9 +178,11 @@ async function callTool(name, args) {
 
   if (name === 'add_task') {
     const id = 'tm-' + Date.now();
+    const resolvedBoard = await resolveBoardId(args.board_id);
+    if (resolvedBoard.all) throw new Error('board_id cannot be "all" when adding a task — specify a real board.');
     await turso(
       'INSERT INTO tasks (id, title, notes, status, priority, duration, label, scheduled_on, due, recurring, crm_contact_id, external_system, external_task_id, board_id, created, updated, status_updated) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [id, args.title, args.notes||null, args.status||'backlog', args.priority||null, args.duration||null, args.label||null, args.scheduled_on||null, args.due||null, args.recurring?1:0, args.crm_contact_id||null, args.external_system||null, args.external_task_id||null, args.board_id||'main', now, now, now]
+      [id, args.title, args.notes||null, args.status||'backlog', args.priority||null, args.duration||null, args.label||null, args.scheduled_on||null, args.due||null, args.recurring?1:0, args.crm_contact_id||null, args.external_system||null, args.external_task_id||null, resolvedBoard.id, now, now, now]
     );
     return `Task added: "${args.title}" (id: ${id})`;
   }
@@ -190,6 +192,12 @@ async function callTool(name, args) {
     if (!existing.rows.length) throw new Error(`Task not found: ${args.id}`);
     const task = rowToTask(existing.cols, existing.rows[0]);
     const prevStatus = task.status;
+
+    if (args.board_id !== undefined) {
+      const resolvedBoard = await resolveBoardId(args.board_id);
+      if (resolvedBoard.all) throw new Error('board_id cannot be "all" when updating a task — specify a real board.');
+      args.board_id = resolvedBoard.id;
+    }
 
     const fields = ['title', 'notes', 'priority', 'duration', 'label', 'scheduled_on', 'due', 'crm_contact_id', 'external_system', 'external_task_id', 'board_id'];
     const updates = ['updated = ?'];
