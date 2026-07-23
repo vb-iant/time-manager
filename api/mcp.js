@@ -81,6 +81,8 @@ const TOOLS = [
     scheduled_on: { type: 'string', description: 'Filter by exact scheduled date YYYY-MM-DD' },
     scheduled_from: { type: 'string', description: 'Filter tasks scheduled on or after this date YYYY-MM-DD' },
     scheduled_to: { type: 'string', description: 'Filter tasks scheduled on or before this date YYYY-MM-DD' },
+    status_updated_from: { type: 'string', description: 'Filter tasks whose status last changed on or after this date YYYY-MM-DD. Combine with status to find e.g. what was completed in a date range.' },
+    status_updated_to: { type: 'string', description: 'Filter tasks whose status last changed on or before this date YYYY-MM-DD. Combine with status to find e.g. what was completed in a date range.' },
     archived: { type: 'boolean', description: 'Defaults to false (excludes archived tasks, matching the UI). Set true to see ONLY archived tasks.' },
     limit: { type: 'number', description: 'Max number of tasks to return (default 100)' }
   }, required: [] } },
@@ -172,6 +174,16 @@ async function callTool(name, args) {
     if (args.scheduled_to) {
       conditions.push('scheduled_on <= ?');
       params.push(args.scheduled_to);
+      userFiltered = true;
+    }
+    if (args.status_updated_from) {
+      conditions.push('status_updated >= ?');
+      params.push(args.status_updated_from);
+      userFiltered = true;
+    }
+    if (args.status_updated_to) {
+      conditions.push('status_updated <= ?');
+      params.push(args.status_updated_to + 'T23:59:59.999Z');
       userFiltered = true;
     }
     if (args.archived) {
@@ -371,3 +383,4 @@ export default async function handler(req) {
 }
 
 export const config = { runtime: 'edge' };
+
