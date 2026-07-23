@@ -81,6 +81,7 @@ const TOOLS = [
     scheduled_on: { type: 'string', description: 'Filter by exact scheduled date YYYY-MM-DD' },
     scheduled_from: { type: 'string', description: 'Filter tasks scheduled on or after this date YYYY-MM-DD' },
     scheduled_to: { type: 'string', description: 'Filter tasks scheduled on or before this date YYYY-MM-DD' },
+    archived: { type: 'boolean', description: 'Defaults to false (excludes archived tasks, matching the UI). Set true to see ONLY archived tasks.' },
     limit: { type: 'number', description: 'Max number of tasks to return (default 100)' }
   }, required: [] } },
   { name: 'add_task', description: 'Add a single new task', inputSchema: { type: 'object', properties: {
@@ -99,7 +100,8 @@ const TOOLS = [
     label: { type: 'string' }, scheduled_on: { type: 'string' }, due: { type: 'string' },
     recurring: { type: 'boolean' }, crm_contact_id: { type: 'string' },
     external_system: { type: 'string' }, external_task_id: { type: 'string' },
-    board_id: { type: 'string', description: 'Move task to a different board' }
+    board_id: { type: 'string', description: 'Move task to a different board' },
+    archived: { type: 'boolean', description: 'Set true to archive the task, false to restore it' }
   }, required: ['id'] }},
   { name: 'delete_task', description: 'Delete a task by id', inputSchema: { type: 'object', properties: { id: { type: 'string' } }, required: ['id'] }},
   { name: 'find_task_by_external_id', description: 'Find a CTRL task by external system and task ID. Returns task or null.', inputSchema: { type: 'object', properties: { external_system: { type: 'string' }, external_task_id: { type: 'string' } }, required: ['external_system', 'external_task_id'] }},
@@ -133,6 +135,7 @@ async function callTool(name, args) {
   if (name === 'get_tasks') {
     const conditions = [];
     const params = [];
+    let userFiltered = false;
 
     const resolvedBoard = await resolveBoardId(args.board_id);
     if (!resolvedBoard.all) {
@@ -149,22 +152,33 @@ async function callTool(name, args) {
         conditions.push(`status IN (${statuses.map(() => '?').join(',')})`);
         params.push(...statuses);
       }
+      userFiltered = true;
     }
     if (args.label) {
       conditions.push('label = ?');
       params.push(args.label);
+      userFiltered = true;
     }
     if (args.scheduled_on) {
       conditions.push('scheduled_on = ?');
       params.push(args.scheduled_on);
+      userFiltered = true;
     }
     if (args.scheduled_from) {
       conditions.push('scheduled_on >= ?');
       params.push(args.scheduled_from);
+      userFiltered = true;
     }
     if (args.scheduled_to) {
       conditions.push('scheduled_on <= ?');
       params.push(args.scheduled_to);
+      userFiltered = true;
+    }
+    if (args.archived) {
+      conditions.push('archived = 1');
+      userFiltered = true;
+    } else {
+      conditions.push('archived = 0');
     }
 
     const where = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
@@ -173,7 +187,7 @@ async function callTool(name, args) {
 
     const result = await turso(sql, params);
     const tasks = result.rows.map(row => rowToTask(result.cols, row));
-    return JSON.stringify({ version: '1.0', tasks, count: tasks.length, filtered: conditions.length > 0 }, null, 2);
+    return JSON.stringify({ version: '1.0', tasks, count: tasks.length, filtered: userFiltered }, null, 2);
   }
 
   if (name === 'add_task') {
@@ -210,6 +224,7 @@ async function callTool(name, args) {
       if (args.status !== prevStatus) { updates.push('status_updated = ?'); values.push(now); }
     }
     if (args.recurring !== undefined) { updates.push('recurring = ?'); values.push(args.recurring ? 1 : 0); }
+    if (args.archived !== undefined) { updates.push('archived = ?'); values.push(args.archived ? 1 : 0); }
     values.push(args.id);
     await turso(`UPDATE tasks SET ${updates.join(', ')} WHERE id = ?`, values);
 
