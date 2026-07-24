@@ -113,6 +113,10 @@ const TOOLS = [
     name: { type: 'string', description: 'Board name' },
     label: { type: 'string', description: 'Optional label to filter tasks for this board' }
   }, required: ['name'] } },
+  { name: 'update_board', description: 'Rename a board. Purely cosmetic — tasks reference the board by id, not name, so this is safe.', inputSchema: { type: 'object', properties: {
+    id: { type: 'string', description: 'Board ID or current name (case-insensitive) — call get_boards first if unsure' },
+    name: { type: 'string', description: 'New board name' }
+  }, required: ['id', 'name'] } },
   { name: 'get_labels', description: 'Get all task labels', inputSchema: { type: 'object', properties: {}, required: [] }},
   { name: 'add_label', description: 'Add a new label', inputSchema: { type: 'object', properties: { label: { type: 'string' } }, required: ['label'] }},
   { name: 'delete_label', description: 'Delete a label', inputSchema: { type: 'object', properties: { label: { type: 'string' } }, required: ['label'] }},
@@ -295,6 +299,13 @@ async function callTool(name, args) {
         [`${id}-${slug}`, id, statusNames[slug], slug, i]);
     }
     return `Board created: "${args.name}" (id: ${id})`;
+  }
+
+  if (name === 'update_board') {
+    const resolved = await resolveBoardId(args.id);
+    if (resolved.all) throw new Error('Cannot rename "all" — specify a real board.');
+    await turso('UPDATE boards SET name = ? WHERE id = ?', [args.name, resolved.id]);
+    return `Board renamed to "${args.name}" (id: ${resolved.id})`;
   }
 
   if (name === 'get_labels') {
