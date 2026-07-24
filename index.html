@@ -42,6 +42,13 @@
   .board-tab.active { color: #4C3D8F; border-bottom-color: #4C3D8F; }
   .board-tab-add { font-size: 16px; padding: 8px 12px; cursor: pointer; color: #C8C5BE; background: none; border: none; transition: color 0.15s; line-height: 1; }
   .board-tab-add:hover { color: #4C3D8F; }
+  .board-tab-settings { font-size: 14px; padding: 8px 10px; cursor: pointer; color: #C8C5BE; background: none; border: none; transition: color 0.15s; line-height: 1; }
+  .board-tab-settings:hover { color: #4C3D8F; }
+  .board-settings-body { padding: 20px 24px; }
+  .board-settings-body label { display: block; font-size: 12px; color: #888; margin-bottom: 6px; font-family: 'Inter', sans-serif; }
+  .board-settings-body input { width: 100%; padding: 9px 12px; border: 0.5px solid #E0DDD6; border-radius: 7px; font-size: 13px; font-family: 'Inter', sans-serif; outline: none; background: white; }
+  .board-settings-body input:focus { border-color: #4C3D8F; }
+  .board-settings-actions { display: flex; justify-content: flex-end; margin-top: 14px; }
 
   /* NEW BOARD MODAL */
   .new-board-form { display: none; position: fixed; inset: 0; background: rgba(28,28,26,0.4); z-index: 200; align-items: center; justify-content: center; }
@@ -222,7 +229,7 @@
   </div>
 
   <div class="status-bar" id="status-bar">Ready</div>
-  <div class="version-bar">CTRL v2.8 — deployed 2026-07-13</div>
+  <div class="version-bar">CTRL v2.9 — deployed 2026-07-24</div>
 </div>
 
 <!-- NEW BOARD FORM -->
@@ -246,6 +253,23 @@
     </div>
     <div class="archive-list" id="archive-list">
       <div class="archive-empty">Loading...</div>
+    </div>
+  </div>
+</div>
+
+<!-- BOARD SETTINGS DRAWER -->
+<div class="archive-overlay" id="board-settings-overlay">
+  <div class="archive-drawer">
+    <div class="archive-header">
+      <h2>Board settings</h2>
+      <button class="archive-close" onclick="closeBoardSettings()">✕</button>
+    </div>
+    <div class="board-settings-body">
+      <label for="board-settings-name">Board name</label>
+      <input type="text" id="board-settings-name" />
+      <div class="board-settings-actions">
+        <button class="btn btn-primary" onclick="saveBoardSettings()">Save</button>
+      </div>
     </div>
   </div>
 </div>
@@ -454,7 +478,8 @@ function renderBoardNav() {
   nav.innerHTML = boards.map(b => `
     <button class="board-tab ${b.id === activeBoardId ? 'active' : ''}"
       onclick="switchBoard('${b.id}')">${b.name}</button>
-  `).join('') + `<button class="board-tab-add" onclick="openNewBoard()" title="New board">+</button>`;
+  `).join('') + `<button class="board-tab-add" onclick="openNewBoard()" title="New board">+</button>` +
+    `<button class="board-tab-settings" onclick="openBoardSettings()" title="Board settings">⚙</button>`;
 }
 
 function switchBoard(id) {
@@ -495,7 +520,7 @@ async function createBoard() {
 }
 
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeNewBoard();
+  if (e.key === 'Escape') { closeNewBoard(); closeBoardSettings(); }
 });
 
 async function loadTasks() {
@@ -725,6 +750,40 @@ function closeArchive() {
 document.getElementById('archive-overlay').addEventListener('click', e => {
   if (e.target === document.getElementById('archive-overlay')) closeArchive();
 });
+
+function openBoardSettings() {
+  const board = boards.find(b => b.id === activeBoardId);
+  document.getElementById('board-settings-name').value = board ? board.name : '';
+  document.getElementById('board-settings-overlay').classList.add('open');
+  setTimeout(() => document.getElementById('board-settings-name').focus(), 50);
+}
+
+function closeBoardSettings() {
+  document.getElementById('board-settings-overlay').classList.remove('open');
+}
+
+document.getElementById('board-settings-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('board-settings-overlay')) closeBoardSettings();
+});
+
+async function saveBoardSettings() {
+  const name = document.getElementById('board-settings-name').value.trim();
+  if (!name) return;
+  setStatus('Saving board name...');
+  const res = await fetch(BOARDS_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ id: activeBoardId, name })
+  });
+  const data = await res.json();
+  if (data.ok) {
+    closeBoardSettings();
+    await loadBoards();
+    setStatus(`Board renamed to "${name}"`);
+  } else {
+    setStatus('Error renaming board: ' + (data.error || 'Unknown'));
+  }
+}
 
 async function archiveTask() {
   const id = document.getElementById('task-id').value;
