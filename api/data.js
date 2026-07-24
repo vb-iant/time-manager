@@ -168,6 +168,14 @@ export default async function handler(req, res) {
       if (req.method === 'POST') {
         const { name, id } = body;
         if (!name) return res.status(400).json({ error: 'name required' });
+        if (id) {
+          const existing = await turso('SELECT id FROM boards WHERE id = ?', [id]);
+          if (existing.rows.length) {
+            // Rename existing board — cosmetic only, tasks reference board_id not name
+            await turso('UPDATE boards SET name = ? WHERE id = ?', [name, id]);
+            return res.json({ ok: true, id, renamed: true });
+          }
+        }
         const boardId = id || 'board-' + Date.now();
         await turso('INSERT OR IGNORE INTO boards (id, name, created) VALUES (?, ?, ?)', [boardId, name, now]);
         // Default statuses
