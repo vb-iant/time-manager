@@ -42,8 +42,6 @@
   .board-tab.active { color: #4C3D8F; border-bottom-color: #4C3D8F; }
   .board-tab-add { font-size: 16px; padding: 8px 12px; cursor: pointer; color: #C8C5BE; background: none; border: none; transition: color 0.15s; line-height: 1; }
   .board-tab-add:hover { color: #4C3D8F; }
-  .board-tab-settings { font-size: 14px; padding: 8px 10px; cursor: pointer; color: #C8C5BE; background: none; border: none; transition: color 0.15s; line-height: 1; }
-  .board-tab-settings:hover { color: #4C3D8F; }
   .board-settings-body { padding: 20px 24px; }
   .board-settings-body label { display: block; font-size: 12px; color: #888; margin-bottom: 6px; font-family: 'Inter', sans-serif; }
   .board-settings-body input { width: 100%; padding: 9px 12px; border: 0.5px solid #E0DDD6; border-radius: 7px; font-size: 13px; font-family: 'Inter', sans-serif; outline: none; background: white; }
@@ -189,6 +187,7 @@
   <div class="toolbar">
     <button class="btn btn-primary" onclick="openModal()">+ New task</button>
     <button class="btn btn-ghost" onclick="loadTasks()">↻ Refresh</button>
+    <button class="btn btn-ghost" onclick="openBoardSettings()" title="Board settings" style="font-size:18px;">⚙</button>
     <button class="btn btn-ghost" onclick="openArchive()" title="Archived tasks" style="margin-left:auto;">🗑</button>
     <select id="label-filter" onchange="applyFilter()" style="margin-left:8px; padding:7px 12px; border:0.5px solid #E0DDD6; border-radius:7px; font-size:13px; font-family:'Inter',sans-serif; background:white; color:#555; cursor:pointer; outline:none;">
       <option value="">All labels</option>
@@ -229,7 +228,7 @@
   </div>
 
   <div class="status-bar" id="status-bar">Ready</div>
-  <div class="version-bar">CTRL v2.9 — deployed 2026-07-24</div>
+  <div class="version-bar">CTRL v2.9.1 — deployed 2026-07-24</div>
 </div>
 
 <!-- NEW BOARD FORM -->
@@ -478,8 +477,7 @@ function renderBoardNav() {
   nav.innerHTML = boards.map(b => `
     <button class="board-tab ${b.id === activeBoardId ? 'active' : ''}"
       onclick="switchBoard('${b.id}')">${b.name}</button>
-  `).join('') + `<button class="board-tab-add" onclick="openNewBoard()" title="New board">+</button>` +
-    `<button class="board-tab-settings" onclick="openBoardSettings()" title="Board settings">⚙</button>`;
+  `).join('') + `<button class="board-tab-add" onclick="openNewBoard()" title="New board">+</button>`;
 }
 
 function switchBoard(id) {
