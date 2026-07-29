@@ -148,10 +148,7 @@
 
 <script>
 const REPO = 'vb-iant/time-manager';
-const _t = ['ghp_N47ddo4Psm', 'h5hhHZj6Q2NT', 'g3V2h2Mo22TL6L'];
-const TOKEN = _t.join('');
 const PASSWORD = 'timemanager2026';
-const API_BASE = `https://api.github.com/repos/${REPO}/contents`;
 const RAW_BASE = `https://raw.githubusercontent.com/${REPO}/main`;
 
 let currentTab = 'daily';
@@ -196,9 +193,7 @@ function switchTab(tab) {
 async function loadFileList(tab) {
   document.getElementById('file-list').innerHTML = '<div class="empty-list">Loading...</div>';
   try {
-    const res = await fetch(`${API_BASE}/${tab}`, {
-      headers: { 'Authorization': `token ${TOKEN}` }
-    });
+    const res = await fetch(`/api/update?path=${tab}`);
     if (res.status === 404) {
       document.getElementById('file-list').innerHTML = '<div class="empty-list">No files yet.<br>Click + New to create one.</div>';
       return;
@@ -298,25 +293,17 @@ async function saveFile(path, name) {
   fileCache[path] = text;
 
   try {
-    // Get current SHA
-    const meta = await fetch(`${API_BASE}/${path}`, {
-      headers: { 'Authorization': `token ${TOKEN}` }
-    });
-    const metaJson = await meta.json();
-    const sha = metaJson.sha;
-
-    const content = btoa(unescape(encodeURIComponent(text)));
-    const res = await fetch(`${API_BASE}/${path}`, {
-      method: 'PUT',
-      headers: { 'Authorization': `token ${TOKEN}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: `Update ${path}`, content, sha })
+    const res = await fetch('/api/update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path, content: text })
     });
     const data = await res.json();
-    if (data.content) {
+    if (data.ok) {
       setStatus('Saved ✓');
       openFile(path, name);
     } else {
-      setStatus('Save error: ' + (data.message || 'Unknown'));
+      setStatus('Save error: ' + (data.error || 'Unknown'));
     }
   } catch(e) {
     setStatus('Save error: ' + e.message);
@@ -362,22 +349,21 @@ function newFile() {
 async function createFile(path, name) {
   setStatus('Creating...');
   const text = document.getElementById('editor-area').value;
-  const content = btoa(unescape(encodeURIComponent(text)));
 
   try {
-    const res = await fetch(`${API_BASE}/${path}`, {
-      method: 'PUT',
-      headers: { 'Authorization': `token ${TOKEN}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: `Create ${path}`, content })
+    const res = await fetch('/api/update', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path, content: text })
     });
     const data = await res.json();
-    if (data.content) {
+    if (data.ok) {
       fileCache[path] = text;
       setStatus('Created ✓');
       await loadFileList(currentTab);
       openFile(path, name);
     } else {
-      setStatus('Error: ' + (data.message || 'Unknown'));
+      setStatus('Error: ' + (data.error || 'Unknown'));
     }
   } catch(e) {
     setStatus('Error: ' + e.message);
