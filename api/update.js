@@ -1,5 +1,3 @@
-import { initDb } from './db.js';
-
 const REPO = 'vb-iant/time-manager';
 const PLAN_FOLDERS = ['daily', 'weekly', 'reflections'];
 
