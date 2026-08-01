@@ -95,8 +95,8 @@ export default async function handler(req, res) {
 
           if (statusChanged) {
             await turso(
-              'UPDATE tasks SET title=?, notes=?, status=?, priority=?, duration=?, label=?, scheduled_on=?, due=?, recurring=?, updated=?, status_updated=? WHERE id=?',
-              [t.title, t.notes||null, t.status||'backlog', t.priority||null, t.duration||null, t.label||null, t.scheduled_on||null, t.due||null, t.recurring?1:0, now, now, t.id]
+              'UPDATE tasks SET title=?, notes=?, status=?, priority=?, duration=?, label=?, scheduled_on=?, due=?, recurring=?, board_id=?, updated=?, status_updated=? WHERE id=?',
+              [t.title, t.notes||null, t.status||'backlog', t.priority||null, t.duration||null, t.label||null, t.scheduled_on||null, t.due||null, t.recurring?1:0, t.board_id||'main', now, now, t.id]
             );
             // Handle recurring completion
             if (t.status === 'done' && prev.recurring) {
@@ -113,8 +113,8 @@ export default async function handler(req, res) {
             }
           } else {
             await turso(
-              'UPDATE tasks SET title=?, notes=?, status=?, priority=?, duration=?, label=?, scheduled_on=?, due=?, recurring=?, updated=? WHERE id=?',
-              [t.title, t.notes||null, t.status||'backlog', t.priority||null, t.duration||null, t.label||null, t.scheduled_on||null, t.due||null, t.recurring?1:0, now, t.id]
+              'UPDATE tasks SET title=?, notes=?, status=?, priority=?, duration=?, label=?, scheduled_on=?, due=?, recurring=?, board_id=?, updated=? WHERE id=?',
+              [t.title, t.notes||null, t.status||'backlog', t.priority||null, t.duration||null, t.label||null, t.scheduled_on||null, t.due||null, t.recurring?1:0, t.board_id||'main', now, t.id]
             );
           }
         } else {
