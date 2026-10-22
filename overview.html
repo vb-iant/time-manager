@@ -47,7 +47,7 @@
   .content { padding: 20px 24px 32px; max-width: 1280px; }
 
   /* STAT CARDS */
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+  .stats { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 20px; }
   .stat { background: white; border: 0.5px solid #E8E5DF; border-radius: 10px; padding: 16px 18px; border-top: 3px solid var(--accent); }
   .stat.link { cursor: pointer; transition: border-color 0.15s; }
   .stat.link:hover { border-color: #C5C0B8; border-top-color: var(--accent); }
@@ -57,6 +57,8 @@
   .today { --accent: #4C3D8F; }
   .soon { --accent: #A07020; }
   .doing { --accent: #3B6D11; }
+  .nodue { --accent: #8A877F; }
+  .total { --accent: #1C1C1A; }
   .stat.zero .stat-num { color: #D0CEC8; }
 
   /* COLUMNS */
@@ -77,8 +79,10 @@
   .due.late .rel { color: #C0392B; font-weight: 400; }
   .empty { padding: 18px 14px; color: #B0ADA6; font-size: 12px; }
 
+  @media (max-width: 1100px) {
+    .stats { grid-template-columns: repeat(3, 1fr); }
+  }
   @media (max-width: 900px) {
-    .stats { grid-template-columns: repeat(2, 1fr); }
     .columns { grid-template-columns: 1fr; }
   }
   @media (max-width: 700px) {
@@ -86,6 +90,7 @@
     .page-head, .content { padding-left: 16px; padding-right: 16px; }
     .stats { gap: 8px; }
     .stat { padding: 12px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
     .stat-num { font-size: 26px; }
   }
 </style>
@@ -134,6 +139,8 @@
       <div class="stat link today" id="stat-today" onclick="jump('col-today')"><div class="stat-num" id="num-today">–</div><div class="stat-label">Due today</div></div>
       <div class="stat link soon" id="stat-soon" onclick="jump('col-soon')"><div class="stat-num" id="num-soon">–</div><div class="stat-label">Due next 7 days</div></div>
       <div class="stat doing" id="stat-doing"><div class="stat-num" id="num-doing">–</div><div class="stat-label">In progress</div></div>
+      <div class="stat nodue" id="stat-nodue"><div class="stat-num" id="num-nodue">–</div><div class="stat-label">No due date</div></div>
+      <div class="stat total" id="stat-total"><div class="stat-num" id="num-total">–</div><div class="stat-label">Total outstanding</div></div>
     </div>
 
     <div class="columns">
@@ -231,6 +238,8 @@ function render() {
   setStat('today', dueToday.length);
   setStat('soon', soon.length);
   setStat('doing', doingCount);
+  setStat('nodue', open.filter(t => !t.due).length);
+  setStat('total', open.length);
 
   renderColumn('col-overdue', 'Overdue', overdue, today, 'Nothing overdue.');
   renderColumn('col-today', 'Due today', dueToday, today, 'Nothing due today.');
