@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<title>CTRL — Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #FAFAF8; color: #1C1C1A; min-height: 100vh; font-size: 13px; }
+
+  /* LOGIN */
+  #login-screen { display: flex; align-items: center; justify-content: center; min-height: 100vh; background: #1C1C1A; }
+  .login-box { background: #FAFAF8; border-radius: 12px; padding: 40px; width: 340px; text-align: center; }
+  .login-box h1 { font-family: 'Lora', serif; font-size: 20px; font-weight: 500; margin-bottom: 6px; }
+  .login-box p { color: #999; font-size: 13px; margin-bottom: 24px; }
+  .login-box input { width: 100%; padding: 10px 14px; border: 0.5px solid #E0DDD6; border-radius: 8px; font-size: 14px; margin-bottom: 12px; outline: none; background: white; font-family: 'Inter', sans-serif; }
+  .login-box input:focus { border-color: #4C3D8F; }
+  .login-box button { width: 100%; padding: 10px; background: #4C3D8F; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; }
+  .login-box button:hover { background: #3D3075; }
+  .login-error { color: #E24B4A; font-size: 12px; margin-top: 8px; }
+  #app { display: none; }
+
+  /* HEADER */
+  header { background: #1C1C1A; color: white; padding: 12px 24px; display: flex; flex-direction: row; align-items: center; gap: 28px; }
+  .logo-mark { display: flex; flex-direction: row; align-items: center; gap: 9px; text-decoration: none; flex-shrink: 0; }
+  .logo-icon { width: 22px; height: 22px; flex-shrink: 0; }
+  .logo-text { font-family: 'Lora', serif; font-size: 14px; font-weight: 500; letter-spacing: 0.5px; color: white; }
+  .top-nav { display: flex; flex-direction: row; gap: 0; }
+  .top-nav a { font-family: 'Lora', serif; font-size: 13px; font-weight: 500; padding: 4px 14px 4px 0; text-decoration: none; color: rgba(255,255,255,0.38); transition: color 0.15s; }
+  .top-nav a:hover { color: rgba(255,255,255,0.7); }
+  .top-nav .nav-active { color: rgba(255,255,255,0.9); }
+
+  /* BUTTONS */
+  .btn { padding: 7px 14px; border-radius: 7px; border: 0.5px solid #E0DDD6; font-size: 13px; font-weight: 500; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.15s; background: white; color: #555; }
+  .btn:hover { border-color: #C5C0B8; background: #F5F4F0; }
+
+  /* STATUS */
+  .status-bar { padding: 6px 24px; font-size: 11px; color: #B0ADA6; background: #F4F3F0; border-top: 0.5px solid #ECEAE4; }
+
+  /* PAGE */
+  .page-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; background: white; border-bottom: 0.5px solid #E8E5DF; }
+  .page-head h2 { font-family: 'Lora', serif; font-size: 15px; font-weight: 500; }
+  .page-head .sub { font-size: 12px; color: #B0ADA6; margin-left: 10px; font-family: 'Inter', sans-serif; }
+  .content { padding: 20px 24px 32px; max-width: 1100px; }
+
+  /* STAT CARDS */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+  .stat { background: white; border: 0.5px solid #E8E5DF; border-radius: 10px; padding: 16px 18px; cursor: pointer; transition: border-color 0.15s; border-top: 3px solid var(--accent); }
+  .stat:hover { border-color: #C5C0B8; border-top-color: var(--accent); }
+  .stat-num { font-family: 'Lora', serif; font-size: 34px; font-weight: 500; line-height: 1.1; color: var(--accent); }
+  .stat-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.7px; color: #8A877F; margin-top: 4px; }
+  .stat.doing { --accent: #4C3D8F; }
+  .stat.overdue { --accent: #C0392B; }
+  .stat.soon { --accent: #A07020; }
+  .stat.zero .stat-num { color: #D0CEC8; }
+
+  /* LISTS */
+  .section { background: white; border: 0.5px solid #E8E5DF; border-radius: 10px; margin-bottom: 16px; overflow: hidden; scroll-margin-top: 16px; }
+  .section-head { display: flex; align-items: baseline; gap: 8px; padding: 12px 16px; border-bottom: 0.5px solid #F0EEE8; }
+  .section-head h3 { font-family: 'Lora', serif; font-size: 14px; font-weight: 500; }
+  .section-head .count { font-size: 12px; color: #B0ADA6; }
+  .row { display: grid; grid-template-columns: 1fr 170px 150px; gap: 12px; align-items: center; padding: 9px 16px; border-bottom: 0.5px solid #F4F3F0; cursor: pointer; transition: background 0.1s; }
+  .row:last-child { border-bottom: none; }
+  .row:hover { background: #F8F7F4; }
+  .row.colhead { cursor: default; padding-top: 7px; padding-bottom: 7px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.7px; color: #B0ADA6; background: #FBFAF8; }
+  .row.colhead:hover { background: #FBFAF8; }
+  .task-title { font-family: 'Lora', serif; font-size: 13px; font-weight: 500; line-height: 1.35; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .board-pill { justify-self: start; font-size: 11px; padding: 2px 8px; border-radius: 10px; background: #F0EDF8; color: #4C3D8F; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .due { font-size: 12px; color: #555; white-space: nowrap; }
+  .due .rel { color: #B0ADA6; margin-left: 4px; }
+  .due.late { color: #C0392B; font-weight: 500; }
+  .due.late .rel { color: #C0392B; font-weight: 400; }
+  .due.none { color: #D0CEC8; }
+  .empty { padding: 18px 16px; color: #B0ADA6; font-size: 12px; }
+
+  @media (max-width: 700px) {
+    header { gap: 16px; padding: 12px 16px; }
+    .page-head, .content { padding-left: 16px; padding-right: 16px; }
+    .stats { gap: 8px; }
+    .stat { padding: 12px; }
+    .stat-num { font-size: 26px; }
+    .row { grid-template-columns: 1fr auto; }
+    .row .board-pill { grid-column: 1; grid-row: 2; }
+    .row .due { grid-column: 2; grid-row: 1 / span 2; }
+    .row.colhead { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <h1>CTRL</h1>
+    <p>Enter your password to continue</p>
+    <input type="password" id="pwd-input" placeholder="Password" />
+    <button onclick="tryLogin()">Unlock</button>
+    <div class="login-error" id="login-error"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <header>
+    <a href="index.html" class="logo-mark">
+      <svg class="logo-icon" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="11" cy="11" r="9.5" stroke="white" stroke-width="1.5" opacity="0.85"/>
+        <circle cx="11" cy="11" r="3.5" fill="white" opacity="0.9"/>
+        <circle cx="16.5" cy="5.5" r="2" fill="#6B5DB8"/>
+      </svg>
+      <span class="logo-text">CTRL</span>
+    </a>
+    <nav class="top-nav">
+      <a href="overview.html" class="nav-active">Overview</a>
+      <a href="index.html" class="nav-link">Boards</a>
+      <a href="plans.html" class="nav-link">Plans</a>
+      <a href="calendar.html" class="nav-link">Calendar</a>
+    </nav>
+    <span style="font-size:12px; color:rgba(255,255,255,0.3); margin-left:auto;" id="sync-time"></span>
+  </header>
+
+  <div class="page-head">
+    <h2>Overview<span class="sub">All boards</span></h2>
+    <button class="btn" onclick="loadAll()">↻ Refresh</button>
+  </div>
+
+  <div class="content">
+    <div class="stats">
+      <div class="stat doing" id="stat-doing" onclick="jump('sec-doing')"><div class="stat-num" id="num-doing">–</div><div class="stat-label">In progress</div></div>
+      <div class="stat overdue" id="stat-overdue" onclick="jump('sec-overdue')"><div class="stat-num" id="num-overdue">–</div><div class="stat-label">Overdue</div></div>
+      <div class="stat soon" id="stat-soon" onclick="jump('sec-soon')"><div class="stat-num" id="num-soon">–</div><div class="stat-label">Due next 7 days</div></div>
+    </div>
+
+    <div class="section" id="sec-doing"></div>
+    <div class="section" id="sec-overdue"></div>
+    <div class="section" id="sec-soon"></div>
+  </div>
+
+  <div class="status-bar" id="status-bar">Loading...</div>
+</div>
+
+<script>
+const PASSWORD = 'timemanager2026';
+const TASKS_URL = '/api/data?type=tasks&board_id=all';
+const BOARDS_URL = '/api/data?type=boards';
+
+let tasks = [];
+let boardNames = {};
+
+// --- AUTH ---
+function tryLogin() {
+  const val = document.getElementById('pwd-input').value;
+  if (val === PASSWORD) {
+    localStorage.setItem('tm_auth', '1');
+    showApp();
+  } else {
+    document.getElementById('login-error').textContent = 'Incorrect password.';
+  }
+}
+document.getElementById('pwd-input').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+function showApp() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  loadAll();
+}
+if (localStorage.getItem('tm_auth') === '1') showApp();
+
+// --- DATES (local time, not UTC) ---
+function localDateStr(d) {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+function addDays(dateStr, n) {
+  const d = new Date(dateStr + 'T12:00:00');
+  d.setDate(d.getDate() + n);
+  return localDateStr(d);
+}
+function daysBetween(fromStr, toStr) {
+  return Math.round((new Date(toStr + 'T12:00:00') - new Date(fromStr + 'T12:00:00')) / 86400000);
+}
+function fmtDate(dateStr) {
+  return new Date(dateStr + 'T12:00:00').toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+}
+function relLabel(dueStr, todayStr) {
+  const diff = daysBetween(todayStr, dueStr);
+  if (diff === 0) return 'today';
+  if (diff === 1) return 'tomorrow';
+  if (diff === -1) return '1 day late';
+  if (diff < 0) return `${-diff} days late`;
+  return `in ${diff} days`;
+}
+
+// --- DATA ---
+async function loadAll() {
+  setStatus('Loading...');
+  try {
+    const [tRes, bRes] = await Promise.all([fetch(TASKS_URL), fetch(BOARDS_URL)]);
+    const tData = await tRes.json();
+    const bData = await bRes.json();
+    if (tData.error) throw new Error(tData.error);
+    tasks = tData.tasks || [];
+    boardNames = {};
+    (bData.boards || []).forEach(b => { boardNames[b.id] = b.name; });
+    render();
+    document.getElementById('sync-time').textContent = 'Synced ' + new Date().toLocaleTimeString();
+  } catch (e) {
+    setStatus('Error loading tasks: ' + e.message);
+  }
+}
+
+// --- RENDER ---
+function render() {
+  const today = localDateStr(new Date());
+  const weekOut = addDays(today, 7);
+  const open = tasks.filter(t => t.status !== 'done');
+
+  const byDue = (a, b) => (a.due || '9999').localeCompare(b.due || '9999') || a.title.localeCompare(b.title);
+
+  const doing = open.filter(t => t.status === 'doing').sort(byDue);
+  const overdue = open.filter(t => t.due && t.due < today).sort(byDue);
+  const soon = open.filter(t => t.due && t.due >= today && t.due <= weekOut).sort(byDue);
+
+  setStat('doing', doing.length);
+  setStat('overdue', overdue.length);
+  setStat('soon', soon.length);
+
+  renderSection('sec-overdue', 'Overdue', overdue, today, 'Nothing overdue.');
+  renderSection('sec-soon', 'Due in the next 7 days', soon, today, 'Nothing due in the next 7 days.');
+  renderSection('sec-doing', 'In progress', doing, today, 'Nothing in progress.');
+
+  const boardCount = new Set(tasks.map(t => t.board_id)).size;
+  setStatus(`${tasks.length} active tasks across ${boardCount} boards`);
+}
+
+function setStat(key, n) {
+  document.getElementById('num-' + key).textContent = n;
+  document.getElementById('stat-' + key).classList.toggle('zero', n === 0);
+}
+
+function renderSection(id, title, list, today, emptyMsg) {
+  const el = document.getElementById(id);
+  const rows = list.map(t => {
+    const board = boardNames[t.board_id] || t.board_id || '—';
+    let dueHtml = '<span class="due none">No due date</span>';
+    if (t.due) {
+      const late = t.due < today;
+      dueHtml = `<span class="due${late ? ' late' : ''}">${fmtDate(t.due)}<span class="rel">· ${relLabel(t.due, today)}</span></span>`;
+    }
+    return `<div class="row" onclick="openTask('${escAttr(t.id)}', '${escAttr(t.board_id || 'main')}')" title="Open in board">
+      <span class="task-title">${escHtml(t.title)}</span>
+      <span class="board-pill">${escHtml(board)}</span>
+      ${dueHtml}
+    </div>`;
+  }).join('');
+  el.innerHTML = `
+    <div class="section-head"><h3>${title}</h3><span class="count">${list.length}</span></div>
+    ${list.length
+      ? `<div class="row colhead"><span>Task</span><span>Board</span><span>Due</span></div>${rows}`
+      : `<div class="empty">${emptyMsg}</div>`}`;
+}
+
+// --- NAVIGATION ---
+function jump(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function openTask(taskId, boardId) {
+  localStorage.setItem('ctrl_board', boardId);
+  window.location.href = 'index.html?task=' + encodeURIComponent(taskId);
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+function escAttr(s) {
+  return String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+}
+function setStatus(msg) {
+  document.getElementById('status-bar').textContent = msg;
+}
+</script>
+</body>
+</html>

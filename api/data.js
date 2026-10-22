@@ -77,7 +77,10 @@ export default async function handler(req, res) {
           [cutoff.toISOString()]
         );
         const boardId = params.get('board_id') || 'main';
-        const result = await turso('SELECT * FROM tasks WHERE board_id = ? AND (archived = 0 OR archived IS NULL) ORDER BY created DESC', [boardId]);
+        // board_id=all returns non-archived tasks across every board (used by overview.html)
+        const result = boardId === 'all'
+          ? await turso('SELECT * FROM tasks WHERE (archived = 0 OR archived IS NULL) ORDER BY created DESC')
+          : await turso('SELECT * FROM tasks WHERE board_id = ? AND (archived = 0 OR archived IS NULL) ORDER BY created DESC', [boardId]);
         const tasks = result.rows.map(row => rowToTask(result.cols, row));
         return res.json({ version: '1.0', tasks });
       }

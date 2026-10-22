@@ -173,6 +173,7 @@
       <span class="logo-text">CTRL</span>
     </a>
     <nav class="top-nav">
+      <a href="overview.html" class="nav-link">Overview</a>
       <a href="index.html" class="nav-active">Boards</a>
       <a href="plans.html" class="nav-link">Plans</a>
       <a href="calendar.html" class="nav-link">Calendar</a>
@@ -228,7 +229,7 @@
   </div>
 
   <div class="status-bar" id="status-bar">Ready</div>
-  <div class="version-bar">CTRL v2.9.1 — deployed 2026-07-24</div>
+  <div class="version-bar">CTRL v2.10 — deployed 2026-10-22</div>
 </div>
 
 <!-- NEW BOARD FORM -->
@@ -541,6 +542,13 @@ async function loadTasks() {
     }
 
     renderBoard();
+
+    // Deep link from Overview: index.html?task=<id> opens that task's modal once
+    const deepTaskId = new URLSearchParams(window.location.search).get('task');
+    if (deepTaskId) {
+      history.replaceState(null, '', window.location.pathname);
+      if (tasks.find(t => t.id === deepTaskId)) openModal(deepTaskId);
+    }
     document.getElementById('last-sync').textContent = 'Synced ' + new Date().toLocaleTimeString();
     setStatus(`${tasks.length} task${tasks.length !== 1 ? 's' : ''} loaded${toMove.length ? ` — ${toMove.length} moved to Today` : ''}`);
   } catch(e) {
